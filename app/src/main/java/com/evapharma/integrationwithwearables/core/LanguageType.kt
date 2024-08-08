@@ -4,8 +4,7 @@ import androidx.annotation.StringDef
 import com.evapharma.integrationwithwearables.core.LanguageType.Companion.ARABIC
 import com.evapharma.integrationwithwearables.core.LanguageType.Companion.ENGLISH
 
-
-@kotlin.annotation.Retention(AnnotationRetention.SOURCE)
+@Retention(AnnotationRetention.SOURCE)
 @StringDef(ENGLISH, ARABIC)
 annotation class LanguageType {
 

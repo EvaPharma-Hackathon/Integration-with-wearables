@@ -1,6 +1,5 @@
 package com.evapharma.integrationwithwearables.core
 
-
 interface DismissableProgressDialog {
 
     fun showLoading(
