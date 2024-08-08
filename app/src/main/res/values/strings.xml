@@ -1,0 +1,146 @@
+<resources>
+    <string name="app_name">Wearables</string>
+    <string name="warning">Something went wrong</string>
+    <string name="warning_desc">It seems that there a network issue, please check your internet connection and try again</string>
+    <string name="ok">Okay</string>
+    <string name="please_login_first">Please login first</string>
+    <string name="network_error">Network Error</string>
+    <string name="no_internet">No Internet</string>
+    <string name="something_went_wrong">Something Went Wrong</string>
+    <string name="session_expired">Session Expired</string>
+    <string name="session_expired_msg">Your session has expired, please login again.</string>
+    <string name="take_me_to_login">Take me to Login</string>
+    <string name="continue_as_guest">Continue as guest</string>
+    <string name="egp">%s EGP</string>
+    <string name="_egp">-%s EGP</string>
+    <string name="book_now">Book Now</string>
+    <string name="cities">Cities</string>
+    <string name="countries">Countries</string>
+    <string name="Country">Country</string>
+    <string name="city">City</string>
+
+    <!--Google Health-->
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="invalid_inputs">Invalid Inputs</string>
+    <string name="cm">cm</string>
+    <string name="height">HEIGHT</string>
+    <string name="kg">kg</string>
+    <string name="weight">WEIGHT</string>
+    <string name="empty_bmi_msg">Add your weight and height and calculate your BMI now and find out if you have a healthy weight.</string>
+    <string name="empty_health_data_msg">Keep track of your steps and water intake now. Help us customize our recommendations for you by adding your health data.</string>
+    <string name="import_from_health_app">Import from Health App</string>
+    <string name="calculate_bmi">Calculate BMI</string>
+    <string name="add_health_data">Add Health Data</string>
+    <string name="bmi">BMI</string>
+    <string name="walking">Walking</string>
+    <string name="step_day">step/day</string>
+    <string name="water_intake">Water Intake</string>
+    <string name="you_have_achieved">You’ve achieved</string>
+    <string name="cups_of_your_daily_goal">cups of your daily goal.</string>
+    <string name="cups_day">cups/day</string>
+    <string name="my_health_trackers">My Health Trackers</string>
+    <string name="steps_day">steps/day</string>
+    <string name="burned">Burned</string>
+    <string name="kcal">kcal</string>
+    <string name="km">km</string>
+    <string name="distance">Distance</string>
+    <string name="average_steps">Average Steps</string>
+    <string name="steps">steps</string>
+    <string name="walking_activity_stats">Walking Activity stats</string>
+    <string name="you_re_doing_great_keep_it_up">You’re doing great, keep it up!</string>
+    <string name="step_week">step/week</string>
+    <string name="today">Today</string>
+    <string name="week">Week</string>
+    <string name="goal_water">Goal</string>
+    <string name="goal_walking">Goal</string>
+    <string name="activity_permission_body">You can enable accessing your health data again from settings</string>
+    <string name="google_fit_subscription_success">Thank you, you can now access your health activities</string>
+    <string name="activity_permission_title">Access health Data</string>
+
+    <string name="call_customer_support">Call Customer Support</string>
+    <string name="cancel_subscription">Cancel Subscription</string>
+    <string name="you_ve_applied_for_program_successfully">You’ve applied for program successfully!</string>
+    <string name="one_of_our_agents_will_call_you_shortly_to_confirm_your_details">One of our agents will call you shortly to confirm your details.</string>
+    <string name="attach_rx">Attach Rx</string>
+    <string name="previous_subscriptions">Previous Subscriptions</string>
+    <string name="area">Area</string>
+    <string name="areas">Areas</string>
+    <string name="cancel_now">Cancel Now</string>
+    <string name="payment_in_progress_please_complete_the_payment_using_fawry_reference_number">Payment in progress. Please complete the payment using Fawry reference number:</string>
+    <string name="payment_failed">Payment failed</string>
+    <string name="select"><font size="8">Select</font></string>
+    <string name="subscribe_now">Subscribe Now</string>
+    <string name="ops_something_went_wrong">Oops! Something went wrong!</string>
+    <string name="security_alert">Security Alert!</string>
+    <string name="your_device_is_rooted">Your device seems to be rooted, the application will close</string>
+    <string name="disable_developer_options">Please disable the developer options to use the App</string>
+    <string name="discount_with_orange">50% Discount with Orange</string>
+    <string name="take">Take</string>
+    <string name="discount"> 50% discount </string>
+    <string name="when_you_pay_with_orange_wallet">when you pay with orange wallet</string>
+    <string name="description_orange_banner">Make sure that this is your wallet number, if you pay with orange wallet you will take</string>
+    <string name="fifty_discount">50% discount</string>
+
+    <string name="close_developer_options">Close Developer Options</string>
+    <string name="please_try_again">Please try again.</string>
+    <string name="retry">Retry</string>
+    <string name="use_code">Use Code</string>
+    <string name="tests">Tests</string>
+    <string name="write_your_code">Write your code</string>
+    <string name="please_enter_your_mobile">Please enter your mobile</string>
+    <string name="please_select_test_name">Please select Test name</string>
+    <string name="rate_call2">Our agent will call you shortly for your home visit time and date</string>
+    <string name="test_name">Test Name</string>
+    <string name="lab_tests">Lab Tests</string>
+    <string name="write_your_address_here">Write your address here</string>
+    <string name="detect_my_current_location">Detect my current location</string>
+    <string name="you_have">You have</string>
+    <string name="days_left">days left</string>
+    <string name="patient_address">Patient Address</string>
+    <string name="book">Book</string>
+    <string name="radiology">Radiology</string>
+    <string name="physiotherapy">Physiotherapy</string>
+
+    <string name="file_type_selection">File type selection</string>
+    <string name="which_file_type_do_you_want_to_select">Which file type do you want to select?</string>
+    <string name="file">File</string>
+    <string name="select_pdf_or_word_file">select PDF or word file</string>
+    <string name="image">Image</string>
+    <string name="select_jpg_jpeg_or_png_image">select jpg, jpeg or png image</string>
+    <string name="limitless_care">Limitless care</string>
+    <string name="to_continue_please_allow_file_permission">To continue, please allow file permission</string>
+    <string name="files">Files</string>
+    <string name="chat_with_us">Chat with us</string>
+
+    <string name="server_client_id_dev" translatable="false">738699555337-3vfsb1gtj4j74gk75477fku8nn5mcqck.apps.googleusercontent.com</string>
+    <string name="server_client_id_live" translatable="false">284920159850-o5b3glsbf644ok0l532n6tm0jhaaj46r.apps.googleusercontent.com</string>
+
+    <string name="file_is_being_downloaded">File is being downloaded…</string>
+    <string name="deny">deny</string>
+    <string name="allow">Allow</string>
+    <string name="prominent_disclosure">Information Collection and Use:\nFor a better experience, while using our
+        Service, we may require you to provide us with certain personally identifiable information, including but not
+        limited to Name, User Images, Phone Number, Email Address, steps count, distance covered, and burned calories. The information
+        that we request will be retained by us and used as described in the privacy policy.\n\nRun-time Permissions:\n\n1-
+        ACCESS_COARSE_LOCATION AND ACCESS_FINE_LOCATION:\nAllows the app to access your device\'s precise
+        location using GPS, Wi-Fi, or cellular network information. This permission is necessary for providing
+        location-based services, such as finding nearby branches of network providers and for getting your location
+        for delivery services.\n\n2- CAMERA Permission:\nAllows the app to access your device\'s camera.
+        This permission is necessary for video calls services when you need to make a doctor appointment.\n\n
+        3- RECORD_AUDIO:\nAllows the app to access your device\'s audio.
+        This permission is necessary for video calls service when you need to make a doctor appointment.\n\n
+        4- READ_EXTERNAL_STORAGE AND WRITE_EXTERNAL_STORAGE:\nAllows the app to access your files and Images.
+        This permission is necessary for files AND Images services, such as uploading prescription or medical
+        reports AND updating user profile image.\n\n5- ACTIVITY_RECOGNITION:\nAllows the app to detect
+        changes in the user\'s activity.This permission is necessary when using google health kit to detect the user
+        motion and calculate his steps on Android 10 and above</string>
+    <string name="calender">Calender</string>
+    <string name="from">From</string>
+    <string name="celsius">°C </string>
+    <string name="bpm">BPM</string>
+    <string name="mmHG">mmHg </string>
+    <string name="percentage">% </string>
+    <string name="mg_dl">MG/DL </string>
+    <string name="per_minute">Breaths/minute </string>
+</resources>
