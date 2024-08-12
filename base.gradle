@@ -59,4 +59,8 @@ android {
 
 dependencies {
 
+    hilt{
+        enableAggregatingTask = false
+    }
+
 }

@@ -20,7 +20,7 @@ object Constants {
     const val DAY_MONTH_YEAR_FORMAT = "dd-MM-yyyy"
     const val YEAR_MONTH_DAY_FORMAT = "yyyy-MM-dd"
     const val EMPTY_STRING = ""
-    const val BASE_URL = ""
+    const val BASE_URL = "https://www.hpb.health.gov.lk/"
     const val ONE = "1"
     const val TEST = "Test"
 
