@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <font
+        android:font="@font/runda_light"
+        android:fontWeight="200"
+        app:font="@font/runda_light"
+        app:fontWeight="200" />
+
+    <font
+        android:font="@font/runda_normal"
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        app:font="@font/runda_normal"
+        app:fontStyle="normal"
+        app:fontWeight="400" />
+
+    <font
+        android:font="@font/runda_medium"
+        android:fontStyle="normal"
+        android:fontWeight="600"
+        app:font="@font/runda_medium"
+        app:fontStyle="normal"
+        app:fontWeight="600" />
+
+    <font
+        android:font="@font/runda_bold"
+        android:fontStyle="normal"
+        android:fontWeight="800"
+        app:font="@font/runda_bold"
+        app:fontStyle="normal"
+        app:fontWeight="800" />
+
+    <font
+        android:font="@font/runda_black"
+        android:fontStyle="normal"
+        android:fontWeight="900"
+        app:font="@font/runda_black"
+        app:fontStyle="normal"
+        app:fontWeight="900" />
+
+</font-family>

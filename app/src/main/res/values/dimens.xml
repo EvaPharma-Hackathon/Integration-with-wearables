@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="margin_14">14dp</dimen>
+    <dimen name="margin_zero">0dp</dimen>
+    <dimen name="margin_30">30dp</dimen>
+    <dimen name="margin_33">33dp</dimen>
+    <dimen name="margin_2">2dp</dimen>
+    <dimen name="margin_6">6dp</dimen>
+    <dimen name="margin_10">10dp</dimen>
+    <dimen name="margin_12">12dp</dimen>
+    <dimen name="margin_4">4dp</dimen>
+    <dimen name="margin_19">19dp</dimen>
+    <dimen name="margin_xmedium">18dp</dimen>
+    <dimen name="margin_24">24dp</dimen>
+    <dimen name="margin_327">32dp</dimen>
+    <dimen name="margin_xhuge">185dp</dimen>
+    <dimen name="margin_128">128dp</dimen>
+    <dimen name="margin_64">64dp</dimen>
+    <dimen name="margin_32">32dp</dimen>
+    <dimen name="margin_47">47dp</dimen>
+    <dimen name="margin_40">40dp</dimen>
+    <dimen name="margin_25">25dp</dimen>
+    <dimen name="margin_27">27dp</dimen>
+    <dimen name="margin_21">21dp</dimen>
+    <dimen name="margin_28">28dp</dimen>
+    <dimen name="margin_20">20dp</dimen>
+    <dimen name="margin_xxxsmall">4dp</dimen>
+    <dimen name="margin_8">8dp</dimen>
+    <dimen name="margin_xsmall">12dp</dimen>
+    <dimen name="margin_small">14dp</dimen>
+    <dimen name="margin_16">16dp</dimen>
+    <dimen name="margin_large">20dp</dimen>
+    <dimen name="margin_xlarge">24dp</dimen>
+    <dimen name="margin_xxlarge">28dp</dimen>
+    <dimen name="margin_xxxxlarge">55dp</dimen>
+    <dimen name="margin_huge">125dp</dimen>
+    <dimen name="margin_48">48dp</dimen>
+    <dimen name="margin_120">120dp</dimen>
+    <dimen name="margin_37">37dp</dimen>
+
+
+    <dimen name="padding_1">1dp</dimen>
+    <dimen name="padding_2">2dp</dimen>
+    <dimen name="padding_xxxsmall">4dp</dimen>
+    <dimen name="padding_6">6dp</dimen>
+    <dimen name="padding_4">4dp</dimen>
+    <dimen name="padding_3">3dp</dimen>
+    <dimen name="padding_xxsmall">8dp</dimen>
+    <dimen name="padding_10">10dp</dimen>
+    <dimen name="padding_8">8dp</dimen>
+    <dimen name="padding_xsmall">12dp</dimen>
+    <dimen name="padding_small">14dp</dimen>
+    <dimen name="padding_medium">16dp</dimen>
+    <dimen name="padding_18">18dp</dimen>
+    <dimen name="padding_20">20dp</dimen>
+    <dimen name="padding_16">16dp</dimen>
+    <dimen name="padding_large">20dp</dimen>
+    <dimen name="padding_24">24dp</dimen>
+    <dimen name="padding_xxlarge">28dp</dimen>
+    <dimen name="padding_32">32dp</dimen>
+    <dimen name="padding_48">48dp</dimen>
+    <dimen name="padding_huge_delete_account">62dp</dimen>
+    <dimen name="padding_xxxxlarge">55dp</dimen>
+    <dimen name="padding_huge">125dp</dimen>
+
+
+    <dimen name="text_size_12">12sp</dimen>
+    <dimen name="text_size_16">16sp</dimen>
+    <dimen name="text_size_8">8sp</dimen>
+    <dimen name="text_size_20">20sp</dimen>
+    <dimen name="text_size_11">10sp</dimen>
+    <dimen name="text_size_15">15sp</dimen>
+    <dimen name="text_size_55">55sp</dimen>
+    <dimen name="text_size_xmedium">18sp</dimen>
+    <dimen name="text_size_28">28sp</dimen>
+    <dimen name="text_size_25">25sp</dimen>
+    <dimen name="text_size_xxxlarge">32sp</dimen>
+    <dimen name="text_size_xsmall">12sp</dimen>
+    <dimen name="text_size_14">14sp</dimen>
+    <dimen name="text_size_large">20sp</dimen>
+    <dimen name="text_size_24">24sp</dimen>
+    <dimen name="text_size_34">34sp</dimen>
+    <dimen name="text_size_40">40sp</dimen>
+
+    <dimen name="card_corner_radius_xxsmall">8dp</dimen>
+    <dimen name="card_corner_radius_12">12dp</dimen>
+    <dimen name="card_corner_radius_16">16dp</dimen>
+    <dimen name="card_corner_radius_large">20dp</dimen>
+    <dimen name="card_corner_radius_xlarge">24dp</dimen>
+    <dimen name="card_corner_radius">20dp</dimen>
+    <dimen name="card_corner_radius_22">22dp</dimen>
+    <dimen name="card_corner_radius_10">10dp</dimen>
+
+
+    <dimen name="service_badge_size">9sp</dimen>
+    <dimen name="image_width">60dp</dimen>
+    <dimen name="limitless_care_logo">65dp</dimen>
+    <dimen name="image_height">70dp</dimen>
+    <dimen name="ship_item_height">80dp</dimen>
+    <dimen name="logo_width">45dp</dimen>
+    <dimen name="tab_width_services_landing_page">350dp</dimen>
+    <dimen name="tablayout_width_request_history">345dp</dimen>
+    <dimen name="tablayout_width_service">340sp</dimen>
+    <dimen name="chosen_image_size">65dp</dimen>
+    <dimen name="delete_image_size">25dp</dimen>
+    <dimen name="list_item_spacing">16dp</dimen>
+    <dimen name="list_item_spacing_half">8dp</dimen>
+    <dimen name="image_size_24">24dp</dimen>
+    <dimen name="divider_view_size">1dp</dimen>
+
+    <dimen name="card_corner_radius_20">20dp</dimen>
+
+    <dimen name="padding_xlarge">24dp</dimen>
+    <dimen name="padding_xxxlarge">32dp</dimen>
+    <dimen name="margin_18">18dp</dimen>
+
+    <dimen name="text_size_10">10sp</dimen>
+    <dimen name="text_size_medium">16sp</dimen>
+
+    <dimen name="padding_60">60dp</dimen>
+    <dimen name="file_item_height">110dp</dimen>
+    <dimen name="file_item_width">130dp</dimen>
+    <dimen name="text_size_22">22dp</dimen>
+    <dimen name="margin_1">1dp</dimen>
+
+
+
+</resources>

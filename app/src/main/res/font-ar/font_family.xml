@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <font
+        android:font="@font/ibm_plex_sans_arabic_light"
+        android:fontWeight="200"
+        app:font="@font/ibm_plex_sans_arabic_light"
+        app:fontWeight="200" />
+
+    <font
+        android:font="@font/ibm_plex_sans_arabic_text"
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        app:font="@font/ibm_plex_sans_arabic_text"
+        app:fontStyle="normal"
+        app:fontWeight="400" />
+
+    <font
+        android:font="@font/ibm_plex_sans_arabic_medium"
+        android:fontStyle="normal"
+        android:fontWeight="600"
+        app:font="@font/ibm_plex_sans_arabic_medium"
+        app:fontStyle="normal"
+        app:fontWeight="600" />
+
+    <font
+        android:font="@font/ibm_plex_sans_arabic_bold"
+        android:fontStyle="normal"
+        android:fontWeight="800"
+        app:font="@font/ibm_plex_sans_arabic_bold"
+        app:fontStyle="normal"
+        app:fontWeight="800" />
+
+</font-family>

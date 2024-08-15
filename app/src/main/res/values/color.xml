@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <color name="white">#FFFFFFFF</color>
+
+
+    <color name="shimmer_color">#676367</color>
+
+
+    <color name="apple">#A47DE8</color>
+
+    <color name="error">#FB7171</color>
+    <color name="facebook">#475B94</color>
+    <color name="google">#5D88EB</color>
+
+
+    <color name="success">#64EA92</color>
+    <color name="warning">#FFDF75</color>
+    <color name="white_color">#FDFDFD</color>
+    <color name="icon_background">#1AFFFFFF</color>
+    <color name="icon_background_white">#1AFFFFFF</color>
+    <color name="fill_icon">#31293B</color>
+    <color name="descriptionWallet">#FEFEFE</color>
+    <color name="strok_color_icon">#FEFEFE</color>
+
+
+    <color name="top_bar">#141419</color>
+    <color name="background">#141419</color>
+    <color name="primary_color">#906BFB</color>
+    <color name="netural_400">#CCCCCC</color>
+    <color name="netural_300">#423D53</color>
+    <color name="grey_color">#878686</color>
+    <color name="card_background">#0DFFFFFF</color>
+    <color name="calendar_header">#906BFB</color>
+    <color name="title2">#FEFEFE</color>
+    <color name="primary_shade_500">#D3C4FF</color>
+    <color name="primary_shade_400">#6D5DDC</color>
+    <color name="primary_shade_100">#332D44</color>
+    <color name="primary_shade_300">#ADAAB2</color>
+    <color name="description">#605A6B</color>
+    <color name="description_color">#D5D5DA</color>
+
+    <color name="primary_variant">#906BFB</color>
+
+    <color name="request_pending_bg">#33000000</color>
+    <color name="request_progress_bg">#33ED7D2B</color>
+    <color name="request_progress_fg">#ED7D2B</color>
+    <color name="request_finished_bg">#333AC591</color>
+    <color name="request_finished_fg">#3AC591</color>
+</resources>
