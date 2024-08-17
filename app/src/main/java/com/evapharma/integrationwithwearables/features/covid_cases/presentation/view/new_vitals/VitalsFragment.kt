@@ -38,6 +38,7 @@ class VitalsFragment : BaseFragment<FragmentVitalsBinding, VitalsViewModel>() {
     override fun onFragmentCreated() {
         checkHealthConnectStatus()
         observeStepsData()
+        observeCaloriesData()
 
     }
 
@@ -89,4 +90,14 @@ class VitalsFragment : BaseFragment<FragmentVitalsBinding, VitalsViewModel>() {
         }
     }
 
+    private fun observeCaloriesData() {
+        lifecycleScope.launch {
+            viewModel.calories.collect { calories ->
+                binding.caloriesInput.setText(calories)
+                if (calories.isBlank()|| calories!="0") {
+                    binding.stepsInput.isEnabled=false
+                }
+            }
+        }
+    }
 }

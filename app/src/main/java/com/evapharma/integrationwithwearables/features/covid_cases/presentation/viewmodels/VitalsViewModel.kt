@@ -28,6 +28,10 @@ class VitalsViewModel   @Inject constructor(private val getCovidCasesUseCase: Ge
 
     private val _steps = MutableStateFlow("0")
     val steps: StateFlow<String> = _steps
+
+    private val _calories = MutableStateFlow("0")
+    val calories: StateFlow<String> = _calories
+
     private val interval: Long = 1
 
 
@@ -81,6 +85,7 @@ class VitalsViewModel   @Inject constructor(private val getCovidCasesUseCase: Ge
             val stepsData = getCovidCasesUseCase.readStepsData(interval).first()
             Log.d("ViewModel", "Fetched steps data: ${stepsData.metricValue}")
             _steps.value = stepsData.metricValue
+            _calories.value =  getCovidCasesUseCase.readCaloriesData(interval).first().metricValue
         }
     }
 

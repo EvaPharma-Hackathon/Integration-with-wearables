@@ -10,5 +10,6 @@ interface CovidRepo {
     suspend fun getCovidCases(): DataState<CovidCasesResponse>
 
     suspend fun readStepsData(interval: Long): List<VitalsData>
+    suspend fun readCaloriesData(interval: Long): List<VitalsData>
 
 }

@@ -7,4 +7,5 @@ class GetCovidCasesUseCase @Inject constructor(private val covidRepo: CovidRepo)
 
     suspend operator fun invoke() = covidRepo.getCovidCases()
     suspend  fun readStepsData(interval: Long) = covidRepo.readStepsData(interval)
+    suspend fun readCaloriesData(interval: Long) = covidRepo.readCaloriesData(interval)
 }
