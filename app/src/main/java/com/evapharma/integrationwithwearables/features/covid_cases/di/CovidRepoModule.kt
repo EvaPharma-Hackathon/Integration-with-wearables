@@ -1,7 +1,5 @@
 package com.evapharma.integrationwithwearables.features.covid_cases.di
 
-import com.evapharma.integrationwithwearables.features.covid_cases.data.local.data_source.HealthInstalled
-import com.evapharma.integrationwithwearables.features.covid_cases.data.local.data_source.HealthInstalledInterface
 import com.evapharma.integrationwithwearables.features.covid_cases.data.local.data_source.HealthyLocalDataSource
 import com.evapharma.integrationwithwearables.features.covid_cases.data.local.data_source.HealthyLocalDataSourceImpl
 import com.evapharma.integrationwithwearables.features.covid_cases.data.remote.data_source.CovidCasesRemoteDataSource
@@ -28,6 +26,4 @@ abstract class CovidRepoModule {
     @Binds
     abstract fun bindHealthyLocalDataSourceImpl(healthyLocalDataSourceImpl: HealthyLocalDataSourceImpl): HealthyLocalDataSource
 
-    @Binds
-    abstract fun bindHealthInstalled(healthInstalled: HealthInstalled): HealthInstalledInterface
 }

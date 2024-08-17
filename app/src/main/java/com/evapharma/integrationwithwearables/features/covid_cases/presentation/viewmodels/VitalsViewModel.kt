@@ -70,15 +70,5 @@ class VitalsViewModel   @Inject constructor(private val getCovidCasesUseCase: Ge
 
 
     }
-    fun checkPermissions() {
-        viewModelScope.launch {
-            getCovidCasesUseCase.checkHealthPermissions()
-        }
-    }
 
-    fun checkHealthConnectInstituted(context: Context) {
-        viewModelScope.launch {
-            getCovidCasesUseCase.checkHealthConnectInstituted(context)
-        }
-    }
 }

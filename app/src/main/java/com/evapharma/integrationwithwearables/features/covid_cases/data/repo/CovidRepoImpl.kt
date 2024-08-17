@@ -17,13 +17,5 @@ class CovidRepoImpl @Inject constructor(private val covidRemoteDataSourceImpl: C
         return response
     }
 
-    override suspend fun checkHealthConnectInstituted(context: Context): Int {
-       return healthyLocalDataSourceImpl.checkForHealthConnectInstalled(context)
-    }
-
-    override suspend fun checkHealthPermissions(): Boolean {
-        return healthyLocalDataSourceImpl.checkPermissions()
-    }
-
 
 }

@@ -7,6 +7,4 @@ import javax.inject.Inject
 class GetCovidCasesUseCase @Inject constructor(private val covidRepo: CovidRepo) {
 
     suspend operator fun invoke() = covidRepo.getCovidCases()
-    suspend  fun checkHealthConnectInstituted(context: Context) = covidRepo.checkHealthConnectInstituted(context)
-    suspend  fun checkHealthPermissions() = covidRepo.checkHealthPermissions()
 }

@@ -7,7 +7,5 @@ import com.evapharma.integrationwithwearables.features.covid_cases.data.remote.m
 interface CovidRepo {
 
     suspend fun getCovidCases(): DataState<CovidCasesResponse>
-    suspend fun checkHealthConnectInstituted(context: Context): Int
-    suspend fun checkHealthPermissions(): Boolean
 
 }

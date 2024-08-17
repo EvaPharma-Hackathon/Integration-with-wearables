@@ -103,10 +103,12 @@ class VitalsFragment : BaseFragment<FragmentVitalsBinding, VitalsViewModel>() {
     }
 
     private fun checkHealthConnectStatus() {
-        viewModel.checkHealthConnectInstituted(requireContext())
-        viewModel.checkPermissions()
+        val healthy = HealthInstalled()
+        lifecycleScope.launch {
+            healthy.checkForHealthConnectInstalled(requireContext())
+            healthy.checkPermissions()
+        }
     }
-
     private fun requestHealthConnectPermissions() {
         val healthConnectClient = HealthConnectClient.getOrCreate(requireContext())
 
