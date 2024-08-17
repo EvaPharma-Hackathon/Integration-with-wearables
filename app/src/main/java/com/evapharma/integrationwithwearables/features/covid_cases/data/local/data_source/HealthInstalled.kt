@@ -7,7 +7,7 @@ import com.evapharma.integrationwithwearables.core.utils.requiredHealthPermissio
 import javax.inject.Inject
 
 
-class HealthInstalled @Inject constructor(private val context: Context):HealthInstalledInterface {
+class HealthInstalled @Inject constructor():HealthInstalledInterface {
     private var healthConnectClient: HealthConnectClient? = null
     override fun checkForHealthConnectInstalled(context: Context): Int {
         val availabilityStatus =
