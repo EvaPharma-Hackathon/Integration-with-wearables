@@ -1,6 +1,7 @@
 package com.evapharma.integrationwithwearables.features.covid_cases.presentation.viewmodels
 
 import android.content.Context
+import android.util.Log
 import androidx.health.connect.client.HealthConnectClient
 import androidx.lifecycle.viewModelScope
 import com.evapharma.integrationwithwearables.core.MVIBaseViewModel
@@ -13,6 +14,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,6 +25,10 @@ class VitalsViewModel   @Inject constructor(private val getCovidCasesUseCase: Ge
 
     private val _covidCasesStateFlow: MutableStateFlow<CovidCasesViewState> =
         MutableStateFlow(CovidCasesViewState(isIdle = true))
+
+    private val _steps = MutableStateFlow("0")
+    val steps: StateFlow<String> = _steps
+    private val interval: Long = 1
 
 
     override val defaultViewState: CovidCasesViewState
@@ -69,6 +75,13 @@ class VitalsViewModel   @Inject constructor(private val getCovidCasesUseCase: Ge
         }
 
 
+    }
+    fun fetchHealthData() {
+        viewModelScope.launch {
+            val stepsData = getCovidCasesUseCase.readStepsData(interval).first()
+            Log.d("ViewModel", "Fetched steps data: ${stepsData.metricValue}")
+            _steps.value = stepsData.metricValue
+        }
     }
 
 }

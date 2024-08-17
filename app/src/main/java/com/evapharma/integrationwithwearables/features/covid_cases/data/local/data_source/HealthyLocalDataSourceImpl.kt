@@ -1,13 +1,17 @@
 package com.evapharma.integrationwithwearables.features.covid_cases.data.local.data_source
 
 import android.content.Context
+import androidx.health.connect.client.HealthConnectClient
+import com.evapharma.integrationwithwearables.features.covid_cases.data.local.healthy_data.StepsData
 import com.evapharma.integrationwithwearables.features.covid_cases.data.local.model.VitalsData
 import javax.inject.Inject
 
-class HealthyLocalDataSourceImpl @Inject constructor() : HealthyLocalDataSource{
+class HealthyLocalDataSourceImpl @Inject constructor(private val healthConnectClient: HealthConnectClient) : HealthyLocalDataSource {
+
+    private val stepsData: StepsData by lazy { StepsData(healthConnectClient) }
 
     override suspend fun readStepsData(interval: Long): List<VitalsData> {
-        TODO("Not yet implemented")
+        return stepsData.readDataForInterval(interval)
     }
 
     override suspend fun readCaloriesData(interval: Long): List<VitalsData> {

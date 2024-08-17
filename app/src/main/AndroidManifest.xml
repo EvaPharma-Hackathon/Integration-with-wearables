@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+
     <uses-permission android:name="android.permission.health.READ_STEPS" />
     <uses-permission android:name="android.permission.health.READ_EXERCISE" />
     <uses-permission android:name="android.permission.health.READ_SLEEP" />
@@ -34,6 +35,7 @@
     <uses-permission android:name="android.permission.health.WRITE_TEMPERATURE" />
     <uses-permission android:name="android.permission.health.WRITE_RESPIRATORY_RATE" />
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"/>
+
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
@@ -68,19 +70,18 @@
             </intent-filter>
         </activity>
 
-    <activity-alias
-        android:name="ViewPermissionUsageActivity"
-        android:exported="true"
-        android:targetActivity=".MainActivity"
-        android:permission="android.permission.START_VIEW_PERMISSION_USAGE">
-        <intent-filter>
-            <action android:name="android.intent.action.VIEW_PERMISSION_USAGE" />
-            <category android:name="android.intent.category.HEALTH_PERMISSIONS" />
-        </intent-filter>
-     </activity-alias>
+        <activity-alias
+            android:name="ViewPermissionUsageActivity"
+            android:exported="true"
+            android:targetActivity=".MainActivity"
+            android:permission="android.permission.START_VIEW_PERMISSION_USAGE">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW_PERMISSION_USAGE" />
+                <category android:name="android.intent.category.HEALTH_PERMISSIONS" />
+            </intent-filter>
+        </activity-alias>
     </application>
-  <queries>
-      <package android:name="com.google.android.apps.healthdata" />
-   </queries>
-
+    <queries>
+        <package android:name="com.google.android.apps.healthdata" />
+    </queries>
 </manifest>

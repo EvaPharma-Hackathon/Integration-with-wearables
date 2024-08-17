@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.evapharma.integrationwithwearables.core.models.DataState
 import com.evapharma.integrationwithwearables.features.covid_cases.data.local.data_source.HealthyLocalDataSourceImpl
+import com.evapharma.integrationwithwearables.features.covid_cases.data.local.model.VitalsData
 import com.evapharma.integrationwithwearables.features.covid_cases.data.remote.data_source.CovidRemoteDataSourceImpl
 import com.evapharma.integrationwithwearables.features.covid_cases.data.remote.model.CovidCasesResponse
 import com.evapharma.integrationwithwearables.features.covid_cases.domain.repo_contract.CovidRepo
@@ -17,5 +18,8 @@ class CovidRepoImpl @Inject constructor(private val covidRemoteDataSourceImpl: C
         return response
     }
 
+    override suspend fun readStepsData(interval: Long): List<VitalsData> {
+        return healthyLocalDataSourceImpl.readStepsData(interval)
+    }
 
 }
