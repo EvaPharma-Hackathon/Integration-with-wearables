@@ -1,5 +1,6 @@
 package com.evapharma.integrationwithwearables.features.covid_cases.data.local.healthy_data
 
+import android.util.Log
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.records.TotalCaloriesBurnedRecord
 import androidx.health.connect.client.request.AggregateGroupByPeriodRequest
@@ -80,6 +81,7 @@ class CaloriesData  (private val healthConnectClient: HealthConnectClient) : Hea
                 trackTime = trackTime.plusDays(1)
             }
         }
+        Log.i("TAG", "readDataForInterval: $caloriesData")
         return caloriesData
     }
 

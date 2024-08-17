@@ -32,6 +32,9 @@ class VitalsViewModel   @Inject constructor(private val getCovidCasesUseCase: Ge
     private val _calories = MutableStateFlow("0")
     val calories: StateFlow<String> = _calories
 
+    private val _sleep = MutableStateFlow("0")
+    val sleep: StateFlow<String> = _sleep
+
     private val interval: Long = 1
 
 
@@ -77,8 +80,6 @@ class VitalsViewModel   @Inject constructor(private val getCovidCasesUseCase: Ge
 
             else -> {}
         }
-
-
     }
     fun fetchHealthData() {
         viewModelScope.launch {
@@ -86,7 +87,7 @@ class VitalsViewModel   @Inject constructor(private val getCovidCasesUseCase: Ge
             Log.d("ViewModel", "Fetched steps data: ${stepsData.metricValue}")
             _steps.value = stepsData.metricValue
             _calories.value =  getCovidCasesUseCase.readCaloriesData(interval).first().metricValue
+            _sleep.value = getCovidCasesUseCase.readSleepData(interval).first().metricValue
         }
     }
-
 }

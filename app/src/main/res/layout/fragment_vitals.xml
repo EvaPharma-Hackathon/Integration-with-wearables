@@ -149,7 +149,7 @@
                 android:textSize="@dimen/text_size_medium"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/temperature_edit_text" />
+                app:layout_constraintTop_toBottomOf="@+id/sleep_edit_text" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/steps_edit_text"
@@ -453,7 +453,7 @@
                 android:textSize="@dimen/text_size_medium"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/calories_edit_text"
-                app:layout_constraintTop_toBottomOf="@+id/respiratory_rate_edit_text" />
+                app:layout_constraintTop_toBottomOf="@+id/distance_edit_text" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/calories_edit_text"
@@ -471,6 +471,70 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/calories_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/sleepText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/sleep"
+                android:textSize="@dimen/text_size_medium"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/temperature_edit_text" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/sleep_edit_text"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:elevation="@dimen/elevation_large"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sleepText"
+                app:placeholderText="Ex:26"
+                app:suffixText="@string/hour">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/sleep_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/distanceTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/distance"
+                android:textSize="@dimen/text_size_medium"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/distance_edit_text"
+                app:layout_constraintTop_toBottomOf="@+id/respiratory_rate_edit_text" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/distance_edit_text"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="34dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:elevation="@dimen/elevation_large"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/sleep_edit_text"
+                app:layout_constraintTop_toBottomOf="@+id/distanceTextView"
+                app:placeholderText="Ex:170"
+                app:suffixText="cal">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/distance_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"/>

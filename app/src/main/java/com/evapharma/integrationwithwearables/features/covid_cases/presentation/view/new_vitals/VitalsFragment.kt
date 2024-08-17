@@ -39,6 +39,7 @@ class VitalsFragment : BaseFragment<FragmentVitalsBinding, VitalsViewModel>() {
         checkHealthConnectStatus()
         observeStepsData()
         observeCaloriesData()
+        observeSleepData()
 
     }
 
@@ -95,6 +96,17 @@ class VitalsFragment : BaseFragment<FragmentVitalsBinding, VitalsViewModel>() {
             viewModel.calories.collect { calories ->
                 binding.caloriesInput.setText(calories)
                 if (calories.isBlank()|| calories!="0") {
+                    binding.stepsInput.isEnabled=false
+                }
+            }
+        }
+    }
+
+    private fun observeSleepData() {
+        lifecycleScope.launch {
+            viewModel.sleep.collect { sleep ->
+                binding.sleepInput.setText(sleep)
+                if (sleep.isBlank()|| sleep!="0") {
                     binding.stepsInput.isEnabled=false
                 }
             }

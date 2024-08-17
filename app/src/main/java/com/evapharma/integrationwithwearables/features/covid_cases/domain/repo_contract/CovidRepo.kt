@@ -8,8 +8,7 @@ import com.evapharma.integrationwithwearables.features.covid_cases.data.remote.m
 interface CovidRepo {
 
     suspend fun getCovidCases(): DataState<CovidCasesResponse>
-
     suspend fun readStepsData(interval: Long): List<VitalsData>
     suspend fun readCaloriesData(interval: Long): List<VitalsData>
-
+    suspend fun readSleepData(interval: Long): List<VitalsData>
 }
