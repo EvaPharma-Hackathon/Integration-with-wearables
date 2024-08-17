@@ -24,9 +24,9 @@
     <string name="no">No</string>
     <string name="invalid_inputs">Invalid Inputs</string>
     <string name="cm">cm</string>
-    <string name="height">HEIGHT</string>
+    <string name="height">Height</string>
     <string name="kg">kg</string>
-    <string name="weight">WEIGHT</string>
+    <string name="weight">Weight</string>
     <string name="empty_bmi_msg">Add your weight and height and calculate your BMI now and find out if you have a healthy weight.</string>
     <string name="empty_health_data_msg">Keep track of your steps and water intake now. Help us customize our recommendations for you by adding your health data.</string>
     <string name="import_from_health_app">Import from Health App</string>
@@ -143,4 +143,22 @@
     <string name="percentage">% </string>
     <string name="mg_dl">MG/DL </string>
     <string name="per_minute">Breaths/minute </string>
+    <string name="view_ECG">View My ECG</string>
+    <string name="sleep">Sleep</string>
+    <string name="sleep_time">8:00</string>
+    <string name="hour">Hour</string>
+    <string name="activity">My Activity</string>
+    <string name="heart_rate">Heart Rate</string>
+    <string name="heart_count">83</string>
+   <string name="calories">Calories</string>
+    <string name="blood_pressure">BloodPressure</string>
+    <string name="add_data">Add the following data </string>
+    <string name="temperature">Temperature</string>
+    <string name="respiratory_rate">Respiratory Rate</string>
+    <string name="oxygen_saturation">Oxygen saturation</string>
+    <string name="random_blood_sugar">Random blood sugar </string>
+    <string name="smoker">Smoker</string>
+   <string name="drink_alcohol">Drink Alcohol</string>
+    <string name="add_now">Add Now</string>
+    <string name="permissions_msg">You can now sync with your smartwatch and view health data in one place. Please grant the necessary permissions in settings</string>
 </resources>

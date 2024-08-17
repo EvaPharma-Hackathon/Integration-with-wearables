@@ -24,14 +24,14 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     }
 
     override fun onActivityCreated() {
-
+/*
         binding.retrieveCasesBtn.setOnClickListener {
             Log.e("TAG", "onClick: ")
             viewModel.executeAction(
                 CovidCasesActions.GetCovidCases
             )
             handleCovidCasesViewState()
-        }
+        }*/
 
     }
 
@@ -46,17 +46,16 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
                     if (viewState.data != null) {
                         hideLoading()
                         viewState.data.let {
-                            binding.casesNo.text = it.data?.local_new_cases.toString()
+                        //    binding.casesNo.text = it.data?.local_new_cases.toString()
                         }
                     } else {
                         hideLoading()
                         viewState.error?.let {
-                            binding.casesNo.text = it.message
+                        //    binding.casesNo.text = it.message
                         }
                     }
                 }
             }
         }
     }
-
 }
