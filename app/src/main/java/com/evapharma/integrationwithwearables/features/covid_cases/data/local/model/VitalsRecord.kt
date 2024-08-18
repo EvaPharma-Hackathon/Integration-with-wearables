@@ -5,8 +5,9 @@ data class VitalsRecord (
     val dataType: DataType,
     val toDatetime: String,
     val fromDatetime: String
+
 )
 
 enum class DataType {
-    STEPS, DISTANCE, SLEEP, CALORIES ,BLOOD_SUGAR , OXYGEN_SATURATION , HEART_RATE , WEIGHT , HEIGHT
+    STEPS, DISTANCE, SLEEP, CALORIES ,BLOOD_SUGAR , OXYGEN_SATURATION , HEART_RATE , WEIGHT , HEIGHT, TEMPERATURE
 }

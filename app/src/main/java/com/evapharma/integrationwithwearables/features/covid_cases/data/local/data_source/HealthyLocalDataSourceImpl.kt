@@ -2,6 +2,7 @@ package com.evapharma.integrationwithwearables.features.covid_cases.data.local.d
 
 import androidx.health.connect.client.HealthConnectClient
 import com.evapharma.integrationwithwearables.features.covid_cases.data.local.healthy_data.BloodSugarData
+import com.evapharma.integrationwithwearables.features.covid_cases.data.local.healthy_data.BodyTemperatureData
 import com.evapharma.integrationwithwearables.features.covid_cases.data.local.healthy_data.CaloriesData
 import com.evapharma.integrationwithwearables.features.covid_cases.data.local.healthy_data.DistanceData
 import com.evapharma.integrationwithwearables.features.covid_cases.data.local.healthy_data.HeartRateData
@@ -24,6 +25,8 @@ class HealthyLocalDataSourceImpl @Inject constructor(private val healthConnectCl
     private val heartRateData: HeartRateData by lazy { HeartRateData(healthConnectClient) }
     private val weightData: WeightData by lazy { WeightData(healthConnectClient) }
     private val heightData: HeightData by lazy { HeightData(healthConnectClient) }
+    private val bodyTemperature: BodyTemperatureData by lazy {BodyTemperatureData(healthConnectClient)}
+
     override suspend fun readStepsData(interval: Long): List<VitalsRecord> {
         return stepsData.readDataForInterval(interval)
     }
@@ -58,5 +61,9 @@ class HealthyLocalDataSourceImpl @Inject constructor(private val healthConnectCl
 
     override suspend fun readHeightData(interval: Long): List<VitalsRecord> {
         return heightData.readDataForInterval(interval)
+    }
+
+    override suspend fun readBodyTemperatureData(interval: Long): List<VitalsRecord> {
+        return bodyTemperature.readDataForInterval(interval)
     }
 }
