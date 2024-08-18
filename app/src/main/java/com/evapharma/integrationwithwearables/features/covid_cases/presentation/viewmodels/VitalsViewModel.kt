@@ -89,6 +89,8 @@ class VitalsViewModel   @Inject constructor(private val getCovidCasesUseCase: Ge
                 weight = getCovidCasesUseCase.readWeightData(interval).first().metricValue,
                 height = getCovidCasesUseCase.readHeightData(interval).first().metricValue,
           //      temperature= getCovidCasesUseCase.readBodyTemperatureData(interval).first().metricValue,
+                bloodPressure= getCovidCasesUseCase.readBloodPressureData(interval).first().metricValue,
+                respiratoryRate=getCovidCasesUseCase.readRespiratoryRateData(interval).first().metricValue,
 
             )
         }

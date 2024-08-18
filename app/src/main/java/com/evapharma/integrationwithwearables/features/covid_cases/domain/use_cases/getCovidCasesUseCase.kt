@@ -16,5 +16,7 @@ class GetCovidCasesUseCase @Inject constructor(private val covidRepo: CovidRepo)
     suspend fun readWeightData(interval: Long)=covidRepo.readWeightData(interval)
     suspend fun readHeightData(interval: Long)=covidRepo.readHeightData(interval)
     suspend fun readBodyTemperatureData(interval: Long)=covidRepo.readBodyTemperatureData(interval)
+    suspend fun readBloodPressureData(interval: Long)=covidRepo.readBloodPressureData(interval)
+    suspend fun readRespiratoryRateData(interval: Long)=covidRepo.readRespiratoryRateData(interval)
 
 }

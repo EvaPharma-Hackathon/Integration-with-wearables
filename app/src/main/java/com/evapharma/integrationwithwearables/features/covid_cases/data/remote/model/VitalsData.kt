@@ -10,5 +10,7 @@ data class VitalsData(
     val heartRate: String = "0",
     val weight: String = "0",
     val height: String = "0",
-    val temperature: String="0"
+    val temperature: String="0",
+    val bloodPressure: String="0",
+    val respiratoryRate: String="0"
 )

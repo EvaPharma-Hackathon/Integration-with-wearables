@@ -17,4 +17,6 @@ interface CovidRepo {
     suspend fun readWeightData(interval: Long): List<VitalsRecord>
     suspend fun readHeightData(interval: Long): List<VitalsRecord>
     suspend fun readBodyTemperatureData(interval: Long): List<VitalsRecord>
+    suspend fun readBloodPressureData(interval: Long): List<VitalsRecord>
+    suspend fun readRespiratoryRateData(interval:Long): List<VitalsRecord>
 }

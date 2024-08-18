@@ -1,6 +1,7 @@
 package com.evapharma.integrationwithwearables.features.covid_cases.data.local.data_source
 
 import androidx.health.connect.client.HealthConnectClient
+import com.evapharma.integrationwithwearables.features.covid_cases.data.local.healthy_data.BloodPressureData
 import com.evapharma.integrationwithwearables.features.covid_cases.data.local.healthy_data.BloodSugarData
 import com.evapharma.integrationwithwearables.features.covid_cases.data.local.healthy_data.BodyTemperatureData
 import com.evapharma.integrationwithwearables.features.covid_cases.data.local.healthy_data.CaloriesData
@@ -8,6 +9,7 @@ import com.evapharma.integrationwithwearables.features.covid_cases.data.local.he
 import com.evapharma.integrationwithwearables.features.covid_cases.data.local.healthy_data.HeartRateData
 import com.evapharma.integrationwithwearables.features.covid_cases.data.local.healthy_data.HeightData
 import com.evapharma.integrationwithwearables.features.covid_cases.data.local.healthy_data.OxygenSaturationData
+import com.evapharma.integrationwithwearables.features.covid_cases.data.local.healthy_data.RespiratoryRateData
 import com.evapharma.integrationwithwearables.features.covid_cases.data.local.healthy_data.SleepData
 import com.evapharma.integrationwithwearables.features.covid_cases.data.local.healthy_data.StepsData
 import com.evapharma.integrationwithwearables.features.covid_cases.data.local.healthy_data.WeightData
@@ -26,6 +28,8 @@ class HealthyLocalDataSourceImpl @Inject constructor(private val healthConnectCl
     private val weightData: WeightData by lazy { WeightData(healthConnectClient) }
     private val heightData: HeightData by lazy { HeightData(healthConnectClient) }
     private val bodyTemperature: BodyTemperatureData by lazy {BodyTemperatureData(healthConnectClient)}
+    private val bloodPressure: BloodPressureData by lazy {BloodPressureData(healthConnectClient)}
+    private val respiratoryRate: RespiratoryRateData by lazy {RespiratoryRateData(healthConnectClient)}
 
     override suspend fun readStepsData(interval: Long): List<VitalsRecord> {
         return stepsData.readDataForInterval(interval)
@@ -65,5 +69,13 @@ class HealthyLocalDataSourceImpl @Inject constructor(private val healthConnectCl
 
     override suspend fun readBodyTemperatureData(interval: Long): List<VitalsRecord> {
         return bodyTemperature.readDataForInterval(interval)
+    }
+
+    override suspend fun readBloodPressureData(interval: Long): List<VitalsRecord> {
+        return bloodPressure.readDataForInterval(interval)
+    }
+
+    override suspend fun readRespiratoryRate(interval: Long): List<VitalsRecord> {
+        return respiratoryRate.readDataForInterval(interval)
     }
 }
