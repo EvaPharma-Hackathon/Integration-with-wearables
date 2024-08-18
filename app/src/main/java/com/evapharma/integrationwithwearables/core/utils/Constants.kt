@@ -3,12 +3,14 @@ package com.evapharma.integrationwithwearables.core.utils
 import android.Manifest
 import android.os.Build
 import androidx.annotation.RequiresApi
+import java.time.format.DateTimeFormatter
 
 object Constants {
 
 
     const val LOCAL_ERROR_CODE = 0
 
+    const val REQUEST_CODE_PERMISSIONS = 1
 
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
@@ -23,7 +25,6 @@ object Constants {
     const val BASE_URL = "https://www.hpb.health.gov.lk/"
     const val ONE = "1"
     const val TEST = "Test"
-
     const val PAGE_SIZE = 20
     const val ACCEPT = "Accept"
     const val APPLICATION_JSON = "application/json"

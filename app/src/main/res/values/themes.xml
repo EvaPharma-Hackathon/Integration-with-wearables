@@ -4,9 +4,10 @@
         <item name="colorPrimary">@color/primary_color</item>
         <item name="colorPrimaryVariant">@color/primary_color</item>
         <item name="colorOnPrimary">@color/black</item>
-        <item name="android:statusBarColor" >@color/top_bar</item>
+        <item name="android:statusBarColor" >@color/primary_color</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="colorAccent">@color/primary_variant</item>
+
 
         <!-- Runda Custom Font. -->
         <item name="android:fontFamily">@font/font_family</item>

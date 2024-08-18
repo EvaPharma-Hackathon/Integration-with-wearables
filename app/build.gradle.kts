@@ -20,7 +20,7 @@ android {
 
     defaultConfig {
         applicationId = "com.evapharma.integrationwithwearables"
-        minSdk = 24
+        minSdk = 28
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -72,4 +72,11 @@ dependencies {
 
     implementation("androidx.security:security-crypto:1.1.0-alpha03")
     implementation("androidx.preference:preference-ktx:1.2.0")
+
+    //navigation
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
+   //health connect
+   implementation("androidx.health.connect:connect-client:1.1.0-alpha07")
+
 }
