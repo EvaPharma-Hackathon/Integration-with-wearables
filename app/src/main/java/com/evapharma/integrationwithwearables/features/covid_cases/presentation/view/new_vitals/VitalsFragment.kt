@@ -42,6 +42,8 @@ class VitalsFragment : BaseFragment<FragmentVitalsBinding, VitalsViewModel>() {
         observeSleepData()
         observeDistanceData()
         observeBloodSugarData()
+        observeOxygenData()
+        observeHealthData()
 
     }
 
@@ -121,4 +123,20 @@ class VitalsFragment : BaseFragment<FragmentVitalsBinding, VitalsViewModel>() {
             }
         }
     }
+
+    private fun observeOxygenData() {
+        lifecycleScope.launch {
+           viewModel.oxygenSaturation.collect{ oxygenSaturation->
+               binding.oxygenSaturationInput.setText(oxygenSaturation)
+           }
+        }
+    }
+
+   private fun observeHealthData() {
+       lifecycleScope.launch {
+           viewModel.heartRate.collect { healthData ->
+               binding.heartRateInput.setText(healthData)
+           }
+       }
+   }
 }

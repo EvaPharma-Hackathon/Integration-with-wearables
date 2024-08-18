@@ -41,6 +41,12 @@ class VitalsViewModel   @Inject constructor(private val getCovidCasesUseCase: Ge
     private val _bloodSugar = MutableStateFlow("0")
     val bloodSugar: StateFlow<String> = _bloodSugar
 
+    private val _oxygenSaturation = MutableStateFlow("0")
+    val oxygenSaturation: StateFlow<String> = _oxygenSaturation
+
+    private val _heartRate = MutableStateFlow("0")
+    val heartRate: StateFlow<String> = _heartRate
+
     private val interval: Long = 1
 
 
@@ -95,7 +101,9 @@ class VitalsViewModel   @Inject constructor(private val getCovidCasesUseCase: Ge
             _calories.value =  getCovidCasesUseCase.readCaloriesData(interval).first().metricValue
             _sleep.value = getCovidCasesUseCase.readSleepData(interval).first().metricValue
             _distance.value =getCovidCasesUseCase.readDistanceData(interval).first().metricValue
-            _bloodSugar.value = getCovidCasesUseCase.readDistanceData(interval).first().metricValue
+            _bloodSugar.value = getCovidCasesUseCase.readBloodSugarData(interval).first().metricValue
+            _oxygenSaturation.value = getCovidCasesUseCase.readOxygenSaturationData(interval).first().metricValue
+            _heartRate.value = getCovidCasesUseCase.readHeartRateData(interval).first().metricValue
 
         }
     }

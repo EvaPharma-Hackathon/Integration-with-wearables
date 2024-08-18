@@ -9,5 +9,6 @@ interface HealthyLocalDataSource {
     suspend fun readSleepData(interval: Long): List<VitalsData>
     suspend fun readDistanceData(interval: Long): List<VitalsData>
     suspend fun readBloodSugarData(interval: Long): List<VitalsData>
-
+    suspend fun readOxygenSaturationData(interval: Long): List<VitalsData>
+    suspend fun readHeartRateData(interval: Long): List<VitalsData>
 }
