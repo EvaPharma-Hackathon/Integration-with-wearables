@@ -8,5 +8,5 @@ data class VitalsData (
 )
 
 enum class DataType {
-    STEPS, MINS, DISTANCE, SLEEP, CALORIES
+    STEPS, MINS, DISTANCE, SLEEP, CALORIES ,BLOOD_SUGAR
 }

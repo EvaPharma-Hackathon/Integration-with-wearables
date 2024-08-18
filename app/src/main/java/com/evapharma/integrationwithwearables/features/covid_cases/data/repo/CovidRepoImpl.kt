@@ -34,4 +34,8 @@ class CovidRepoImpl @Inject constructor(private val covidRemoteDataSourceImpl: C
         return healthyLocalDataSourceImpl.readDistanceData(interval)
     }
 
+    override suspend fun readBloodSugarData(interval: Long): List<VitalsData> {
+        return healthyLocalDataSourceImpl.readBloodSugarData(interval)
+    }
+
 }

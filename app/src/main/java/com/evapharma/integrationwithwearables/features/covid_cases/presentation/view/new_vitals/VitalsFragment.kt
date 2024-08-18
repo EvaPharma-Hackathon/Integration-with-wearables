@@ -41,6 +41,7 @@ class VitalsFragment : BaseFragment<FragmentVitalsBinding, VitalsViewModel>() {
         observeCaloriesData()
         observeSleepData()
         observeDistanceData()
+        observeBloodSugarData()
 
     }
 
@@ -85,9 +86,6 @@ class VitalsFragment : BaseFragment<FragmentVitalsBinding, VitalsViewModel>() {
         lifecycleScope.launch {
             viewModel.steps.collect { steps ->
                 binding.stepsInput.setText(steps)
-                if (steps.isBlank()|| steps!="0") {
-                    binding.stepsInput.isEnabled=false
-                }
             }
         }
     }
@@ -96,9 +94,6 @@ class VitalsFragment : BaseFragment<FragmentVitalsBinding, VitalsViewModel>() {
         lifecycleScope.launch {
             viewModel.calories.collect { calories ->
                 binding.caloriesInput.setText(calories)
-                if (calories.isBlank()|| calories!="0") {
-                    binding.stepsInput.isEnabled=false
-                }
             }
         }
     }
@@ -107,9 +102,6 @@ class VitalsFragment : BaseFragment<FragmentVitalsBinding, VitalsViewModel>() {
         lifecycleScope.launch {
             viewModel.sleep.collect { sleep ->
                 binding.sleepInput.setText(sleep)
-                if (sleep.isBlank()|| sleep!="0") {
-                    binding.stepsInput.isEnabled=false
-                }
             }
         }
     }
@@ -118,10 +110,14 @@ class VitalsFragment : BaseFragment<FragmentVitalsBinding, VitalsViewModel>() {
         lifecycleScope.launch {
             viewModel.distance.collect{ distance->
                 binding.distanceInput.setText(distance)
-                if(distance.isBlank()|| distance!="0") {
-                    binding.distanceInput.isEnabled=false
-                }
+            }
+        }
+    }
 
+    private fun observeBloodSugarData() {
+        lifecycleScope.launch {
+            viewModel.bloodSugar.collect { bloodSugar ->
+                binding.bloodSugarInput.setText(bloodSugar)
             }
         }
     }
