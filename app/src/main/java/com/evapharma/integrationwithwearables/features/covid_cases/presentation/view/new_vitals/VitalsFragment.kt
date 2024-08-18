@@ -40,6 +40,7 @@ class VitalsFragment : BaseFragment<FragmentVitalsBinding, VitalsViewModel>() {
         observeStepsData()
         observeCaloriesData()
         observeSleepData()
+        observeDistanceData()
 
     }
 
@@ -109,6 +110,18 @@ class VitalsFragment : BaseFragment<FragmentVitalsBinding, VitalsViewModel>() {
                 if (sleep.isBlank()|| sleep!="0") {
                     binding.stepsInput.isEnabled=false
                 }
+            }
+        }
+    }
+
+    private  fun observeDistanceData(){
+        lifecycleScope.launch {
+            viewModel.distance.collect{ distance->
+                binding.distanceInput.setText(distance)
+                if(distance.isBlank()|| distance!="0") {
+                    binding.distanceInput.isEnabled=false
+                }
+
             }
         }
     }

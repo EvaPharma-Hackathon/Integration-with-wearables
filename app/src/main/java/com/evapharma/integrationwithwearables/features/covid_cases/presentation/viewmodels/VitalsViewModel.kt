@@ -35,6 +35,9 @@ class VitalsViewModel   @Inject constructor(private val getCovidCasesUseCase: Ge
     private val _sleep = MutableStateFlow("0")
     val sleep: StateFlow<String> = _sleep
 
+    private val _distance = MutableStateFlow("0")
+    val distance: StateFlow<String> = _distance
+
     private val interval: Long = 1
 
 
@@ -88,6 +91,7 @@ class VitalsViewModel   @Inject constructor(private val getCovidCasesUseCase: Ge
             _steps.value = stepsData.metricValue
             _calories.value =  getCovidCasesUseCase.readCaloriesData(interval).first().metricValue
             _sleep.value = getCovidCasesUseCase.readSleepData(interval).first().metricValue
+            _distance.value =getCovidCasesUseCase.readDistanceData(interval).first().metricValue
         }
     }
 }
