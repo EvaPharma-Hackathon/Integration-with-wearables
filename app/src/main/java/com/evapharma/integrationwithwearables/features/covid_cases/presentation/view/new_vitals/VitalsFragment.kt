@@ -91,5 +91,4 @@ class VitalsFragment : BaseFragment<FragmentVitalsBinding, VitalsViewModel>() {
             }
         }
     }
-
 }
