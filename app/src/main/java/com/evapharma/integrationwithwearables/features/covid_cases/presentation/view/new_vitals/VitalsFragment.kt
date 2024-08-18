@@ -88,7 +88,7 @@ class VitalsFragment : BaseFragment<FragmentVitalsBinding, VitalsViewModel>() {
                 binding.heartRateInput.setText(data.heartRate)
                 binding.weightInput.setText(data.weight)
                 binding.heightInput.setText(data.height)
-                binding.bodyTemperatureInput.setText(data.temperature)
+             //   binding.bodyTemperatureInput.setText(data.temperature)
             }
         }
     }

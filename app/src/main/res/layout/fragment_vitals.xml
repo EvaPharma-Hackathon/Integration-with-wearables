@@ -66,6 +66,7 @@
                 app:suffixText="@string/mmHG">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/blood_pressure_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -199,6 +200,7 @@
                 app:suffixText="@string/bpm">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/respiratory_rate_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"/>
