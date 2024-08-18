@@ -13,6 +13,8 @@ val requiredHealthPermission = setOf(
     HealthPermission.getReadPermission(BloodGlucoseRecord::class),
     HealthPermission.getReadPermission(HeartRateRecord::class),
     HealthPermission.getReadPermission(OxygenSaturationRecord::class),
+    HealthPermission.getReadPermission(HeightRecord::class),
+    HealthPermission.getReadPermission(WeightRecord::class),
     HealthPermission.getWritePermission(StepsRecord::class),
     HealthPermission.getWritePermission(SleepSessionRecord::class),
     HealthPermission.getWritePermission(DistanceRecord::class),
@@ -21,6 +23,7 @@ val requiredHealthPermission = setOf(
     HealthPermission.getWritePermission(BloodGlucoseRecord::class),
     HealthPermission.getWritePermission(HeartRateRecord::class),
     HealthPermission.getWritePermission(OxygenSaturationRecord::class),
-
+    HealthPermission.getWritePermission(HeightRecord::class),
+    HealthPermission.getWritePermission(WeightRecord::class)
 )
 

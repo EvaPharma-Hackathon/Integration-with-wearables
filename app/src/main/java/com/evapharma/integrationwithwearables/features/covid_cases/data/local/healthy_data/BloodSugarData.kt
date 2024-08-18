@@ -7,14 +7,14 @@ import androidx.health.connect.client.request.ReadRecordsRequest
 import androidx.health.connect.client.time.TimeRangeFilter
 import com.evapharma.integrationwithwearables.core.utils.dateTimeFormatter
 import com.evapharma.integrationwithwearables.features.covid_cases.data.local.model.DataType
-import com.evapharma.integrationwithwearables.features.covid_cases.data.local.model.VitalsData
+import com.evapharma.integrationwithwearables.features.covid_cases.data.local.model.VitalsRecord
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.TimeZone
 
 class BloodSugarData(private val healthConnectClient: HealthConnectClient) : HealthDataReader {
-    override suspend fun readDataForInterval(interval: Long): List<VitalsData> {
+    override suspend fun readDataForInterval(interval: Long): List<VitalsRecord> {
         val startTime = LocalDate.now().atStartOfDay(ZoneId.systemDefault())
         val endTime = LocalDateTime.now().atZone(TimeZone.getDefault().toZoneId()).minusMinutes(1)
             .plusSeconds(59)
@@ -30,7 +30,7 @@ class BloodSugarData(private val healthConnectClient: HealthConnectClient) : Hea
             )
         )
 
-        val bloodSugarData = mutableListOf<VitalsData>()
+        val bloodSugarData = mutableListOf<VitalsRecord>()
 
         if (response.records.isNotEmpty()) {
             val averageBloodSugar = response.records
@@ -38,7 +38,7 @@ class BloodSugarData(private val healthConnectClient: HealthConnectClient) : Hea
                 .average()
 
             bloodSugarData.add(
-                VitalsData(
+                VitalsRecord(
                     metricValue = averageBloodSugar.toString(),
                     dataType = DataType.BLOOD_SUGAR,
                     toDatetime = endTime.format(dateTimeFormatter),
@@ -47,7 +47,7 @@ class BloodSugarData(private val healthConnectClient: HealthConnectClient) : Hea
             )
         } else {
             bloodSugarData.add(
-                VitalsData(
+                VitalsRecord(
                     metricValue = "0.0",
                     dataType = DataType.BLOOD_SUGAR,
                     toDatetime = endTime.format(dateTimeFormatter),

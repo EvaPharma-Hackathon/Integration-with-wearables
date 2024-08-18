@@ -6,6 +6,7 @@ import androidx.health.connect.client.HealthConnectClient
 import androidx.lifecycle.viewModelScope
 import com.evapharma.integrationwithwearables.core.MVIBaseViewModel
 import com.evapharma.integrationwithwearables.core.models.DataState
+import com.evapharma.integrationwithwearables.features.covid_cases.data.remote.model.VitalsData
 import com.evapharma.integrationwithwearables.features.covid_cases.domain.use_cases.GetCovidCasesUseCase
 import com.evapharma.integrationwithwearables.features.covid_cases.presentation.CovidCasesActions
 import com.evapharma.integrationwithwearables.features.covid_cases.presentation.CovidCasesResults
@@ -26,26 +27,8 @@ class VitalsViewModel   @Inject constructor(private val getCovidCasesUseCase: Ge
     private val _covidCasesStateFlow: MutableStateFlow<CovidCasesViewState> =
         MutableStateFlow(CovidCasesViewState(isIdle = true))
 
-    private val _steps = MutableStateFlow("0")
-    val steps: StateFlow<String> = _steps
-
-    private val _calories = MutableStateFlow("0")
-    val calories: StateFlow<String> = _calories
-
-    private val _sleep = MutableStateFlow("0")
-    val sleep: StateFlow<String> = _sleep
-
-    private val _distance = MutableStateFlow("0")
-    val distance: StateFlow<String> = _distance
-
-    private val _bloodSugar = MutableStateFlow("0")
-    val bloodSugar: StateFlow<String> = _bloodSugar
-
-    private val _oxygenSaturation = MutableStateFlow("0")
-    val oxygenSaturation: StateFlow<String> = _oxygenSaturation
-
-    private val _heartRate = MutableStateFlow("0")
-    val heartRate: StateFlow<String> = _heartRate
+    private val _vitalsData = MutableStateFlow(VitalsData())
+    val vitalsData: StateFlow<VitalsData> = _vitalsData
 
     private val interval: Long = 1
 
@@ -95,16 +78,17 @@ class VitalsViewModel   @Inject constructor(private val getCovidCasesUseCase: Ge
     }
     fun fetchHealthData() {
         viewModelScope.launch {
-            val stepsData = getCovidCasesUseCase.readStepsData(interval).first()
-            Log.d("ViewModel", "Fetched steps data: ${stepsData.metricValue}")
-            _steps.value = stepsData.metricValue
-            _calories.value =  getCovidCasesUseCase.readCaloriesData(interval).first().metricValue
-            _sleep.value = getCovidCasesUseCase.readSleepData(interval).first().metricValue
-            _distance.value =getCovidCasesUseCase.readDistanceData(interval).first().metricValue
-            _bloodSugar.value = getCovidCasesUseCase.readBloodSugarData(interval).first().metricValue
-            _oxygenSaturation.value = getCovidCasesUseCase.readOxygenSaturationData(interval).first().metricValue
-            _heartRate.value = getCovidCasesUseCase.readHeartRateData(interval).first().metricValue
-
+            _vitalsData.value = VitalsData(
+                steps =  getCovidCasesUseCase.readStepsData(interval).first().metricValue,
+                calories = getCovidCasesUseCase.readCaloriesData(interval).first().metricValue,
+                sleep = getCovidCasesUseCase.readSleepData(interval).first().metricValue,
+                distance = getCovidCasesUseCase.readDistanceData(interval).first().metricValue,
+                bloodSugar = getCovidCasesUseCase.readBloodSugarData(interval).first().metricValue,
+                oxygenSaturation = getCovidCasesUseCase.readOxygenSaturationData(interval).first().metricValue,
+                heartRate = getCovidCasesUseCase.readHeartRateData(interval).first().metricValue,
+                weight = getCovidCasesUseCase.readWeightData(interval).first().metricValue,
+                height = getCovidCasesUseCase.readHeightData(interval).first().metricValue
+            )
         }
     }
 }

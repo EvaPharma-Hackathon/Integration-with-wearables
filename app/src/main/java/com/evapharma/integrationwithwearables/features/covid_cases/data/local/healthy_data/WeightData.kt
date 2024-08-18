@@ -2,49 +2,61 @@ package com.evapharma.integrationwithwearables.features.covid_cases.data.local.h
 
 import android.util.Log
 import androidx.health.connect.client.HealthConnectClient
-import androidx.health.connect.client.records.StepsRecord
-import androidx.health.connect.client.request.AggregateGroupByPeriodRequest
+import androidx.health.connect.client.records.WeightRecord
+import androidx.health.connect.client.request.ReadRecordsRequest
 import androidx.health.connect.client.time.TimeRangeFilter
 import com.evapharma.integrationwithwearables.core.utils.dateTimeFormatter
 import com.evapharma.integrationwithwearables.features.covid_cases.data.local.model.DataType
 import com.evapharma.integrationwithwearables.features.covid_cases.data.local.model.VitalsRecord
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.Period
 import java.time.ZoneId
 import java.util.TimeZone
 
-
-class StepsData (private val healthConnectClient: HealthConnectClient) : HealthDataReader{
+class WeightData(private val healthConnectClient: HealthConnectClient) : HealthDataReader {
     override suspend fun readDataForInterval(interval: Long): List<VitalsRecord> {
         val startTime = LocalDate.now().atStartOfDay(ZoneId.systemDefault())
         val endTime = LocalDateTime.now().atZone(TimeZone.getDefault().toZoneId()).minusMinutes(1)
             .plusSeconds(59)
         Log.i("TAG", "readDataForInterval: $startTime   && $endTime")
-        val response = healthConnectClient.aggregateGroupByPeriod(
-            AggregateGroupByPeriodRequest(
-                metrics = setOf(StepsRecord.COUNT_TOTAL),
+
+        val response = healthConnectClient.readRecords(
+            ReadRecordsRequest(
+                WeightRecord::class,
                 timeRangeFilter = TimeRangeFilter.between(
                     startTime.toLocalDate().atStartOfDay(),
                     endTime.toLocalDateTime()
-                ),
-                timeRangeSlicer = Period.ofDays(1)
+                )
             )
         )
-        if (response != null) {
-            val stepsData = mutableListOf<VitalsRecord>()
-            val totalSteps = response.firstOrNull()?.result?.get(StepsRecord.COUNT_TOTAL) ?: 0
-            stepsData.add(
+
+        val weightData = mutableListOf<VitalsRecord>()
+
+        if (response.records.isNotEmpty()) {
+            val averageWeight = response.records
+                .map { it.weight.inKilograms }
+                .average()
+
+            weightData.add(
                 VitalsRecord(
-                    metricValue = totalSteps.toString(),
-                    dataType = DataType.STEPS,
+                    metricValue = averageWeight.toString(),
+                    dataType = DataType.WEIGHT,
                     toDatetime = endTime.format(dateTimeFormatter),
                     fromDatetime = startTime.format(dateTimeFormatter)
                 )
             )
-            Log.d("Data", stepsData.toString())
-            return stepsData
+        } else {
+            weightData.add(
+                VitalsRecord(
+                    metricValue = "0.0",
+                    dataType = DataType.WEIGHT,
+                    toDatetime = endTime.format(dateTimeFormatter),
+                    fromDatetime = startTime.format(dateTimeFormatter)
+                )
+            )
         }
-        return emptyList()
+
+        Log.d("Data", weightData.toString())
+        return weightData
     }
 }

@@ -1,6 +1,6 @@
 package com.evapharma.integrationwithwearables.features.covid_cases.data.local.model
 
-data class VitalsData (
+data class VitalsRecord (
     val metricValue: String,
     val dataType: DataType,
     val toDatetime: String,
@@ -8,5 +8,5 @@ data class VitalsData (
 )
 
 enum class DataType {
-    STEPS, DISTANCE, SLEEP, CALORIES ,BLOOD_SUGAR , OXYGEN_SATURATION , HEART_RATE
+    STEPS, DISTANCE, SLEEP, CALORIES ,BLOOD_SUGAR , OXYGEN_SATURATION , HEART_RATE , WEIGHT , HEIGHT
 }

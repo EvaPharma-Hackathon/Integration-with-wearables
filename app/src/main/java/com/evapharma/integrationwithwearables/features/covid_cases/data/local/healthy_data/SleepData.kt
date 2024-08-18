@@ -7,17 +7,17 @@ import androidx.health.connect.client.request.ReadRecordsRequest
 import androidx.health.connect.client.time.TimeRangeFilter
 import com.evapharma.integrationwithwearables.core.utils.dateTimeFormatter
 import com.evapharma.integrationwithwearables.features.covid_cases.data.local.model.DataType
-import com.evapharma.integrationwithwearables.features.covid_cases.data.local.model.VitalsData
+import com.evapharma.integrationwithwearables.features.covid_cases.data.local.model.VitalsRecord
 import java.time.Duration
 import java.time.LocalDate
 import java.time.ZoneId
 
 class SleepData(private val healthConnectClient: HealthConnectClient) : HealthDataReader {
 
-    override suspend fun readDataForInterval(interval: Long): List<VitalsData> {
+    override suspend fun readDataForInterval(interval: Long): List<VitalsRecord> {
         val startOfDay = LocalDate.now().atStartOfDay(ZoneId.systemDefault())
         val endOfDay = startOfDay.plusDays(1).minusNanos(1)
-        val sleepData = mutableListOf<VitalsData>()
+        val sleepData = mutableListOf<VitalsRecord>()
         val response = healthConnectClient.readRecords(
             ReadRecordsRequest(
                 SleepSessionRecord::class,
@@ -30,7 +30,7 @@ class SleepData(private val healthConnectClient: HealthConnectClient) : HealthDa
         if (response != null) {
             if (response.records.isEmpty()) {
                 sleepData.add(
-                    VitalsData(
+                    VitalsRecord(
                         metricValue = "0",
                         dataType = DataType.SLEEP,
                         toDatetime = endOfDay.format(dateTimeFormatter),
@@ -43,7 +43,7 @@ class SleepData(private val healthConnectClient: HealthConnectClient) : HealthDa
                 for (index in 1 until response.records.size) {
                     if (response.records[index].startTime > end) {
                         sleepData.add(
-                            VitalsData(
+                            VitalsRecord(
                                 metricValue = Duration.between(start, end).toHours().toString(),
                                 dataType = DataType.SLEEP,
                                 toDatetime = end.atZone(ZoneId.systemDefault()).format(dateTimeFormatter),
@@ -57,7 +57,7 @@ class SleepData(private val healthConnectClient: HealthConnectClient) : HealthDa
                     }
                 }
                 sleepData.add(
-                    VitalsData(
+                    VitalsRecord(
                         metricValue = Duration.between(start, end).toHours().toString(),
                         dataType = DataType.SLEEP,
                         toDatetime = end.atZone(ZoneId.systemDefault()).format(dateTimeFormatter),

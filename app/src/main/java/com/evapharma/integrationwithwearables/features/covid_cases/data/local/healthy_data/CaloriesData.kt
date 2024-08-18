@@ -7,7 +7,7 @@ import androidx.health.connect.client.request.AggregateGroupByPeriodRequest
 import androidx.health.connect.client.time.TimeRangeFilter
 import com.evapharma.integrationwithwearables.core.utils.dateTimeFormatter
 import com.evapharma.integrationwithwearables.features.covid_cases.data.local.model.DataType
-import com.evapharma.integrationwithwearables.features.covid_cases.data.local.model.VitalsData
+import com.evapharma.integrationwithwearables.features.covid_cases.data.local.model.VitalsRecord
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -16,7 +16,7 @@ import java.time.ZoneId
 
 
 class CaloriesData  (private val healthConnectClient: HealthConnectClient) : HealthDataReader{
-    override suspend fun readDataForInterval(interval: Long): List<VitalsData> {
+    override suspend fun readDataForInterval(interval: Long): List<VitalsRecord> {
         val today = LocalDateTime.now().toLocalDate()
         val startTime = today.atStartOfDay(ZoneId.systemDefault())
         val endTime = today.atTime(LocalTime.MAX).atZone(ZoneId.systemDefault())
@@ -30,7 +30,7 @@ class CaloriesData  (private val healthConnectClient: HealthConnectClient) : Hea
                 timeRangeSlicer = Period.ofDays(1)
             )
         )
-        val caloriesData = mutableListOf<VitalsData>()
+        val caloriesData = mutableListOf<VitalsRecord>()
         response.let {
             it.sortedBy { record -> record.startTime }
             var trackTime = startTime.toLocalDate().atStartOfDay()
@@ -38,7 +38,7 @@ class CaloriesData  (private val healthConnectClient: HealthConnectClient) : Hea
                 if (dailyResult.startTime.isAfter(trackTime)) {
                     while (trackTime.isBefore(dailyResult.startTime)) {
                         caloriesData.add(
-                            VitalsData(
+                            VitalsRecord(
                                 metricValue = "0",
                                 dataType = DataType.CALORIES,
                                 toDatetime = trackTime.toLocalDate().atTime(LocalTime.MAX)
@@ -53,7 +53,7 @@ class CaloriesData  (private val healthConnectClient: HealthConnectClient) : Hea
                 }
                 val totalKilojoules = dailyResult.result[TotalCaloriesBurnedRecord.ENERGY_TOTAL]?.inKilojoules?.toInt()
                 caloriesData.add(
-                    VitalsData(
+                    VitalsRecord(
                         metricValue = (totalKilojoules ?: 0).toString(),
                         dataType = DataType.CALORIES,
                         toDatetime = dailyResult.endTime.atZone(ZoneId.systemDefault())
@@ -67,7 +67,7 @@ class CaloriesData  (private val healthConnectClient: HealthConnectClient) : Hea
             }
             while (trackTime.isBefore(endTime.toLocalDateTime()) && Duration.between(trackTime, endTime).toMinutes() > 1) {
                 caloriesData.add(
-                    VitalsData(
+                    VitalsRecord(
                         metricValue = "0",
                         dataType = DataType.CALORIES,
                         toDatetime = if (trackTime.toLocalDate().isEqual(endTime.toLocalDate()))
