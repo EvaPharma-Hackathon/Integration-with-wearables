@@ -46,7 +46,7 @@ class BloodPressureData(private val healthConnectClient: HealthConnectClient) : 
 
                 bloodPressureData.add(
                     VitalsRecord(
-                        metricValue = "Systolic: ${averageSystolic.toString()}, Diastolic: ${averageDiastolic.toString()}",
+                        metricValue = "$averageSystolic/$averageDiastolic",
                         dataType = DataType.BLOOD_PRESSURE,
                         toDatetime = endTime.format(dateTimeFormatter),
                         fromDatetime = startTime.format(dateTimeFormatter)

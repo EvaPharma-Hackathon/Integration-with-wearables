@@ -33,7 +33,6 @@ class BodyTemperatureData(private val healthConnectClient: HealthConnectClient) 
         val temperatureData = mutableListOf<VitalsRecord>()
 
         if (response.records.isNotEmpty()) {
-            // Calculate the average body temperature
             val averageTemperature = response.records
                 .map { it.temperature.inCelsius }
                 .average()

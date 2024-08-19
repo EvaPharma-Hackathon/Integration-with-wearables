@@ -3,7 +3,6 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
      android:layout_height="match_parent">
 
@@ -114,7 +113,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/temperature"
                 android:textSize="@dimen/text_size_medium"
                 android:textStyle="bold"
@@ -147,7 +146,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/walking"
                 android:textSize="@dimen/text_size_medium"
                 android:textStyle="bold"
@@ -174,17 +173,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/RespiratoryRateTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/respiratory_rate"
-                android:textSize="@dimen/text_size_medium"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/respiratory_rate_edit_text"
-                app:layout_constraintTop_toBottomOf="@+id/heart_rate_edit_text" />
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/respiratory_rate_edit_text"
                 android:layout_width="150dp"
@@ -195,7 +183,7 @@
                 android:elevation="@dimen/elevation_large"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/temperature_edit_text"
-                app:layout_constraintTop_toBottomOf="@+id/RespiratoryRateTextView"
+                app:layout_constraintTop_toBottomOf="@+id/respiratoryRateTextView"
                 app:placeholderText="Ex:83"
                 app:suffixText="@string/bpm">
 
@@ -203,7 +191,7 @@
                     android:id="@+id/respiratory_rate_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"/>
+                    android:inputType="number" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -212,7 +200,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/weight"
                 android:textSize="@dimen/text_size_medium"
                 android:textStyle="bold"
@@ -243,7 +231,7 @@
                 android:id="@+id/respiratoryRateTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/respiratory_rate"
                 android:textSize="@dimen/text_size_medium"
                 android:textStyle="bold"
@@ -254,7 +242,7 @@
                 android:id="@+id/hightTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/height"
                 android:textSize="@dimen/text_size_medium"
                 android:textStyle="bold"
@@ -287,7 +275,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/oxygen_saturation"
                 android:textSize="@dimen/text_size_medium"
                 android:textStyle="bold"
@@ -321,7 +309,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/random_blood_sugar"
                 android:textSize="@dimen/text_size_medium"
                 android:textStyle="bold"
@@ -393,7 +381,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/smoker"
                 android:textSize="@dimen/text_size_medium"
                 android:textStyle="bold"
@@ -405,7 +393,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/drink_alcohol"
                 android:textSize="@dimen/text_size_medium"
                 android:textStyle="bold"
@@ -456,7 +444,7 @@
                 android:id="@+id/caloriesTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/calories"
                 android:textSize="@dimen/text_size_medium"
                 android:textStyle="bold"
@@ -489,7 +477,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/sleep"
                 android:textSize="@dimen/text_size_medium"
                 android:textStyle="bold"
@@ -520,7 +508,7 @@
                 android:id="@+id/distanceTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/distance"
                 android:textSize="@dimen/text_size_medium"
                 android:textStyle="bold"
