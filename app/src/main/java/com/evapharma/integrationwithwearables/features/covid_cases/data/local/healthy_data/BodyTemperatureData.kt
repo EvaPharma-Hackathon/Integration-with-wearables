@@ -2,7 +2,7 @@ package com.evapharma.integrationwithwearables.features.covid_cases.data.local.h
 
 import android.util.Log
 import androidx.health.connect.client.HealthConnectClient
-import androidx.health.connect.client.records.BloodGlucoseRecord
+import androidx.health.connect.client.records.BodyTemperatureRecord
 import androidx.health.connect.client.request.ReadRecordsRequest
 import androidx.health.connect.client.time.TimeRangeFilter
 import com.evapharma.integrationwithwearables.core.utils.dateTimeFormatter
@@ -13,16 +13,16 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.TimeZone
 
-class BloodSugarData(private val healthConnectClient: HealthConnectClient) : HealthDataReader {
+class BodyTemperatureData(private val healthConnectClient: HealthConnectClient) : HealthDataReader {
     override suspend fun readDataForInterval(interval: Long): List<VitalsRecord> {
         val startTime = LocalDate.now().atStartOfDay(ZoneId.systemDefault())
         val endTime = LocalDateTime.now().atZone(TimeZone.getDefault().toZoneId()).minusMinutes(1)
             .plusSeconds(59)
-        Log.i("TAG", "readDataForInterval: $startTime   && $endTime")
+        Log.i("TAG", "readDataForInterval: $startTime && $endTime")
 
         val response = healthConnectClient.readRecords(
             ReadRecordsRequest(
-                BloodGlucoseRecord::class,
+                BodyTemperatureRecord::class,
                 timeRangeFilter = TimeRangeFilter.between(
                     startTime.toLocalDate().atStartOfDay(),
                     endTime.toLocalDateTime()
@@ -30,33 +30,34 @@ class BloodSugarData(private val healthConnectClient: HealthConnectClient) : Hea
             )
         )
 
-        val bloodSugarData = mutableListOf<VitalsRecord>()
+        val temperatureData = mutableListOf<VitalsRecord>()
 
         if (response.records.isNotEmpty()) {
-            val averageBloodSugar = response.records
-                .map { it.level.inMillimolesPerLiter }
+            // Calculate the average body temperature
+            val averageTemperature = response.records
+                .map { it.temperature.inCelsius }
                 .average()
 
-            bloodSugarData.add(
+            temperatureData.add(
                 VitalsRecord(
-                    metricValue = averageBloodSugar.toString(),
-                    dataType = DataType.BLOOD_SUGAR,
+                    metricValue = averageTemperature.toString(),
+                    dataType = DataType.TEMPERATURE,
                     toDatetime = endTime.format(dateTimeFormatter),
                     fromDatetime = startTime.format(dateTimeFormatter)
                 )
             )
         } else {
-            bloodSugarData.add(
+            temperatureData.add(
                 VitalsRecord(
                     metricValue = "0.0",
-                    dataType = DataType.BLOOD_SUGAR,
+                    dataType = DataType.TEMPERATURE,
                     toDatetime = endTime.format(dateTimeFormatter),
                     fromDatetime = startTime.format(dateTimeFormatter)
                 )
             )
         }
 
-        Log.d("Data", bloodSugarData.toString())
-        return bloodSugarData
+        Log.d("Data", temperatureData.toString())
+        return temperatureData
     }
 }

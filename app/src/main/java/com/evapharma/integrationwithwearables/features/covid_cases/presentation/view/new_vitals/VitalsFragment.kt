@@ -37,14 +37,7 @@ class VitalsFragment : BaseFragment<FragmentVitalsBinding, VitalsViewModel>() {
 
     override fun onFragmentCreated() {
         checkHealthConnectStatus()
-        observeStepsData()
-        observeCaloriesData()
-        observeSleepData()
-        observeDistanceData()
-        observeBloodSugarData()
-        observeOxygenData()
-        observeHealthData()
-
+        observeVitalsData()
     }
 
     private fun setupHealthPermissionLauncher() {
@@ -83,60 +76,22 @@ class VitalsFragment : BaseFragment<FragmentVitalsBinding, VitalsViewModel>() {
     private fun showHealthConnectUpdateDialog() {
         Log.i("TAG", "showHealthConnectUpdateDialog: Please update your Health Connect provider to continue")
     }
-
-    private fun observeStepsData() {
+    private fun observeVitalsData() {
         lifecycleScope.launch {
-            viewModel.steps.collect { steps ->
-                binding.stepsInput.setText(steps)
+            viewModel.vitalsData.collect { data ->
+                binding.stepsInput.setText(data.steps)
+                binding.caloriesInput.setText(data.calories)
+                binding.sleepInput.setText(data.sleep)
+                binding.distanceInput.setText(data.distance)
+                binding.bloodSugarInput.setText(data.bloodSugar)
+                binding.oxygenSaturationInput.setText(data.oxygenSaturation)
+                binding.heartRateInput.setText(data.heartRate)
+                binding.weightInput.setText(data.weight)
+                binding.heightInput.setText(data.height)
+             //   binding.bodyTemperatureInput.setText(data.temperature)
+                binding.bloodPressureInput.setText(data.bloodPressure)
+                binding.respiratoryRateInput.setText(data.respiratoryRate)
             }
         }
     }
-
-    private fun observeCaloriesData() {
-        lifecycleScope.launch {
-            viewModel.calories.collect { calories ->
-                binding.caloriesInput.setText(calories)
-            }
-        }
-    }
-
-    private fun observeSleepData() {
-        lifecycleScope.launch {
-            viewModel.sleep.collect { sleep ->
-                binding.sleepInput.setText(sleep)
-            }
-        }
-    }
-
-    private  fun observeDistanceData(){
-        lifecycleScope.launch {
-            viewModel.distance.collect{ distance->
-                binding.distanceInput.setText(distance)
-            }
-        }
-    }
-
-    private fun observeBloodSugarData() {
-        lifecycleScope.launch {
-            viewModel.bloodSugar.collect { bloodSugar ->
-                binding.bloodSugarInput.setText(bloodSugar)
-            }
-        }
-    }
-
-    private fun observeOxygenData() {
-        lifecycleScope.launch {
-           viewModel.oxygenSaturation.collect{ oxygenSaturation->
-               binding.oxygenSaturationInput.setText(oxygenSaturation)
-           }
-        }
-    }
-
-   private fun observeHealthData() {
-       lifecycleScope.launch {
-           viewModel.heartRate.collect { healthData ->
-               binding.heartRateInput.setText(healthData)
-           }
-       }
-   }
 }

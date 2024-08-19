@@ -1,14 +1,19 @@
 package com.evapharma.integrationwithwearables.features.covid_cases.data.local.data_source
 
-import android.content.Context
-import com.evapharma.integrationwithwearables.features.covid_cases.data.local.model.VitalsData
+import com.evapharma.integrationwithwearables.features.covid_cases.data.local.model.VitalsRecord
 
 interface HealthyLocalDataSource {
-    suspend fun readStepsData(interval: Long): List<VitalsData>
-    suspend fun readCaloriesData(interval: Long): List<VitalsData>
-    suspend fun readSleepData(interval: Long): List<VitalsData>
-    suspend fun readDistanceData(interval: Long): List<VitalsData>
-    suspend fun readBloodSugarData(interval: Long): List<VitalsData>
-    suspend fun readOxygenSaturationData(interval: Long): List<VitalsData>
-    suspend fun readHeartRateData(interval: Long): List<VitalsData>
+    suspend fun readStepsData(interval: Long): List<VitalsRecord>
+    suspend fun readCaloriesData(interval: Long): List<VitalsRecord>
+    suspend fun readSleepData(interval: Long): List<VitalsRecord>
+    suspend fun readDistanceData(interval: Long): List<VitalsRecord>
+    suspend fun readBloodSugarData(interval: Long): List<VitalsRecord>
+    suspend fun readOxygenSaturationData(interval: Long): List<VitalsRecord>
+    suspend fun readHeartRateData(interval: Long): List<VitalsRecord>
+    suspend fun readWeightData(interval: Long): List<VitalsRecord>
+    suspend fun readHeightData(interval: Long): List<VitalsRecord>
+    suspend fun readBodyTemperatureData(interval: Long): List <VitalsRecord>
+    suspend fun readBloodPressureData(interval: Long): List<VitalsRecord>
+    suspend fun readRespiratoryRate(interval: Long): List<VitalsRecord>
+
 }
