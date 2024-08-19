@@ -294,7 +294,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/oxygenSaturationTextView"
                 app:placeholderText="Ex:70"
-                app:suffixText="@string/kg">
+                app:suffixText="%">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/oxygen_saturation_input"
@@ -328,7 +328,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/randomBloodSugarTextView"
                 app:placeholderText="Ex:70"
-                app:suffixText="@string/kg">
+                app:suffixText="mmol/l">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/blood_sugar_input"
@@ -351,7 +351,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/smokerTextView">
 
                 <TextView
-                    android:id="@+id/noSmokerText"
+                    android:id="@+id/yseSmokerText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -362,15 +362,13 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/yesSmokerText"
+                    android:id="@+id/noSmokerText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@color/request_fg"
                     android:padding="@dimen/padding_10"
                     android:text="@string/no"
                     android:textAlignment="center"
-                    android:textColor="@color/primary_shade_400"
                     android:textSize="@dimen/text_size_medium"
                     android:textStyle="bold" />
 
@@ -430,11 +428,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@color/request_fg"
                     android:padding="@dimen/padding_10"
                     android:text="@string/no"
                     android:textAlignment="center"
-                    android:textColor="@color/primary_shade_400"
                     android:textSize="@dimen/text_size_medium"
                     android:textStyle="bold" />
 
@@ -527,7 +523,7 @@
                 app:layout_constraintStart_toEndOf="@+id/sleep_edit_text"
                 app:layout_constraintTop_toBottomOf="@+id/distanceTextView"
                 app:placeholderText="Ex:170"
-                app:suffixText="cal">
+                app:suffixText="m">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/distance_input"

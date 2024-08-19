@@ -14,6 +14,7 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.Period
 import java.time.ZoneId
+import java.util.Locale
 import java.util.TimeZone
 
 class DistanceData (private val healthConnectClient: HealthConnectClient): HealthDataReader {
@@ -58,7 +59,7 @@ class DistanceData (private val healthConnectClient: HealthConnectClient): Healt
                 val totalDistance = dailyResult.result[DistanceRecord.DISTANCE_TOTAL]?.inMiles
                 distanceData.add(
                     VitalsRecord(
-                        metricValue = String.format("%.3f", totalDistance ?: 0.0),
+                        metricValue = String.format(Locale.getDefault(), "%.1f", totalDistance),
                         dataType = DataType.DISTANCE,
                         toDatetime = dailyResult.endTime.atZone(ZoneId.systemDefault())
                             .minusSeconds(1)

@@ -11,6 +11,7 @@ import com.evapharma.integrationwithwearables.features.covid_cases.data.local.mo
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
+import java.util.Locale
 import java.util.TimeZone
 
 class BodyTemperatureData(private val healthConnectClient: HealthConnectClient) : HealthDataReader {
@@ -39,7 +40,7 @@ class BodyTemperatureData(private val healthConnectClient: HealthConnectClient) 
 
             temperatureData.add(
                 VitalsRecord(
-                    metricValue = averageTemperature.toString(),
+                    metricValue = String.format(Locale.getDefault(), "%.1f", averageTemperature),
                     dataType = DataType.TEMPERATURE,
                     toDatetime = endTime.format(dateTimeFormatter),
                     fromDatetime = startTime.format(dateTimeFormatter)
