@@ -2,12 +2,15 @@ package com.evapharma.integrationwithwearables.features.covid_cases.presentation
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
+import androidx.core.content.ContextCompat
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.PermissionController
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.evapharma.integrationwithwearables.R
 import com.evapharma.integrationwithwearables.core.BaseFragment
 import com.evapharma.integrationwithwearables.core.utils.requiredHealthPermission
 import com.evapharma.integrationwithwearables.databinding.FragmentVitalsBinding
@@ -21,6 +24,9 @@ class VitalsFragment : BaseFragment<FragmentVitalsBinding, VitalsViewModel>() {
 
     private lateinit var healthPermissionLauncher: ActivityResultLauncher<Set<String>>
     private val healthInstalled = HealthInstalled()
+
+    private var selectedSmokerTextView: TextView? = null
+    private var selectedAlcoholTextView: TextView? = null
 
     override fun initBinding(): FragmentVitalsBinding {
         return FragmentVitalsBinding.inflate(layoutInflater)
@@ -38,6 +44,7 @@ class VitalsFragment : BaseFragment<FragmentVitalsBinding, VitalsViewModel>() {
     override fun onFragmentCreated() {
         checkHealthConnectStatus()
         observeVitalsData()
+        setupRadioGroupListeners()
     }
 
     private fun setupHealthPermissionLauncher() {
@@ -88,9 +95,44 @@ class VitalsFragment : BaseFragment<FragmentVitalsBinding, VitalsViewModel>() {
                 binding.heartRateInput.setText(data.heartRate)
                 binding.weightInput.setText(data.weight)
                 binding.heightInput.setText(data.height)
-             //   binding.bodyTemperatureInput.setText(data.temperature)
+                binding.bodyTemperatureInput.setText(data.temperature)
                 binding.bloodPressureInput.setText(data.bloodPressure)
                 binding.respiratoryRateInput.setText(data.respiratoryRate)
+            }
+        }
+    }
+
+    private fun setupRadioGroupListeners() {
+        setupTextViewSelection(binding.yseSmokerText, binding.noSmokerText) { selectedTextView ->
+            selectedSmokerTextView?.apply {
+                setBackgroundColor(ContextCompat.getColor(requireContext(), android.R.color.transparent))
+                setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+            }
+
+            selectedTextView.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.request_fg))
+            selectedTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.primary_shade_400))
+            selectedSmokerTextView = selectedTextView
+            Log.i("Smoker Selection", selectedTextView.text.toString())
+        }
+        binding.noSmokerText.performClick()
+        setupTextViewSelection(binding.yesDrinkAlcoholText, binding.noDrinkAlcoholText) { selectedTextView ->
+            selectedAlcoholTextView?.apply {
+                setBackgroundColor(ContextCompat.getColor(requireContext(), android.R.color.transparent))
+                setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+            }
+
+            selectedTextView.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.request_fg))
+            selectedTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.primary_shade_400))
+            selectedAlcoholTextView = selectedTextView
+            Log.i("Alcohol Selection", selectedTextView.text.toString())
+        }
+        binding.noDrinkAlcoholText.performClick()
+    }
+
+    private fun setupTextViewSelection(vararg textViews: TextView, onSelection: (TextView) -> Unit) {
+        for (textView in textViews) {
+            textView.setOnClickListener {
+                onSelection(textView)
             }
         }
     }

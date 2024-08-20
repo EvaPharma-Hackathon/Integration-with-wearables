@@ -35,7 +35,7 @@ class HeartRateData(private val healthConnectClient: HealthConnectClient) : Heal
                 .flatMap { it.samples }
                 .map { it.beatsPerMinute }
                 .average()
-
+                .toInt()
             heartRateData.add(
                 VitalsRecord(
                     metricValue = averageHeartRate.toString(),

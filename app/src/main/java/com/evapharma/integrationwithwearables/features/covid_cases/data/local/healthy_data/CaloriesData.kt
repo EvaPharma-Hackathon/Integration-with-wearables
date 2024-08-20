@@ -51,7 +51,7 @@ class CaloriesData  (private val healthConnectClient: HealthConnectClient) : Hea
                         trackTime = trackTime.plusDays(1).toLocalDate().atStartOfDay()
                     }
                 }
-                val totalKilojoules = dailyResult.result[TotalCaloriesBurnedRecord.ENERGY_TOTAL]?.inKilojoules?.toInt()
+                val totalKilojoules = dailyResult.result[TotalCaloriesBurnedRecord.ENERGY_TOTAL]?.inKilocalories?.toInt()
                 caloriesData.add(
                     VitalsRecord(
                         metricValue = (totalKilojoules ?: 0).toString(),
