@@ -1,6 +1,5 @@
 package com.evapharma.integrationwithwearables.features.covid_cases.data.local.healthy_data
 
-import android.util.Log
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.records.HeightRecord
 import androidx.health.connect.client.request.ReadRecordsRequest
@@ -18,7 +17,6 @@ class HeightData(private val healthConnectClient: HealthConnectClient) : HealthD
         val startTime = LocalDate.now().atStartOfDay(ZoneId.systemDefault())
         val endTime = LocalDateTime.now().atZone(TimeZone.getDefault().toZoneId()).minusMinutes(1)
             .plusSeconds(59)
-        Log.i("TAG", "readDataForInterval: $startTime   && $endTime")
 
         val response = healthConnectClient.readRecords(
             ReadRecordsRequest(
@@ -33,9 +31,7 @@ class HeightData(private val healthConnectClient: HealthConnectClient) : HealthD
         val heightData = mutableListOf<VitalsRecord>()
 
         if (response.records.isNotEmpty()) {
-            val averageHeight = response.records
-                .map { it.height.inMeters }
-                .average()
+            val averageHeight = response.records.map { it.height.inMeters }.average()
 
             heightData.add(
                 VitalsRecord(
@@ -55,8 +51,6 @@ class HeightData(private val healthConnectClient: HealthConnectClient) : HealthD
                 )
             )
         }
-
-        Log.d("Data", heightData.toString())
-        return heightData
+          return heightData
     }
 }

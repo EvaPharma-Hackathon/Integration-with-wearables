@@ -20,9 +20,6 @@ class RespiratoryRateData(private val healthConnectClient: HealthConnectClient) 
         val endTime = LocalDateTime.now().atZone(TimeZone.getDefault().toZoneId()).minusMinutes(1)
             .plusSeconds(59)
 
-        Log.i("TAG", "readDataForInterval: StartTime: $startTime   EndTime: $endTime")
-
-        return try {
             val response = healthConnectClient.readRecords(
                 ReadRecordsRequest(
                     RespiratoryRateRecord::class,
@@ -36,9 +33,7 @@ class RespiratoryRateData(private val healthConnectClient: HealthConnectClient) 
             val respiratoryRateData = mutableListOf<VitalsRecord>()
 
             if (response.records.isNotEmpty()) {
-                val averageRate = response.records
-                    .map { it.rate }
-                    .average()
+                val averageRate = response.records.map { it.rate }.average()
 
                 respiratoryRateData.add(
                     VitalsRecord(
@@ -58,20 +53,6 @@ class RespiratoryRateData(private val healthConnectClient: HealthConnectClient) 
                     )
                 )
             }
-
-            Log.d("Data", respiratoryRateData.toString())
-            respiratoryRateData
-
-        } catch (e: Exception) {
-            Log.e("Error", "Failed to read respiratory rate data", e)
-            listOf(
-                VitalsRecord(
-                    metricValue = "0.0",
-                    dataType = DataType.RESPIRATORY_RATE,
-                    toDatetime = endTime.format(dateTimeFormatter),
-                    fromDatetime = startTime.format(dateTimeFormatter)
-                )
-            )
-        }
+           return  respiratoryRateData
     }
 }

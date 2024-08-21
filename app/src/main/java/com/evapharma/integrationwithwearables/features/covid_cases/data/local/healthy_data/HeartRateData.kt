@@ -18,7 +18,6 @@ class HeartRateData(private val healthConnectClient: HealthConnectClient) : Heal
         val startTime = LocalDate.now().atStartOfDay(ZoneId.systemDefault())
         val endTime = LocalDateTime.now().atZone(TimeZone.getDefault().toZoneId()).minusMinutes(1)
             .plusSeconds(59)
-        Log.i("TAG", "readDataForInterval: $startTime   && $endTime")
 
         val response = healthConnectClient.readRecords(
             ReadRecordsRequest(
@@ -31,11 +30,7 @@ class HeartRateData(private val healthConnectClient: HealthConnectClient) : Heal
         )
         val heartRateData = mutableListOf<VitalsRecord>()
         if (response.records.isNotEmpty()) {
-            val averageHeartRate = response.records
-                .flatMap { it.samples }
-                .map { it.beatsPerMinute }
-                .average()
-                .toInt()
+            val averageHeartRate = response.records.flatMap { it.samples }.map { it.beatsPerMinute }.average().toInt()
             heartRateData.add(
                 VitalsRecord(
                     metricValue = averageHeartRate.toString(),
@@ -54,8 +49,6 @@ class HeartRateData(private val healthConnectClient: HealthConnectClient) : Heal
                 )
             )
         }
-
-        Log.d("Data", heartRateData.toString())
         return heartRateData
     }
 }

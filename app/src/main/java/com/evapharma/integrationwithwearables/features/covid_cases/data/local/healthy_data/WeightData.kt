@@ -1,6 +1,5 @@
 package com.evapharma.integrationwithwearables.features.covid_cases.data.local.healthy_data
 
-import android.util.Log
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.records.WeightRecord
 import androidx.health.connect.client.request.ReadRecordsRequest
@@ -18,7 +17,6 @@ class WeightData(private val healthConnectClient: HealthConnectClient) : HealthD
         val startTime = LocalDate.now().atStartOfDay(ZoneId.systemDefault())
         val endTime = LocalDateTime.now().atZone(TimeZone.getDefault().toZoneId()).minusMinutes(1)
             .plusSeconds(59)
-        Log.i("TAG", "readDataForInterval: $startTime   && $endTime")
 
         val response = healthConnectClient.readRecords(
             ReadRecordsRequest(
@@ -55,8 +53,6 @@ class WeightData(private val healthConnectClient: HealthConnectClient) : HealthD
                 )
             )
         }
-
-        Log.d("Data", weightData.toString())
         return weightData
     }
 }

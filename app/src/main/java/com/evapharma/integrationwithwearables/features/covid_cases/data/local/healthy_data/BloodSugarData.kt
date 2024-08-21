@@ -18,8 +18,6 @@ class BloodSugarData(private val healthConnectClient: HealthConnectClient) : Hea
         val startTime = LocalDate.now().atStartOfDay(ZoneId.systemDefault())
         val endTime = LocalDateTime.now().atZone(TimeZone.getDefault().toZoneId()).minusMinutes(1)
             .plusSeconds(59)
-        Log.i("TAG", "readDataForInterval: $startTime   && $endTime")
-
         val response = healthConnectClient.readRecords(
             ReadRecordsRequest(
                 BloodGlucoseRecord::class,
@@ -29,13 +27,10 @@ class BloodSugarData(private val healthConnectClient: HealthConnectClient) : Hea
                 )
             )
         )
-
         val bloodSugarData = mutableListOf<VitalsRecord>()
-
         if (response.records.isNotEmpty()) {
             val averageBloodSugar = response.records
-                .map { it.level.inMillimolesPerLiter }
-                .average()
+                .map { it.level.inMillimolesPerLiter }.average()
 
             bloodSugarData.add(
                 VitalsRecord(
@@ -55,8 +50,6 @@ class BloodSugarData(private val healthConnectClient: HealthConnectClient) : Hea
                 )
             )
         }
-
-        Log.d("Data", bloodSugarData.toString())
-        return bloodSugarData
+         return bloodSugarData
     }
 }

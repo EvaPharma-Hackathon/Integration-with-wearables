@@ -20,10 +20,6 @@ class BloodPressureData(private val healthConnectClient: HealthConnectClient) : 
         val startTime = LocalDate.now().atStartOfDay(ZoneId.systemDefault())
         val endTime = LocalDateTime.now().atZone(TimeZone.getDefault().toZoneId()).minusMinutes(1)
             .plusSeconds(59)
-
-        Log.i("TAG", "readDataForInterval: StartTime: $startTime   EndTime: $endTime")
-
-        return try {
             val response = healthConnectClient.readRecords(
                 ReadRecordsRequest(
                     BloodPressureRecord::class,
@@ -37,12 +33,8 @@ class BloodPressureData(private val healthConnectClient: HealthConnectClient) : 
             val bloodPressureData = mutableListOf<VitalsRecord>()
 
             if (response.records.isNotEmpty()) {
-                val averageSystolic = response.records
-                    .map { it.systolic.inMillimetersOfMercury }
-                    .average()
-                val averageDiastolic = response.records
-                    .map { it.diastolic.inMillimetersOfMercury }
-                    .average()
+                val averageSystolic = response.records.map { it.systolic.inMillimetersOfMercury }.average()
+                val averageDiastolic = response.records.map { it.diastolic.inMillimetersOfMercury }.average()
 
                 bloodPressureData.add(
                     VitalsRecord(
@@ -62,20 +54,6 @@ class BloodPressureData(private val healthConnectClient: HealthConnectClient) : 
                     )
                 )
             }
-
-            Log.d("Data", bloodPressureData.toString())
-            bloodPressureData
-
-        } catch (e: Exception) {
-            Log.e("Error", "Failed to read blood pressure data", e)
-            listOf(
-                VitalsRecord(
-                    metricValue = "0.0",
-                    dataType = DataType.BLOOD_PRESSURE,
-                    toDatetime = endTime.format(dateTimeFormatter),
-                    fromDatetime = startTime.format(dateTimeFormatter)
-                )
-            )
-        }
+         return  bloodPressureData
     }
 }

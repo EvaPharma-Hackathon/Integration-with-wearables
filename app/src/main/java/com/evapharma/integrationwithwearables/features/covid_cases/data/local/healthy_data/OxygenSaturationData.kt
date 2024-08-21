@@ -1,6 +1,5 @@
 package com.evapharma.integrationwithwearables.features.covid_cases.data.local.healthy_data
 
-import android.util.Log
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.records.OxygenSaturationRecord
 import androidx.health.connect.client.request.ReadRecordsRequest
@@ -18,7 +17,6 @@ class OxygenSaturationData(private val healthConnectClient: HealthConnectClient)
         val startTime = LocalDate.now().atStartOfDay(ZoneId.systemDefault())
         val endTime = LocalDateTime.now().atZone(TimeZone.getDefault().toZoneId()).minusMinutes(1)
             .plusSeconds(59)
-        Log.i("TAG", "readDataForInterval: $startTime   && $endTime")
 
         val response = healthConnectClient.readRecords(
             ReadRecordsRequest(
@@ -33,9 +31,7 @@ class OxygenSaturationData(private val healthConnectClient: HealthConnectClient)
         val oxygenSaturationData = mutableListOf<VitalsRecord>()
 
         if (response.records.isNotEmpty()) {
-            val averageOxygenSaturation = response.records
-                .map { it.percentage.value }
-                .average()
+            val averageOxygenSaturation = response.records.map { it.percentage.value }.average()
 
             oxygenSaturationData.add(
                 VitalsRecord(
@@ -55,8 +51,6 @@ class OxygenSaturationData(private val healthConnectClient: HealthConnectClient)
                 )
             )
         }
-
-        Log.d("Data", oxygenSaturationData.toString())
-        return oxygenSaturationData
+           return oxygenSaturationData
     }
 }

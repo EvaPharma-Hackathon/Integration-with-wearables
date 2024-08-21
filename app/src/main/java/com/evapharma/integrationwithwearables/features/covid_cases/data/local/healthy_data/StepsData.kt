@@ -1,6 +1,5 @@
 package com.evapharma.integrationwithwearables.features.covid_cases.data.local.healthy_data
 
-import android.util.Log
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.records.StepsRecord
 import androidx.health.connect.client.request.AggregateGroupByPeriodRequest
@@ -20,7 +19,6 @@ class StepsData (private val healthConnectClient: HealthConnectClient) : HealthD
         val startTime = LocalDate.now().atStartOfDay(ZoneId.systemDefault())
         val endTime = LocalDateTime.now().atZone(TimeZone.getDefault().toZoneId()).minusMinutes(1)
             .plusSeconds(59)
-        Log.i("TAG", "readDataForInterval: $startTime   && $endTime")
         val response = healthConnectClient.aggregateGroupByPeriod(
             AggregateGroupByPeriodRequest(
                 metrics = setOf(StepsRecord.COUNT_TOTAL),
@@ -31,8 +29,8 @@ class StepsData (private val healthConnectClient: HealthConnectClient) : HealthD
                 timeRangeSlicer = Period.ofDays(1)
             )
         )
-        if (response != null) {
-            val stepsData = mutableListOf<VitalsRecord>()
+        val stepsData = mutableListOf<VitalsRecord>()
+        if (response.isNotEmpty() ) {
             val totalSteps = response.firstOrNull()?.result?.get(StepsRecord.COUNT_TOTAL) ?: 0
             stepsData.add(
                 VitalsRecord(
@@ -42,9 +40,17 @@ class StepsData (private val healthConnectClient: HealthConnectClient) : HealthD
                     fromDatetime = startTime.format(dateTimeFormatter)
                 )
             )
-            Log.d("Data", stepsData.toString())
-            return stepsData
+        } else
+        {
+            stepsData.add(
+                VitalsRecord(
+                    metricValue = "0",
+                    dataType = DataType.STEPS,
+                    toDatetime = endTime.format(dateTimeFormatter),
+                    fromDatetime = startTime.format(dateTimeFormatter)
+                )
+            )
         }
-        return emptyList()
+       return stepsData
     }
 }

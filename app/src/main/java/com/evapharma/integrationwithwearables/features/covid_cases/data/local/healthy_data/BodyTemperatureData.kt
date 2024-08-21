@@ -19,7 +19,6 @@ class BodyTemperatureData(private val healthConnectClient: HealthConnectClient) 
         val startTime = LocalDate.now().atStartOfDay(ZoneId.systemDefault())
         val endTime = LocalDateTime.now().atZone(TimeZone.getDefault().toZoneId()).minusMinutes(1)
             .plusSeconds(59)
-        Log.i("TAG", "readDataForInterval: $startTime && $endTime")
 
         val response = healthConnectClient.readRecords(
             ReadRecordsRequest(
@@ -35,9 +34,7 @@ class BodyTemperatureData(private val healthConnectClient: HealthConnectClient) 
 
         if (response.records.isNotEmpty()) {
             val averageTemperature = response.records
-                .map { it.temperature.inCelsius }
-                .average()
-
+                .map { it.temperature.inCelsius }.average()
             temperatureData.add(
                 VitalsRecord(
                     metricValue = String.format(Locale.getDefault(), "%.1f", averageTemperature),
@@ -56,8 +53,6 @@ class BodyTemperatureData(private val healthConnectClient: HealthConnectClient) 
                 )
             )
         }
-
-        Log.d("Data", temperatureData.toString())
         return temperatureData
     }
 }
