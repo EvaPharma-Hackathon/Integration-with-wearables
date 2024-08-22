@@ -18,7 +18,10 @@ class HealthInstalled {
     }
 
     suspend fun checkPermissions(): Boolean {
-        val granted = healthConnectClient?.permissionController?.getGrantedPermissions()
-        return granted?.containsAll(requiredHealthPermission) ?: false
+        return healthConnectClient?.let {
+            val granted = it.permissionController.getGrantedPermissions()
+            granted.containsAll(requiredHealthPermission)
+        } ?: false
     }
 }
+

@@ -161,4 +161,12 @@
     <string name="drink_alcohol">Drink Alcohol</string>
     <string name="add_now">Add Now</string>
     <string name="permissions_msg">You can now sync with your smartwatch and view health data in one place. Please grant the necessary permissions in settings</string>
-  </resources>
+    <string name="sdk_unavailable_message">Health Connect SDK is not available on this device.</string>
+    <string name="sdk_update_required_message">Please update your Health Connect provider to continue.</string>
+    <string name="sdk_download_message">Health Connect is not installed on your device. Would you like to download it from the Play Store?</string>
+    <string name="download">Download</string>
+    <string name="unexpected_error_message">An unexpected error occurred. Please try again later.</string>
+   <string name="cancel">Cancel</string>
+
+
+</resources>

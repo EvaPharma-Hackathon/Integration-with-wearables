@@ -2,8 +2,10 @@ package com.evapharma.integrationwithwearables.features.vitals_data.presentation
 
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.core.content.ContextCompat
 import androidx.health.connect.client.HealthConnectClient
@@ -12,6 +14,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.evapharma.integrationwithwearables.R
 import com.evapharma.integrationwithwearables.core.BaseFragment
+import com.evapharma.integrationwithwearables.core.dialogs.ErrorDialog
+import com.evapharma.integrationwithwearables.core.dialogs.PermissionDialog
 import com.evapharma.integrationwithwearables.core.utils.requiredHealthPermission
 import com.evapharma.integrationwithwearables.databinding.FragmentVitalsBinding
 import com.evapharma.integrationwithwearables.features.vitals_data.presentation.viewmodels.VitalsViewModel
@@ -36,11 +40,15 @@ class VitalsFragment : BaseFragment<FragmentVitalsBinding, VitalsViewModel>() {
         viewModel = ViewModelProvider(requireActivity())[VitalsViewModel::class.java]
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         setupHealthPermissionLauncher()
-    }
 
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
     override fun onFragmentCreated() {
         checkHealthConnectStatus()
         observeVitalsData()
@@ -53,21 +61,18 @@ class VitalsFragment : BaseFragment<FragmentVitalsBinding, VitalsViewModel>() {
         ) { granted ->
             if (granted.containsAll(requiredHealthPermission)) {
                 viewModel.fetchHealthData()
-                Log.i("VitalsFragment", "Permissions granted")
-            } else {
-                Log.i("VitalsFragment", "Permissions denied")
             }
         }
     }
 
     private fun checkHealthConnectStatus() {
         lifecycleScope.launch {
-            when (healthInstalled.checkForHealthConnectInstalled(requireContext())) {
+            when ( healthInstalled.checkForHealthConnectInstalled(requireContext())) {
                 HealthConnectClient.SDK_UNAVAILABLE -> {
-                    Toast.makeText(context, "Health Connect is not available on this device.", Toast.LENGTH_SHORT).show()
+                    showErrorDialog((R.string.sdk_unavailable_message).toString())
                 }
                 HealthConnectClient.SDK_UNAVAILABLE_PROVIDER_UPDATE_REQUIRED -> {
-                    showHealthConnectUpdateDialog()
+                    showHealthConnectDownloadDialog()
                 }
                 HealthConnectClient.SDK_AVAILABLE -> {
                     if (!healthInstalled.checkPermissions()) {
@@ -76,13 +81,25 @@ class VitalsFragment : BaseFragment<FragmentVitalsBinding, VitalsViewModel>() {
                         viewModel.fetchHealthData()
                     }
                 }
+                else -> {
+                    showErrorDialog(getString(R.string.unexpected_error_message))
+                }
             }
         }
     }
 
-    private fun showHealthConnectUpdateDialog() {
-        Log.i("TAG", "showHealthConnectUpdateDialog: Please update your Health Connect provider to continue")
+
+    private fun showErrorDialog(message: String) {
+        val errorDialog = ErrorDialog(requireContext())
+        errorDialog.message = message
+        errorDialog.show()
     }
+
+    private fun showHealthConnectDownloadDialog() {
+        val permissionDialog = PermissionDialog(requireContext())
+        permissionDialog.show()
+    }
+
     private fun observeVitalsData() {
         lifecycleScope.launch {
             viewModel.vitalsData.collect { data ->

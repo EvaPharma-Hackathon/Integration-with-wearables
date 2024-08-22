@@ -10,6 +10,7 @@ import com.evapharma.integrationwithwearables.features.vitals_data.data.local.mo
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
+import java.util.Locale
 import java.util.TimeZone
 
 class HeightData(private val healthConnectClient: HealthConnectClient) : HealthDataReader {
@@ -35,7 +36,7 @@ class HeightData(private val healthConnectClient: HealthConnectClient) : HealthD
 
             heightData.add(
                 VitalsRecord(
-                    metricValue = averageHeight.toString(),
+                    metricValue = String.format(Locale.getDefault(),"%.1f", averageHeight*100),
                     dataType = DataType.HEIGHT,
                     toDatetime = endTime.format(dateTimeFormatter),
                     fromDatetime = startTime.format(dateTimeFormatter)

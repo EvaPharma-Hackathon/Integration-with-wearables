@@ -16,66 +16,68 @@ import com.evapharma.integrationwithwearables.features.vitals_data.data.local.he
 import com.evapharma.integrationwithwearables.features.vitals_data.data.local.model.VitalsRecord
 import javax.inject.Inject
 
-class VitalsLocalDataSourceImpl @Inject constructor(private val healthConnectClient: HealthConnectClient) : VitalsLocalDataSource {
+class VitalsLocalDataSourceImpl @Inject constructor(
+    private val healthConnectClient: HealthConnectClient?
+) : VitalsLocalDataSource {
 
-    private val stepsData: StepsData by lazy { StepsData(healthConnectClient) }
-    private val caloriesData: CaloriesData by lazy { CaloriesData(healthConnectClient) }
-    private val sleepData: SleepData by lazy { SleepData(healthConnectClient) }
-    private val distanceData:DistanceData by lazy { DistanceData(healthConnectClient) }
-    private val bloodSugarData: BloodSugarData by lazy { BloodSugarData(healthConnectClient) }
-    private val oxygenSaturationData: OxygenSaturationData by lazy { OxygenSaturationData(healthConnectClient) }
-    private val heartRateData: HeartRateData by lazy { HeartRateData(healthConnectClient) }
-    private val weightData: WeightData by lazy { WeightData(healthConnectClient) }
-    private val heightData: HeightData by lazy { HeightData(healthConnectClient) }
-    private val bodyTemperature: BodyTemperatureData by lazy {BodyTemperatureData(healthConnectClient)}
-    private val bloodPressure: BloodPressureData by lazy {BloodPressureData(healthConnectClient)}
-    private val respiratoryRate: RespiratoryRateData by lazy {RespiratoryRateData(healthConnectClient)}
+    private val stepsData: StepsData? by lazy { healthConnectClient?.let { StepsData(it) } }
+    private val caloriesData: CaloriesData? by lazy { healthConnectClient?.let { CaloriesData(it) } }
+    private val sleepData: SleepData? by lazy { healthConnectClient?.let { SleepData(it) } }
+    private val distanceData: DistanceData? by lazy { healthConnectClient?.let { DistanceData(it) } }
+    private val bloodSugarData: BloodSugarData? by lazy { healthConnectClient?.let { BloodSugarData(it) } }
+    private val oxygenSaturationData: OxygenSaturationData? by lazy { healthConnectClient?.let { OxygenSaturationData(it) } }
+    private val heartRateData: HeartRateData? by lazy { healthConnectClient?.let { HeartRateData(it) } }
+    private val weightData: WeightData? by lazy { healthConnectClient?.let { WeightData(it) } }
+    private val heightData: HeightData? by lazy { healthConnectClient?.let { HeightData(it) } }
+    private val bodyTemperature: BodyTemperatureData? by lazy { healthConnectClient?.let { BodyTemperatureData(it) } }
+    private val bloodPressure: BloodPressureData? by lazy { healthConnectClient?.let { BloodPressureData(it) } }
+    private val respiratoryRate: RespiratoryRateData? by lazy { healthConnectClient?.let { RespiratoryRateData(it) } }
 
     override suspend fun readStepsData(interval: Long): List<VitalsRecord> {
-        return stepsData.readDataForInterval(interval)
+        return stepsData?.readDataForInterval(interval) ?: emptyList()
     }
 
     override suspend fun readCaloriesData(interval: Long): List<VitalsRecord> {
-        return caloriesData.readDataForInterval(interval)
+        return caloriesData?.readDataForInterval(interval) ?: emptyList()
     }
 
     override suspend fun readSleepData(interval: Long): List<VitalsRecord> {
-        return sleepData.readDataForInterval(interval)
+        return sleepData?.readDataForInterval(interval) ?: emptyList()
     }
 
     override suspend fun readDistanceData(interval: Long): List<VitalsRecord> {
-        return distanceData.readDataForInterval(interval)
+        return distanceData?.readDataForInterval(interval) ?: emptyList()
     }
 
     override suspend fun readBloodSugarData(interval: Long): List<VitalsRecord> {
-        return bloodSugarData.readDataForInterval(interval)
+        return bloodSugarData?.readDataForInterval(interval) ?: emptyList()
     }
 
     override suspend fun readOxygenSaturationData(interval: Long): List<VitalsRecord> {
-        return oxygenSaturationData.readDataForInterval(interval)
+        return oxygenSaturationData?.readDataForInterval(interval) ?: emptyList()
     }
 
     override suspend fun readHeartRateData(interval: Long): List<VitalsRecord> {
-        return heartRateData.readDataForInterval(interval)
+        return heartRateData?.readDataForInterval(interval) ?: emptyList()
     }
 
     override suspend fun readWeightData(interval: Long): List<VitalsRecord> {
-        return weightData.readDataForInterval(interval)
+        return weightData?.readDataForInterval(interval) ?: emptyList()
     }
 
     override suspend fun readHeightData(interval: Long): List<VitalsRecord> {
-        return heightData.readDataForInterval(interval)
+        return heightData?.readDataForInterval(interval) ?: emptyList()
     }
 
     override suspend fun readBodyTemperatureData(interval: Long): List<VitalsRecord> {
-        return bodyTemperature.readDataForInterval(interval)
+        return bodyTemperature?.readDataForInterval(interval) ?: emptyList()
     }
 
     override suspend fun readBloodPressureData(interval: Long): List<VitalsRecord> {
-        return bloodPressure.readDataForInterval(interval)
+        return bloodPressure?.readDataForInterval(interval) ?: emptyList()
     }
 
     override suspend fun readRespiratoryRate(interval: Long): List<VitalsRecord> {
-        return respiratoryRate.readDataForInterval(interval)
+        return respiratoryRate?.readDataForInterval(interval) ?: emptyList()
     }
 }

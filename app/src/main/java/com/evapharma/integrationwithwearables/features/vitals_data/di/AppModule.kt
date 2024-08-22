@@ -15,7 +15,12 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideHealthConnectClient(@ApplicationContext context: Context): HealthConnectClient {
-        return HealthConnectClient.getOrCreate(context)
+    fun provideHealthConnectClient(@ApplicationContext context: Context): HealthConnectClient? {
+        val sdkStatus = HealthConnectClient.getSdkStatus(context, "com.google.android.apps.healthdata")
+        return if (sdkStatus == HealthConnectClient.SDK_AVAILABLE) {
+            HealthConnectClient.getOrCreate(context)
+        } else {
+            null
+        }
     }
 }
