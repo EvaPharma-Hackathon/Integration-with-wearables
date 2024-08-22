@@ -7,8 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.evapharma.integrationwithwearables.core.BaseActivity
 import com.evapharma.integrationwithwearables.databinding.ActivityMainBinding
-import com.evapharma.integrationwithwearables.features.covid_cases.presentation.CovidCasesActions
-import com.evapharma.integrationwithwearables.features.covid_cases.presentation.viewmodels.MainViewModel
+import com.evapharma.integrationwithwearables.features.vitals_data.presentation.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

@@ -8,7 +8,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
-        android:name="com.evapharma.integrationwithwearables.features.covid_cases.presentation.view.new_vitals.VitalsFragment"
+        android:name="com.evapharma.integrationwithwearables.features.vitals_data.presentation.view.new_vitals.VitalsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
