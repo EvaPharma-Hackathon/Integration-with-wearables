@@ -44,7 +44,7 @@ class OxygenSaturationData(private val healthConnectClient: HealthConnectClient)
         } else {
             oxygenSaturationData.add(
                 VitalsRecord(
-                    metricValue = "0.0",
+                    metricValue = "",
                     dataType = DataType.OXYGEN_SATURATION,
                     toDatetime = endTime.format(dateTimeFormatter),
                     fromDatetime = startTime.format(dateTimeFormatter)

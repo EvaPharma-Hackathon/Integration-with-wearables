@@ -46,7 +46,7 @@ class BloodPressureData(private val healthConnectClient: HealthConnectClient) : 
             } else {
                 bloodPressureData.add(
                     VitalsRecord(
-                        metricValue = "0.0",
+                        metricValue = "",
                         dataType = DataType.BLOOD_PRESSURE,
                         toDatetime = endTime.format(dateTimeFormatter),
                         fromDatetime = startTime.format(dateTimeFormatter)

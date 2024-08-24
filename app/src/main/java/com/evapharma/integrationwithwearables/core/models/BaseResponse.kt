@@ -8,14 +8,15 @@ import retrofit2.Response
 
 @Keep
 data class BaseResponse<T>(
+    @SerializedName("data")
+    var data: T? = null,
+
     @SerializedName("message")
     var message: String? = null,
 
     @SerializedName("errorList")
-    val errorList: ArrayList<ErrorModel> = ArrayList(),
+    val errorList: ArrayList<ErrorModel> = ArrayList()
 
-    @SerializedName("data")
-    var data: T? = null
 )
 
 fun <T> Response<BaseResponse<T>>.getDataState(): DataState<T> {

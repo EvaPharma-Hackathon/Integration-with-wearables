@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.core.content.ContextCompat
 import androidx.health.connect.client.HealthConnectClient
@@ -18,9 +19,13 @@ import com.evapharma.integrationwithwearables.core.dialogs.ErrorDialog
 import com.evapharma.integrationwithwearables.core.dialogs.PermissionDialog
 import com.evapharma.integrationwithwearables.core.utils.requiredHealthPermission
 import com.evapharma.integrationwithwearables.databinding.FragmentVitalsBinding
+import com.evapharma.integrationwithwearables.features.vitals_data.data.remote.model.NewVitalsRequest
 import com.evapharma.integrationwithwearables.features.vitals_data.presentation.viewmodels.VitalsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.TimeZone
 
 
 @AndroidEntryPoint
@@ -53,6 +58,8 @@ class VitalsFragment : BaseFragment<FragmentVitalsBinding, VitalsViewModel>() {
         checkHealthConnectStatus()
         observeVitalsData()
         setupRadioGroupListeners()
+        addVitals()
+        observeAddVitalsState()
     }
 
     private fun setupHealthPermissionLauncher() {
@@ -115,6 +122,7 @@ class VitalsFragment : BaseFragment<FragmentVitalsBinding, VitalsViewModel>() {
                 binding.bodyTemperatureInput.setText(data.temperature)
                 binding.bloodPressureInput.setText(data.bloodPressure)
                 binding.respiratoryRateInput.setText(data.respiratoryRate)
+
             }
         }
     }
@@ -150,6 +158,56 @@ class VitalsFragment : BaseFragment<FragmentVitalsBinding, VitalsViewModel>() {
         for (textView in textViews) {
             textView.setOnClickListener {
                 onSelection(textView)
+            }
+        }
+    }
+
+    private fun addVitals(){
+        binding.addNowButton.setOnClickListener {
+            addNewVitals()
+        }
+    }
+
+    private fun addNewVitals(){
+        val formattedTime = LocalDateTime.now()
+            .atZone(TimeZone.getDefault().toZoneId())
+            .minusMinutes(1)
+            .plusSeconds(59)
+            .format(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+        val newVitals = NewVitalsRequest(
+            time = formattedTime,
+            sleep = binding.sleepInput.text.toString().toInt(),
+            steps = binding.stepsInput.text.toString().toInt(),
+            distance = binding.distanceInput.text.toString().toFloat().toInt(),
+            bloodPressure = binding.bloodPressureInput.text.toString(),
+            bloodSugar = binding.bloodSugarInput.text.toString().toFloat().toInt(),
+            oxygenSaturation = binding.oxygenSaturationInput.text.toString().toFloat().toInt(),
+            heartRate = binding.heartRateInput.text.toString().toFloat().toInt(),
+            respiratoryRate = binding.respiratoryRateInput.text.toString().toFloat().toInt(),
+            temperature = binding.bodyTemperatureInput.text.toString().toFloat().toInt(),
+            weight = binding.weightInput.text.toString().toFloat().toInt(),
+            height = binding.heightInput.text.toString().toFloat().toInt(),
+            smoker = selectedSmokerTextView?.text.toString(),
+            drinkAlcohol = selectedAlcoholTextView?.text.toString(),
+
+        )
+              viewModel.addNewVitals(newVitals)
+
+    }
+
+    private fun observeAddVitalsState() {
+        lifecycleScope.launch {
+            viewModel.addNewVitalsState.collect { viewState ->
+                if (viewState.isLoading) {
+                    binding.progressBar.visibility = View.VISIBLE
+                } else {
+                    binding.progressBar.visibility = View.GONE
+                    if (viewState.isIdle) {
+                        Toast.makeText(requireContext(), "Vitals added successfully", Toast.LENGTH_SHORT).show()
+                    } else if (viewState.error != null) {
+                        Toast.makeText(requireContext(), "Failed to add vitals", Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
         }
     }

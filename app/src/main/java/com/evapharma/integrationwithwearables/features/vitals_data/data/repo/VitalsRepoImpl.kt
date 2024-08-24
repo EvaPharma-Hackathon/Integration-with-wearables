@@ -4,6 +4,7 @@ import com.evapharma.integrationwithwearables.core.models.DataState
 import com.evapharma.integrationwithwearables.features.vitals_data.data.local.data_source.VitalsLocalDataSource
 import com.evapharma.integrationwithwearables.features.vitals_data.data.local.model.VitalsRecord
 import com.evapharma.integrationwithwearables.features.vitals_data.data.remote.data_source.VitalsRemoteDataSource
+import com.evapharma.integrationwithwearables.features.vitals_data.data.remote.model.NewVitalsRequest
 import com.evapharma.integrationwithwearables.features.vitals_data.data.remote.model.VitalsCaseResponse
 import com.evapharma.integrationwithwearables.features.vitals_data.domain.repo_contract.VitalsRepo
 import javax.inject.Inject
@@ -60,6 +61,10 @@ class VitalsRepoImpl @Inject constructor(private val vitalsRemoteDataSourceImpl:
 
     override suspend fun readRespiratoryRateData(interval: Long): List<VitalsRecord> {
        return vitalsLocalDataSourceImpl.readRespiratoryRate(interval)
+    }
+
+    override suspend fun addVitals(vitals: NewVitalsRequest): DataState<Int> {
+        return vitalsRemoteDataSourceImpl.addVitals(vitals)
     }
 
 

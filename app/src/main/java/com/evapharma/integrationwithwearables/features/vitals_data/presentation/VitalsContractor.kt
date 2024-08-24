@@ -5,11 +5,13 @@ package com.evapharma.integrationwithwearables.features.vitals_data.presentation
 import com.evapharma.integrationwithwearables.core.Action
 import com.evapharma.integrationwithwearables.core.Result
 import com.evapharma.integrationwithwearables.core.ViewState
+import com.evapharma.integrationwithwearables.features.vitals_data.data.remote.model.NewVitalsRequest
 import com.evapharma.integrationwithwearables.features.vitals_data.data.remote.model.VitalsCaseResponse
 
 
 sealed class VitalsActions : Action {
     data object GetVitals : VitalsActions()
+    data class AddNewVitals(val vitals: NewVitalsRequest) : VitalsActions()
 
 }
 

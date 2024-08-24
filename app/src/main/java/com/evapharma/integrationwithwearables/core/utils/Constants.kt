@@ -3,7 +3,7 @@ package com.evapharma.integrationwithwearables.core.utils
 import android.Manifest
 import android.os.Build
 import androidx.annotation.RequiresApi
-import java.time.format.DateTimeFormatter
+import com.evapharma.integrationwithwearables.BuildConfig
 
 object Constants {
 
@@ -22,7 +22,9 @@ object Constants {
     const val DAY_MONTH_YEAR_FORMAT = "dd-MM-yyyy"
     const val YEAR_MONTH_DAY_FORMAT = "yyyy-MM-dd"
     const val EMPTY_STRING = ""
-    const val BASE_URL = "https://www.hpb.health.gov.lk/"
+    const val BASE_URL = "http://ec2-52-51-183-164.eu-west-1.compute.amazonaws.com/"
+
+    const val USER_ID = BuildConfig.USER_ID
     const val ONE = "1"
     const val TEST = "Test"
     const val PAGE_SIZE = 20

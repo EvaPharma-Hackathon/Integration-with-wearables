@@ -45,7 +45,7 @@ class RespiratoryRateData(private val healthConnectClient: HealthConnectClient) 
             } else {
                 respiratoryRateData.add(
                     VitalsRecord(
-                        metricValue = "0.0",
+                        metricValue = "",
                         dataType = DataType.RESPIRATORY_RATE,
                         toDatetime = endTime.format(dateTimeFormatter),
                         fromDatetime = startTime.format(dateTimeFormatter)
