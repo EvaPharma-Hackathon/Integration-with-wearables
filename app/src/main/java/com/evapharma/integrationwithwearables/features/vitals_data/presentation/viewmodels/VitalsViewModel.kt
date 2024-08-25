@@ -83,22 +83,22 @@ class VitalsViewModel @Inject constructor(private val getVitalsUseCase: GetVital
     fun fetchHealthData() {
         viewModelScope.launch {
             _vitalsData.value = VitalsData(
-                steps = getVitalsUseCase.readStepsData(interval).first().metricValue,
-                calories = getVitalsUseCase.readCaloriesData(interval).first().metricValue,
-                sleep = getVitalsUseCase.readSleepData(interval).first().metricValue,
-                distance = getVitalsUseCase.readDistanceData(interval).first().metricValue,
-                bloodSugar = getVitalsUseCase.readBloodSugarData(interval).first().metricValue,
+                steps = getVitalsUseCase.readStepsData(interval).firstOrNull()?.metricValue ?:"0",
+                calories = getVitalsUseCase.readCaloriesData(interval).firstOrNull()?.metricValue ?:"0",
+                sleep = getVitalsUseCase.readSleepData(interval).firstOrNull()?.metricValue ?:"0",
+                distance = getVitalsUseCase.readDistanceData(interval).firstOrNull()?.metricValue ?:"0",
+                bloodSugar = getVitalsUseCase.readBloodSugarData(interval).firstOrNull()?.metricValue ?:"0",
                 oxygenSaturation = getVitalsUseCase.readOxygenSaturationData(interval)
-                    .first().metricValue,
-                heartRate = getVitalsUseCase.readHeartRateData(interval).first().metricValue,
-                weight = getVitalsUseCase.readWeightData(interval).first().metricValue,
-                height = getVitalsUseCase.readHeightData(interval).first().metricValue,
+                    .firstOrNull()?.metricValue ?:"0",
+                heartRate = getVitalsUseCase.readHeartRateData(interval).firstOrNull()?.metricValue ?:"0",
+                weight = getVitalsUseCase.readWeightData(interval).firstOrNull()?.metricValue ?:"0",
+                height = getVitalsUseCase.readHeightData(interval).firstOrNull()?.metricValue ?:"0",
                 temperature = getVitalsUseCase.readBodyTemperatureData(interval)
-                    .first().metricValue,
+                    .firstOrNull()?.metricValue ?:"0",
                 bloodPressure = getVitalsUseCase.readBloodPressureData(interval)
-                    .first().metricValue,
+                    .firstOrNull()?.metricValue ?:"0",
                 respiratoryRate = getVitalsUseCase.readRespiratoryRateData(interval)
-                    .first().metricValue,
+                    .firstOrNull()?.metricValue ?:"0",
             )
         }
     }
