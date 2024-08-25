@@ -42,7 +42,7 @@ class BloodSugarData(private val healthConnectClient: HealthConnectClient) : Hea
         } else {
             bloodSugarData.add(
                 VitalsRecord(
-                    metricValue = "0.0",
+                    metricValue = "",
                     dataType = DataType.BLOOD_SUGAR,
                     toDatetime = endTime.format(dateTimeFormatter),
                     fromDatetime = startTime.format(dateTimeFormatter)

@@ -28,15 +28,17 @@ class MainViewModel @Inject constructor(private val getCovidCasesUseCase: GetVit
         return flow {
             when (action) {
                 is VitalsActions.GetVitals -> {
-                    handleActionOfGetCovidCases(this, action)
+                    handleActionOfGetVitals(this, action)
 
                 }
+
+                is VitalsActions.AddNewVitals -> TODO()
             }
 
         }
     }
 
-    private suspend fun handleActionOfGetCovidCases(
+    private suspend fun handleActionOfGetVitals(
         flowCollector: FlowCollector<VitalsResults>,
         action: VitalsActions.GetVitals
     ) {

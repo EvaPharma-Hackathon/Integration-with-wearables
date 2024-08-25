@@ -3,6 +3,7 @@ package com.evapharma.integrationwithwearables.features.vitals_data.presentation
 import androidx.lifecycle.viewModelScope
 import com.evapharma.integrationwithwearables.core.MVIBaseViewModel
 import com.evapharma.integrationwithwearables.core.models.DataState
+import com.evapharma.integrationwithwearables.features.vitals_data.data.remote.model.NewVitalsRequest
 import com.evapharma.integrationwithwearables.features.vitals_data.data.remote.model.VitalsData
 import com.evapharma.integrationwithwearables.features.vitals_data.domain.use_cases.GetVitalsUseCase
 import com.evapharma.integrationwithwearables.features.vitals_data.presentation.VitalsActions
@@ -18,17 +19,25 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class VitalsViewModel   @Inject constructor(private val getCovidCasesUseCase: GetVitalsUseCase) :
+class VitalsViewModel @Inject constructor(private val getVitalsUseCase: GetVitalsUseCase) :
     MVIBaseViewModel<VitalsActions, VitalsResults, VitalsViewState>() {
 
-    private val _covidCasesStateFlow: MutableStateFlow<VitalsViewState> =
+    private val _vitalsCasesStateFlow: MutableStateFlow<VitalsViewState> =
         MutableStateFlow(VitalsViewState(isIdle = true))
+
+    private val _addNewVitals: MutableStateFlow<VitalsViewState> =
+        MutableStateFlow(VitalsViewState(isIdle = true))
+
 
     private val _vitalsData = MutableStateFlow(VitalsData())
     val vitalsData: StateFlow<VitalsData> = _vitalsData
 
-    private val interval: Long = 1
 
+    private val _addNewVitalsState: MutableStateFlow<VitalsViewState> =
+        MutableStateFlow(defaultViewState)
+    val addNewVitalsState: StateFlow<VitalsViewState> = _addNewVitalsState
+
+    private val interval: Long = 1
 
     override val defaultViewState: VitalsViewState
         get() = VitalsViewState(isIdle = true)
@@ -38,10 +47,10 @@ class VitalsViewModel   @Inject constructor(private val getCovidCasesUseCase: Ge
             when (action) {
                 is VitalsActions.GetVitals -> {
                     handleActionOfGetCovidCases(this, action)
-
                 }
-            }
 
+                is VitalsActions.AddNewVitals -> handleActionOfAddNewVitals(this, action.vitals)
+            }
         }
     }
 
@@ -49,12 +58,10 @@ class VitalsViewModel   @Inject constructor(private val getCovidCasesUseCase: Ge
         flowCollector: FlowCollector<VitalsResults>,
         action: VitalsActions.GetVitals
     ) {
-//        val oldCovidCases = _covidCasesStateFlow.value.data
-        when(val response = getCovidCasesUseCase()){
-
+        when (val response = getVitalsUseCase()) {
             is DataState.Success -> {
                 val viewState = VitalsViewState(data = response.data)
-                _covidCasesStateFlow.value = viewState
+                _vitalsCasesStateFlow.value = viewState
                 flowCollector.emit(
                     VitalsResults.GetVitals(viewState = viewState)
                 )
@@ -62,34 +69,68 @@ class VitalsViewModel   @Inject constructor(private val getCovidCasesUseCase: Ge
 
             is DataState.Loading -> {
                 val viewState = VitalsViewState(isLoading = true)
-                _covidCasesStateFlow.value = viewState
+                _vitalsCasesStateFlow.value = viewState
                 flowCollector.emit(
                     VitalsResults.GetVitals(viewState = viewState)
                 )
             }
 
             is DataState.ErrorV2 -> response.exception?.let { exception -> emitException(exception) }
-
             else -> {}
         }
     }
+
     fun fetchHealthData() {
         viewModelScope.launch {
             _vitalsData.value = VitalsData(
-                steps =  getCovidCasesUseCase.readStepsData(interval).first().metricValue,
-                calories = getCovidCasesUseCase.readCaloriesData(interval).first().metricValue,
-                sleep = getCovidCasesUseCase.readSleepData(interval).first().metricValue,
-                distance = getCovidCasesUseCase.readDistanceData(interval).first().metricValue,
-                bloodSugar = getCovidCasesUseCase.readBloodSugarData(interval).first().metricValue,
-                oxygenSaturation = getCovidCasesUseCase.readOxygenSaturationData(interval).first().metricValue,
-                heartRate = getCovidCasesUseCase.readHeartRateData(interval).first().metricValue,
-                weight = getCovidCasesUseCase.readWeightData(interval).first().metricValue,
-                height = getCovidCasesUseCase.readHeightData(interval).first().metricValue,
-                temperature= getCovidCasesUseCase.readBodyTemperatureData(interval).first().metricValue,
-                bloodPressure= getCovidCasesUseCase.readBloodPressureData(interval).first().metricValue,
-                respiratoryRate=getCovidCasesUseCase.readRespiratoryRateData(interval).first().metricValue,
-
+                steps = getVitalsUseCase.readStepsData(interval).first().metricValue,
+                calories = getVitalsUseCase.readCaloriesData(interval).first().metricValue,
+                sleep = getVitalsUseCase.readSleepData(interval).first().metricValue,
+                distance = getVitalsUseCase.readDistanceData(interval).first().metricValue,
+                bloodSugar = getVitalsUseCase.readBloodSugarData(interval).first().metricValue,
+                oxygenSaturation = getVitalsUseCase.readOxygenSaturationData(interval)
+                    .first().metricValue,
+                heartRate = getVitalsUseCase.readHeartRateData(interval).first().metricValue,
+                weight = getVitalsUseCase.readWeightData(interval).first().metricValue,
+                height = getVitalsUseCase.readHeightData(interval).first().metricValue,
+                temperature = getVitalsUseCase.readBodyTemperatureData(interval)
+                    .first().metricValue,
+                bloodPressure = getVitalsUseCase.readBloodPressureData(interval)
+                    .first().metricValue,
+                respiratoryRate = getVitalsUseCase.readRespiratoryRateData(interval)
+                    .first().metricValue,
             )
+        }
+    }
+
+    private suspend fun handleActionOfAddNewVitals(
+        flowCollector: FlowCollector<VitalsResults>,
+        vitals: NewVitalsRequest
+    ) {
+        val viewState: VitalsViewState
+        when (val response = getVitalsUseCase.addVitals(vitals)) {
+            is DataState.Success -> {
+                viewState = VitalsViewState(isIdle = true)
+                _addNewVitals.value = viewState
+                flowCollector.emit(VitalsResults.GetVitals(viewState = viewState))
+            }
+
+            is DataState.Loading -> {
+                viewState = VitalsViewState(isLoading = true)
+                _addNewVitals.value = viewState
+                flowCollector.emit(VitalsResults.GetVitals(viewState = viewState))
+            }
+
+            is DataState.ErrorV2 -> response.exception?.let { exception -> emitException(exception) }
+            else -> {}
+        }
+    }
+
+    fun addNewVitals(vitals: NewVitalsRequest) {
+        viewModelScope.launch {
+            handleAction(VitalsActions.AddNewVitals(vitals)).collect { result ->
+                _addNewVitalsState.value = result.reduce(defaultViewState, _addNewVitalsState.value)
+            }
         }
     }
 }

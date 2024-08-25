@@ -1,3 +1,6 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.plugin.parcelize")
@@ -7,7 +10,9 @@ plugins {
     id("androidx.navigation.safeargs.kotlin") version "2.6.0"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.9.0"
 }
-
+val localPropertiesFile = rootProject.file("local.properties")
+val localProperties =  Properties()
+localProperties.load(FileInputStream(localPropertiesFile))
 apply(from = "$rootDir/base.gradle")
 
 android {
@@ -26,6 +31,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String","USER_ID", localProperties.getProperty("USER_ID"))
+
     }
 
     buildTypes {

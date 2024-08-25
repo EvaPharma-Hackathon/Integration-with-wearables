@@ -46,12 +46,12 @@ fun <T> DataState<List<T>>.isEmptyList(): Boolean {
     return this is DataState.Success && this.data.isEmpty()
 }
 
+
 inline fun <reified T> Response<BaseResponse<T>>.handleResponse(): DataState<T> {
 
     return when (this.code()) {
         200 ->
             DataState.Success(responseConverter(this).data) as DataState<T>
-
         401 ->
             DataState.ErrorV2(Exceptions.Unauthorized)
 
