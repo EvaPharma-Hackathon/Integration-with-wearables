@@ -52,18 +52,18 @@ class VitalsLocalDataSourceImpl @Inject constructor(
 
     override suspend fun getVitalsData(): VitalsData {
         return VitalsData(
-            steps = String.format(Locale.getDefault(), "%.1f", readMetric<StepsRecord> { it.count.toDouble() }),
-            calories = String.format(Locale.getDefault(), "%.1f", readMetric<TotalCaloriesBurnedRecord> { it.energy.inKilocalories }),
-            sleep = String.format(Locale.getDefault(), "%.1f", readMetric<SleepSessionRecord> {
+            steps = String.format(Locale.getDefault(), "%.0f", readMetric<StepsRecord> { it.count.toDouble() }),
+            calories = String.format(Locale.getDefault(), "%.0f", readMetric<TotalCaloriesBurnedRecord> { it.energy.inKilocalories }),
+            sleep = String.format(Locale.getDefault(), "%.0f", readMetric<SleepSessionRecord> {
                 val start = it.startTime
                 val end = it.endTime
                 Duration.between(start, end).toHours().toDouble() }),
-            distance = String.format(Locale.getDefault(), "%.1f", readMetric<DistanceRecord> { it.distance.inMeters }),
-            bloodSugar = String.format(Locale.getDefault(), "%.1f", readMetric<BloodGlucoseRecord> { it.level.inMillimolesPerLiter }),
-            oxygenSaturation = String.format(Locale.getDefault(), "%.1f", readMetric<OxygenSaturationRecord> { it.percentage.value }),
-            heartRate = String.format(Locale.getDefault(), "%.1f", readMetric<HeartRateRecord> { it.samples.map { sample -> sample.beatsPerMinute }.average() }),
+            distance = String.format(Locale.getDefault(), "%.0f", readMetric<DistanceRecord> { it.distance.inMeters*1000 }),
+            bloodSugar = String.format(Locale.getDefault(), "%.0f", readMetric<BloodGlucoseRecord> { it.level.inMillimolesPerLiter }),
+            oxygenSaturation = String.format(Locale.getDefault(), "%.0f", readMetric<OxygenSaturationRecord> { it.percentage.value }),
+            heartRate = String.format(Locale.getDefault(), "%.0f", readMetric<HeartRateRecord> { it.samples.map { sample -> sample.beatsPerMinute }.average() }),
             weight = String.format(Locale.getDefault(), "%.1f", readMetric<WeightRecord> { it.weight.inKilograms }),
-            height = String.format(Locale.getDefault(), "%.1f", readMetric<HeightRecord> { it.height.inMeters }),
+            height = String.format(Locale.getDefault(), "%.0f", readMetric<HeightRecord> { it.height.inMeters }),
             temperature = String.format(Locale.getDefault(), "%.1f", readMetric<BodyTemperatureRecord> { it.temperature.inCelsius }),
             bloodPressure = getAverageBloodPressure(),
             respiratoryRate = String.format(Locale.getDefault(), "%.1f", readMetric<RespiratoryRateRecord> { it.rate })
