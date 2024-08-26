@@ -79,7 +79,7 @@ dependencies {
     implementation("com.google.code.gson:gson:2.8.9")
 
     // Chuck
-    debugImplementation("com.github.chuckerteam.chucker:library:3.5.2")
+    implementation("com.github.chuckerteam.chucker:library:3.5.2")
 
     implementation("androidx.security:security-crypto:1.1.0-alpha03")
     implementation("androidx.preference:preference-ktx:1.2.0")
