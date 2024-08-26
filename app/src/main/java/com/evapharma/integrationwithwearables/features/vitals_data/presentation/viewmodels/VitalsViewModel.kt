@@ -82,24 +82,7 @@ class VitalsViewModel @Inject constructor(private val getVitalsUseCase: GetVital
 
     fun fetchHealthData() {
         viewModelScope.launch {
-            _vitalsData.value = VitalsData(
-                steps = getVitalsUseCase.readStepsData(interval).firstOrNull()?.metricValue ?:"0",
-                calories = getVitalsUseCase.readCaloriesData(interval).firstOrNull()?.metricValue ?:"0",
-                sleep = getVitalsUseCase.readSleepData(interval).firstOrNull()?.metricValue ?:"0",
-                distance = getVitalsUseCase.readDistanceData(interval).firstOrNull()?.metricValue ?:"0",
-                bloodSugar = getVitalsUseCase.readBloodSugarData(interval).firstOrNull()?.metricValue ?:"0",
-                oxygenSaturation = getVitalsUseCase.readOxygenSaturationData(interval)
-                    .firstOrNull()?.metricValue ?:"0",
-                heartRate = getVitalsUseCase.readHeartRateData(interval).firstOrNull()?.metricValue ?:"0",
-                weight = getVitalsUseCase.readWeightData(interval).firstOrNull()?.metricValue ?:"0",
-                height = getVitalsUseCase.readHeightData(interval).firstOrNull()?.metricValue ?:"0",
-                temperature = getVitalsUseCase.readBodyTemperatureData(interval)
-                    .firstOrNull()?.metricValue ?:"0",
-                bloodPressure = getVitalsUseCase.readBloodPressureData(interval)
-                    .firstOrNull()?.metricValue ?:"0",
-                respiratoryRate = getVitalsUseCase.readRespiratoryRateData(interval)
-                    .firstOrNull()?.metricValue ?:"0",
-            )
+            _vitalsData.value = getVitalsUseCase.readVitalsData()
         }
     }
 

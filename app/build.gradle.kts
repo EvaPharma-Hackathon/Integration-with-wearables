@@ -29,7 +29,7 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
+        multiDexEnabled = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String","USER_ID", localProperties.getProperty("USER_ID"))
 
@@ -37,7 +37,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = true // Enables code shrinking
+            isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -55,7 +55,7 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.core.ktx)
+ //   implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
@@ -129,16 +129,16 @@ dependencies {
     testImplementation("androidx.arch.core:core-testing:$archTestingVersion")
     testImplementation("org.robolectric:robolectric:$robolectricVersion")
 
-// AndroidX Test - JVM testing
     testImplementation("androidx.test:core-ktx:$androidXTestCoreVersion")
-//testImplementation("androidx.test.ext:junit:$androidXTestExtKotlinRunnerVersion")
 
-// AndroidX Test - Instrumented testing
     androidTestImplementation("androidx.test.ext:junit:$androidXTestExtKotlinRunnerVersion")
     androidTestImplementation("androidx.test.espresso:espresso-core:$espressoVersion")
 
     androidTestImplementation ("androidx.arch.core:core-testing:$archTestingVersion")
     testImplementation ("org.mockito:mockito-core:4.0.0")
     testImplementation ("org.mockito:mockito-inline:4.0.0")
+
+    implementation ("androidx.multidex:multidex:2.0.1")
+   implementation("androidx.core:core-ktx:1.13.1")
 
 }

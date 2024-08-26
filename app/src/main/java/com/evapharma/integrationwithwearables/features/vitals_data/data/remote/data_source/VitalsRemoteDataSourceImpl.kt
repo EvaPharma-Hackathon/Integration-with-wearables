@@ -12,7 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class VitalsDataSourceImpl @Inject constructor() : VitalsRemoteDataSource {
+class VitalsRemoteDataSourceImpl @Inject constructor() : VitalsRemoteDataSource {
 
     override suspend fun getVitalsCases(): DataState<VitalsCaseResponse> {
         return withContext(Dispatchers.IO){

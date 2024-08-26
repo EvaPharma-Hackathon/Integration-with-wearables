@@ -36,16 +36,16 @@ class VitalsViewModelTest {
 
     private lateinit var getVitalsUseCase: GetVitalsUseCase
     private lateinit var viewModel: VitalsViewModel
+    private lateinit var mockRepo: VitalsRepo
     private val testDispatcher = TestCoroutineDispatcher()
 
     @Before
     fun setUp() {
         Dispatchers.setMain(testDispatcher)
         MockitoAnnotations.openMocks(this)
-        val mockRepo = mock(VitalsRepo::class.java)
+        mockRepo = mock(VitalsRepo::class.java)
         getVitalsUseCase = GetVitalsUseCase(mockRepo)
         viewModel = VitalsViewModel(getVitalsUseCase)
-
     }
 
     @After
@@ -56,25 +56,6 @@ class VitalsViewModelTest {
 
     @Test
     fun `fetchHealthData updates vitalsData correctly`() = runTest(testDispatcher) {
-        // Given
-        val mockVitals = VitalsRecord("1000", DataType.STEPS, "2024-08-22T00:00:00Z", "2024-08-21T00:00:00Z")
-        `when`(getVitalsUseCase.readStepsData(1)).thenReturn(listOf(mockVitals))
-        `when`(getVitalsUseCase.readCaloriesData(1)).thenReturn(listOf(mockVitals))
-        `when`(getVitalsUseCase.readSleepData(1)).thenReturn(listOf(mockVitals))
-        `when`(getVitalsUseCase.readDistanceData(1)).thenReturn(listOf(mockVitals))
-        `when`(getVitalsUseCase.readBloodSugarData(1)).thenReturn(listOf(mockVitals))
-        `when`(getVitalsUseCase.readOxygenSaturationData(1)).thenReturn(listOf(mockVitals))
-        `when`(getVitalsUseCase.readHeartRateData(1)).thenReturn(listOf(mockVitals))
-        `when`(getVitalsUseCase.readWeightData(1)).thenReturn(listOf(mockVitals))
-        `when`(getVitalsUseCase.readHeightData(1)).thenReturn(listOf(mockVitals))
-        `when`(getVitalsUseCase.readBodyTemperatureData(1)).thenReturn(listOf(mockVitals))
-        `when`(getVitalsUseCase.readBloodPressureData(1)).thenReturn(listOf(mockVitals))
-        `when`(getVitalsUseCase.readRespiratoryRateData(1)).thenReturn(listOf(mockVitals))
-
-        // When
-        viewModel.fetchHealthData()
-
-        // Then
         val expectedVitalsData = VitalsData(
             steps = "1000",
             calories = "1000",
@@ -89,31 +70,24 @@ class VitalsViewModelTest {
             bloodPressure = "1000",
             respiratoryRate = "1000"
         )
+
+        `when`(mockRepo.getVitalsData()).thenReturn(expectedVitalsData)
+
+        viewModel.fetchHealthData()
         assertEquals(expectedVitalsData, viewModel.vitalsData.value)
     }
+
     @Test
     fun `addNewVitalsState correctly`() = runTest(testDispatcher) {
         val vitalsRequest = NewVitalsRequest(
-            steps = 1000,
-            sleep = 7,
-            distance = 2,
-            bloodSugar = 90,
-            oxygenSaturation = 98,
-            heartRate = 70,
-            weight = 70,
-            height = 170,
-            temperature = 36,
-            bloodPressure = "120/80",
-            respiratoryRate = 16,
-            smoker = "yes",
-            drinkAlcohol = "yes",
-            time = "2024-08-22T00:00:00Z"
+            steps = 1000, sleep = 7,
+            distance = 2, bloodSugar = 90, oxygenSaturation = 98,
+            heartRate = 70, weight = 70, height = 170,
+            temperature = 36, bloodPressure = "120/80", respiratoryRate = 16,
+            smoker = "yes", drinkAlcohol = "yes", time = "2024-08-22T00:00:00Z"
         )
-
         `when`(getVitalsUseCase.addVitals(vitalsRequest)).thenReturn(DataState.Success(1))
-
         viewModel.addNewVitals(vitalsRequest)
-
         val expectedState = VitalsViewState(isIdle = false)
         assertEquals(expectedState, viewModel.addNewVitalsState.value)
     }
