@@ -1,11 +1,14 @@
 package com.evapharma.integrationwithwearables.features.vitals_data.presentation.viewmodels
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.evapharma.integrationwithwearables.core.models.DataState
 import com.evapharma.integrationwithwearables.features.vitals_data.data.local.model.DataType
 import com.evapharma.integrationwithwearables.features.vitals_data.data.local.model.VitalsRecord
+import com.evapharma.integrationwithwearables.features.vitals_data.data.remote.model.NewVitalsRequest
 import com.evapharma.integrationwithwearables.features.vitals_data.data.remote.model.VitalsData
 import com.evapharma.integrationwithwearables.features.vitals_data.domain.repo_contract.VitalsRepo
 import com.evapharma.integrationwithwearables.features.vitals_data.domain.use_cases.GetVitalsUseCase
+import com.evapharma.integrationwithwearables.features.vitals_data.presentation.VitalsViewState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
@@ -87,5 +90,31 @@ class VitalsViewModelTest {
             respiratoryRate = "1000"
         )
         assertEquals(expectedVitalsData, viewModel.vitalsData.value)
+    }
+    @Test
+    fun `addNewVitalsState correctly`() = runTest(testDispatcher) {
+        val vitalsRequest = NewVitalsRequest(
+            steps = 1000,
+            sleep = 7,
+            distance = 2,
+            bloodSugar = 90,
+            oxygenSaturation = 98,
+            heartRate = 70,
+            weight = 70,
+            height = 170,
+            temperature = 36,
+            bloodPressure = "120/80",
+            respiratoryRate = 16,
+            smoker = "yes",
+            drinkAlcohol = "yes",
+            time = "2024-08-22T00:00:00Z"
+        )
+
+        `when`(getVitalsUseCase.addVitals(vitalsRequest)).thenReturn(DataState.Success(1))
+
+        viewModel.addNewVitals(vitalsRequest)
+
+        val expectedState = VitalsViewState(isIdle = false)
+        assertEquals(expectedState, viewModel.addNewVitalsState.value)
     }
 }

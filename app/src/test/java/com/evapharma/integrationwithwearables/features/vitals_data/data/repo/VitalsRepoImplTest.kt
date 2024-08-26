@@ -4,6 +4,7 @@ import com.evapharma.integrationwithwearables.core.models.DataState
 import com.evapharma.integrationwithwearables.features.vitals_data.data.local.data_source.VitalsLocalDataSource
 import com.evapharma.integrationwithwearables.features.vitals_data.data.local.model.VitalsRecord
 import com.evapharma.integrationwithwearables.features.vitals_data.data.remote.data_source.VitalsRemoteDataSource
+import com.evapharma.integrationwithwearables.features.vitals_data.data.remote.model.NewVitalsRequest
 import com.evapharma.integrationwithwearables.features.vitals_data.data.remote.model.VitalsCaseResponse
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -49,6 +50,20 @@ class VitalsRepoImplTest {
 
         assertEquals(mockResponse, data)
         verify(vitalsRemoteDataSource).getVitalsCases()
+    }
+
+    @Test
+    fun `addVitals should return success when remote data source returns success`() = runTest {
+        val vitalsRequest = mock(NewVitalsRequest::class.java)
+        val expectedResult = DataState.Success(1)
+
+        `when`(vitalsRemoteDataSource.addVitals(vitalsRequest)).thenReturn(expectedResult)
+
+        val result = vitalsRepoImpl.addVitals(vitalsRequest)
+
+        assert(result is DataState.Success)
+        assertEquals(expectedResult, result)
+        verify(vitalsRemoteDataSource).addVitals(vitalsRequest)
     }
 
     @Test

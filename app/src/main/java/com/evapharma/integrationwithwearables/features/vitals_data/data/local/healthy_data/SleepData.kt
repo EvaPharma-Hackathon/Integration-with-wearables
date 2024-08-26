@@ -26,7 +26,7 @@ class SleepData(private val healthConnectClient: HealthConnectClient) : HealthDa
                 )
             )
         )
-            if (response.records.isEmpty()) {
+            if ( response.records.isEmpty()) {
                 sleepData.add(
                     VitalsRecord(
                         metricValue = "",
