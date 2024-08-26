@@ -45,7 +45,7 @@ class DistanceData(private val healthConnectClient: HealthConnectClient) : Healt
         } else {
             distanceData.add(
                 VitalsRecord(
-                    metricValue = "",
+                    metricValue = "0",
                     dataType = DataType.DISTANCE,
                     toDatetime = endTime.format(dateTimeFormatter),
                     fromDatetime = startTime.format(dateTimeFormatter)

@@ -44,7 +44,7 @@ class StepsData (private val healthConnectClient: HealthConnectClient) : HealthD
         {
             stepsData.add(
                 VitalsRecord(
-                    metricValue = "",
+                    metricValue = "0",
                     dataType = DataType.STEPS,
                     toDatetime = endTime.format(dateTimeFormatter),
                     fromDatetime = startTime.format(dateTimeFormatter)

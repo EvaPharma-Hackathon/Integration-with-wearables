@@ -29,7 +29,7 @@ class SleepData(private val healthConnectClient: HealthConnectClient) : HealthDa
             if ( response.records.isEmpty()) {
                 sleepData.add(
                     VitalsRecord(
-                        metricValue = "",
+                        metricValue = "0",
                         dataType = DataType.SLEEP,
                         toDatetime = endOfDay.format(dateTimeFormatter),
                         fromDatetime = startOfDay.format(dateTimeFormatter)

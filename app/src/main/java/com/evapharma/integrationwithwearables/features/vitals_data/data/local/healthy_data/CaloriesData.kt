@@ -42,7 +42,7 @@ class CaloriesData(private val healthConnectClient: HealthConnectClient) : Healt
         } else {
             caloriesData.add(
                 VitalsRecord(
-                    metricValue = "",
+                    metricValue = "0",
                     dataType = DataType.CALORIES,
                     toDatetime = endTime.format(dateTimeFormatter),
                     fromDatetime = startTime.format(dateTimeFormatter)

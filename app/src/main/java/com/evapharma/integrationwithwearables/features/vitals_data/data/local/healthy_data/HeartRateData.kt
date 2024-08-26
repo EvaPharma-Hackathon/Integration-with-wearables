@@ -41,7 +41,7 @@ class HeartRateData(private val healthConnectClient: HealthConnectClient) : Heal
         } else {
             heartRateData.add(
                 VitalsRecord(
-                    metricValue = "",
+                    metricValue = "0",
                     dataType = DataType.HEART_RATE,
                     toDatetime = endTime.format(dateTimeFormatter),
                     fromDatetime = startTime.format(dateTimeFormatter)

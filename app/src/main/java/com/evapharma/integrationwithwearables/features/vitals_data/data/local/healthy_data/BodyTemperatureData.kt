@@ -45,7 +45,7 @@ class BodyTemperatureData(private val healthConnectClient: HealthConnectClient) 
         } else {
             temperatureData.add(
                 VitalsRecord(
-                    metricValue = "",
+                    metricValue = "0",
                     dataType = DataType.TEMPERATURE,
                     toDatetime = endTime.format(dateTimeFormatter),
                     fromDatetime = startTime.format(dateTimeFormatter)

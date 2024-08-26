@@ -46,7 +46,7 @@ class WeightData(private val healthConnectClient: HealthConnectClient) : HealthD
         } else {
             weightData.add(
                 VitalsRecord(
-                    metricValue = "",
+                    metricValue = "0",
                     dataType = DataType.WEIGHT,
                     toDatetime = endTime.format(dateTimeFormatter),
                     fromDatetime = startTime.format(dateTimeFormatter)

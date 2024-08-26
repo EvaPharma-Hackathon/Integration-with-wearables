@@ -45,7 +45,7 @@ class HeightData(private val healthConnectClient: HealthConnectClient) : HealthD
         } else {
             heightData.add(
                 VitalsRecord(
-                    metricValue = "",
+                    metricValue = "0",
                     dataType = DataType.HEIGHT,
                     toDatetime = endTime.format(dateTimeFormatter),
                     fromDatetime = startTime.format(dateTimeFormatter)
