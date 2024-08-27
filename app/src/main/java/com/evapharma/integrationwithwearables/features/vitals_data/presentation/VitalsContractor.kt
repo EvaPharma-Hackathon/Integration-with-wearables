@@ -1,10 +1,9 @@
 package com.evapharma.integrationwithwearables.features.vitals_data.presentation
 
-
-
 import com.evapharma.integrationwithwearables.core.Action
 import com.evapharma.integrationwithwearables.core.Result
 import com.evapharma.integrationwithwearables.core.ViewState
+import com.evapharma.integrationwithwearables.features.vitals_data.data.remote.model.AllVitalsResponse
 import com.evapharma.integrationwithwearables.features.vitals_data.data.remote.model.NewVitalsRequest
 import com.evapharma.integrationwithwearables.features.vitals_data.data.remote.model.VitalsCaseResponse
 
@@ -12,11 +11,9 @@ import com.evapharma.integrationwithwearables.features.vitals_data.data.remote.m
 sealed class VitalsActions : Action {
     data object GetVitals : VitalsActions()
     data class AddNewVitals(val vitals: NewVitalsRequest) : VitalsActions()
-
 }
 
 sealed class VitalsResults : Result<VitalsViewState> {
-
     data class GetVitals(val viewState: VitalsViewState) : VitalsResults() {
         override fun reduce(
             defaultState: VitalsViewState,
@@ -28,7 +25,6 @@ sealed class VitalsResults : Result<VitalsViewState> {
         }
     }
 }
-
 
 data class VitalsViewState(
     val isIdle: Boolean = true,

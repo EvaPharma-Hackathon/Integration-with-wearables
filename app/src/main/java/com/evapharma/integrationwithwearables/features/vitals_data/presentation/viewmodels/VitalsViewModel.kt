@@ -25,19 +25,14 @@ class VitalsViewModel @Inject constructor(private val getVitalsUseCase: GetVital
     private val _vitalsCasesStateFlow: MutableStateFlow<VitalsViewState> =
         MutableStateFlow(VitalsViewState(isIdle = true))
 
-    private val _addNewVitals: MutableStateFlow<VitalsViewState> =
-        MutableStateFlow(VitalsViewState(isIdle = true))
 
-
-    private val _vitalsData = MutableStateFlow(VitalsData())
+    private val _vitalsData = MutableStateFlow(VitalsData("","","","","","","","","","","",""))
     val vitalsData: StateFlow<VitalsData> = _vitalsData
 
 
     private val _addNewVitalsState: MutableStateFlow<VitalsViewState> =
         MutableStateFlow(defaultViewState)
     val addNewVitalsState: StateFlow<VitalsViewState> = _addNewVitalsState
-
-    private val interval: Long = 1
 
     override val defaultViewState: VitalsViewState
         get() = VitalsViewState(isIdle = true)
@@ -46,15 +41,15 @@ class VitalsViewModel @Inject constructor(private val getVitalsUseCase: GetVital
         return flow {
             when (action) {
                 is VitalsActions.GetVitals -> {
-                    handleActionOfGetCovidCases(this, action)
+                    handleActionOfGetVitalsCases(this, action)
                 }
 
-                is VitalsActions.AddNewVitals -> handleActionOfAddNewVitals(this, action.vitals)
+                is VitalsActions.AddNewVitals -> {handleActionOfAddNewVitals(this, action.vitals)}
             }
         }
     }
 
-    private suspend fun handleActionOfGetCovidCases(
+    private suspend fun handleActionOfGetVitalsCases(
         flowCollector: FlowCollector<VitalsResults>,
         action: VitalsActions.GetVitals
     ) {
@@ -94,13 +89,13 @@ class VitalsViewModel @Inject constructor(private val getVitalsUseCase: GetVital
         when (val response = getVitalsUseCase.addVitals(vitals)) {
             is DataState.Success -> {
                 viewState = VitalsViewState(isIdle = true)
-                _addNewVitals.value = viewState
+                _vitalsCasesStateFlow.value = viewState
                 flowCollector.emit(VitalsResults.GetVitals(viewState = viewState))
             }
 
             is DataState.Loading -> {
                 viewState = VitalsViewState(isLoading = true)
-                _addNewVitals.value = viewState
+                _vitalsCasesStateFlow.value = viewState
                 flowCollector.emit(VitalsResults.GetVitals(viewState = viewState))
             }
 

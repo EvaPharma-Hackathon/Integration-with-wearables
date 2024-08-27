@@ -1,17 +1,17 @@
 package com.evapharma.integrationwithwearables.features.vitals_data.data.remote.model
 
 data class VitalsData(
-    val steps: String = "0",
-    val calories: String = "0",
-    val sleep: String = "0",
-    val distance: String = "0",
-    val bloodSugar: String = "0",
-    val oxygenSaturation: String = "0",
-    val heartRate: String = "0",
-    val weight: String = "0",
-    val height: String = "0",
-    val temperature: String="0",
-    val bloodPressure: String="0",
-    val respiratoryRate: String="0"
+    val steps: String? ,
+    val calories: String? ,
+    val sleep: String? ,
+    val distance: String? ,
+    val bloodSugar: String? ,
+    val oxygenSaturation: String? ,
+    val heartRate: String? ,
+    val weight: String? ,
+    val height: String? ,
+    val temperature: String?,
+    val bloodPressure: String?,
+    val respiratoryRate: String?
 )
 

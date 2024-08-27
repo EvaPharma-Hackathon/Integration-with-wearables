@@ -143,7 +143,7 @@
     <string name="percentage">% </string>
     <string name="mg_dl">MG/DL </string>
     <string name="per_minute">Breaths/minute </string>
-    <string name="view_ECG">View My ECG</string>
+    <string name="view_details">View details</string>
     <string name="sleep">Sleep</string>
     <string name="sleep_time">8:00</string>
     <string name="hour">Hour</string>
@@ -167,6 +167,6 @@
     <string name="download">Download</string>
     <string name="unexpected_error_message">An unexpected error occurred. Please try again later.</string>
    <string name="cancel">Cancel</string>
-
+   <string name="date">March 29th , 2024</string>
 
 </resources>

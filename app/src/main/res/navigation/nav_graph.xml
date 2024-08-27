@@ -9,5 +9,7 @@
         android:id="@+id/vitalsFragment"
         android:name="com.evapharma.integrationwithwearables.features.vitals_data.presentation.view.new_vitals.VitalsFragment"
         android:label="My Vitals"
-        tools:layout="@layout/fragment_vitals" />
+        tools:layout="@layout/fragment_vitals" >
+    </fragment>
+
 </navigation>

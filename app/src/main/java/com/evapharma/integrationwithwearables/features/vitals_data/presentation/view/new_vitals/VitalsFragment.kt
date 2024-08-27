@@ -13,6 +13,7 @@ import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.PermissionController
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import com.evapharma.integrationwithwearables.R
 import com.evapharma.integrationwithwearables.core.BaseFragment
 import com.evapharma.integrationwithwearables.core.dialogs.ErrorDialog
@@ -169,32 +170,26 @@ class VitalsFragment : BaseFragment<FragmentVitalsBinding, VitalsViewModel>() {
     }
 
     private fun addNewVitals() {
-        if (!checkForEmptyFields()) {
-            Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show()
-            return
-        }
-
         val formattedTime = LocalDateTime.now()
             .atZone(TimeZone.getDefault().toZoneId())
             .minusMinutes(1)
             .plusSeconds(59)
             .format(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
-
         val newVitals = NewVitalsRequest(
             time = formattedTime,
-            sleep = binding.sleepInput.text?.toString()?.toInt() ?: 0,
-            steps = binding.stepsInput.text?.toString()?.toInt() ?: 0,
-            distance = binding.distanceInput.text?.toString()?.toFloat()?.toInt() ?: 0,
-            bloodPressure = binding.bloodPressureInput.text?.toString() ?: "0",
-            bloodSugar = binding.bloodSugarInput.text?.toString()?.toFloat()?.toInt() ?: 0,
-            oxygenSaturation = binding.oxygenSaturationInput.text?.toString()?.toFloat()?.toInt() ?: 0,
-            heartRate = binding.heartRateInput.text?.toString()?.toFloat()?.toInt() ?: 0,
-            respiratoryRate = binding.respiratoryRateInput.text?.toString()?.toFloat()?.toInt() ?: 0,
-            temperature = binding.bodyTemperatureInput.text?.toString()?.toFloat()?.toInt() ?: 0,
-            weight = binding.weightInput.text?.toString()?.toFloat()?.toInt() ?: 0,
-            height = binding.heightInput.text?.toString()?.toFloat()?.toInt() ?: 0,
+            sleep = binding.sleepInput.text?.toString()?.toIntOrNull() ?: 0,
+            steps = binding.stepsInput.text?.toString()?.toIntOrNull() ?: 0,
+            distance = binding.distanceInput.text?.toString()?.toFloatOrNull()?.toInt() ?: 0,
+            bloodPressure = binding.bloodPressureInput.text?.toString().takeIf { !it.isNullOrEmpty() } ?: "0",
+            bloodSugar = binding.bloodSugarInput.text?.toString()?.toFloatOrNull()?.toInt() ?: 0,
+            oxygenSaturation = binding.oxygenSaturationInput.text?.toString()?.toFloatOrNull()?.toInt() ?: 0,
+            heartRate = binding.heartRateInput.text?.toString()?.toFloatOrNull()?.toInt() ?: 0,
+            respiratoryRate = binding.respiratoryRateInput.text?.toString()?.toFloatOrNull()?.toInt() ?: 0,
+            temperature = binding.bodyTemperatureInput.text?.toString()?.toFloatOrNull()?.toInt() ?: 0,
+            weight = binding.weightInput.text?.toString()?.toFloatOrNull()?.toInt() ?: 0,
+            height = binding.heightInput.text?.toString()?.toFloatOrNull()?.toInt() ?: 0,
             smoker = selectedSmokerTextView?.text?.toString() ?: "no",
-            drinkAlcohol = selectedAlcoholTextView?.text?.toString() ?: "no",
+            drinkAlcohol = selectedAlcoholTextView?.text?.toString() ?: "no"
         )
         viewModel.addNewVitals(newVitals)
         observeAddVitalsState()
@@ -217,27 +212,6 @@ class VitalsFragment : BaseFragment<FragmentVitalsBinding, VitalsViewModel>() {
                 }
             }
         }
-    }
-    private fun checkForEmptyFields(): Boolean {
-        var allFieldsValid = true
-
-        val editTexts = listOf(
-            binding.sleepEditText,binding.stepsEditText,binding.distanceEditText,binding.bloodPressureEditText,
-            binding.randomBloodSugarEditText,binding.oxygenSaturationEditText,binding.heartRateEditText,
-            binding.weightEditText,binding.heightEditText,binding.temperatureEditText,
-            binding.respiratoryRateEditText
-        )
-
-        for (editText in editTexts) {
-            if (editText.editText?.text.isNullOrEmpty()) {
-                editText.error = "required"
-                allFieldsValid = false
-            } else {
-                editText.error = null
-            }
-        }
-
-        return allFieldsValid
     }
 
 

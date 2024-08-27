@@ -1,10 +1,13 @@
 package com.evapharma.integrationwithwearables
 
+import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import com.evapharma.integrationwithwearables.core.BaseActivity
 import com.evapharma.integrationwithwearables.databinding.ActivityMainBinding
 import com.evapharma.integrationwithwearables.features.vitals_data.presentation.viewmodels.MainViewModel
@@ -22,6 +25,13 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
     }
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+
+    }
     override fun onActivityCreated() {
 /*
         binding.retrieveCasesBtn.setOnClickListener {

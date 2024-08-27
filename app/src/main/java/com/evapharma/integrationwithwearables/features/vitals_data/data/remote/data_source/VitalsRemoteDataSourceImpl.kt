@@ -5,6 +5,7 @@ import com.evapharma.integrationwithwearables.core.models.handleException
 import com.evapharma.integrationwithwearables.core.models.handleResponse
 import com.evapharma.integrationwithwearables.core.network.BaseURLFactory
 import com.evapharma.integrationwithwearables.core.utils.Constants.USER_ID
+import com.evapharma.integrationwithwearables.features.vitals_data.data.remote.model.AllVitalsResponse
 import com.evapharma.integrationwithwearables.features.vitals_data.data.remote.model.NewVitalsRequest
 import com.evapharma.integrationwithwearables.features.vitals_data.data.remote.model.VitalsCaseResponse
 import com.evapharma.integrationwithwearables.features.vitals_data.data.remote.network.addAuthInterceptor
@@ -36,6 +37,21 @@ class VitalsRemoteDataSourceImpl @Inject constructor() : VitalsRemoteDataSource 
 
                 val apiService = retrofit.create(VitalsApiService::class.java)
                 val response = apiService.addVitals(vitals)
+                response.handleResponse()
+            } catch (t: Throwable) {
+                t.handleException()
+            }
+        }
+    }
+
+    override suspend fun getAllVitals(): DataState<List<AllVitalsResponse>> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val retrofit = BaseURLFactory.retrofit.newBuilder()
+                    .addAuthInterceptor(USER_ID)
+                    .build()
+                val apiService = retrofit.create(VitalsApiService::class.java)
+                val response = apiService.getAllVitals()
                 response.handleResponse()
             } catch (t: Throwable) {
                 t.handleException()

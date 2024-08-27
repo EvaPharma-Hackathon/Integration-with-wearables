@@ -1,19 +1,7 @@
 package com.evapharma.integrationwithwearables.features.vitals_data.data.local.data_source
 
 import androidx.health.connect.client.HealthConnectClient
-import androidx.health.connect.client.records.BloodGlucoseRecord
-import androidx.health.connect.client.records.BloodPressureRecord
-import androidx.health.connect.client.records.BodyTemperatureRecord
-import androidx.health.connect.client.records.DistanceRecord
-import androidx.health.connect.client.records.HeartRateRecord
-import androidx.health.connect.client.records.HeightRecord
-import androidx.health.connect.client.records.OxygenSaturationRecord
-import androidx.health.connect.client.records.Record
-import androidx.health.connect.client.records.RespiratoryRateRecord
-import androidx.health.connect.client.records.SleepSessionRecord
-import androidx.health.connect.client.records.StepsRecord
-import androidx.health.connect.client.records.TotalCaloriesBurnedRecord
-import androidx.health.connect.client.records.WeightRecord
+import androidx.health.connect.client.records.*
 import androidx.health.connect.client.request.ReadRecordsRequest
 import androidx.health.connect.client.time.TimeRangeFilter
 import com.evapharma.integrationwithwearables.features.vitals_data.data.remote.model.VitalsData
@@ -33,8 +21,8 @@ class VitalsLocalDataSourceImpl @Inject constructor(
     private val endTime = LocalDateTime.now().atZone(TimeZone.getDefault().toZoneId()).minusMinutes(1).plusSeconds(59)
 
     private suspend inline fun <reified T : Record> readMetric(
-        crossinline metricExtractor: (T) -> Double
-    ): Double {
+        crossinline metricExtractor: (T) -> Double?
+    ): Double? {
         val response = healthConnectClient?.readRecords(
             ReadRecordsRequest(
                 T::class,
@@ -46,8 +34,7 @@ class VitalsLocalDataSourceImpl @Inject constructor(
         )
         return response?.records?.takeIf { it.isNotEmpty() }
             ?.map { metricExtractor(it as T) }
-            ?.average()
-            ?: 0.0
+            ?.firstOrNull()
     }
 
     override suspend fun getVitalsData(): VitalsData {
@@ -58,28 +45,34 @@ class VitalsLocalDataSourceImpl @Inject constructor(
                 val start = it.startTime
                 val end = it.endTime
                 Duration.between(start, end).toHours().toDouble() }),
-            distance = String.format(Locale.getDefault(), "%.0f", readMetric<DistanceRecord> { it.distance.inMeters*1000 }),
+            distance = String.format(Locale.getDefault(), "%.0f", readMetric<DistanceRecord> { it.distance.inMeters * 1000 }),
             bloodSugar = String.format(Locale.getDefault(), "%.0f", readMetric<BloodGlucoseRecord> { it.level.inMillimolesPerLiter }),
             oxygenSaturation = String.format(Locale.getDefault(), "%.0f", readMetric<OxygenSaturationRecord> { it.percentage.value }),
             heartRate = String.format(Locale.getDefault(), "%.0f", readMetric<HeartRateRecord> { it.samples.map { sample -> sample.beatsPerMinute }.average() }),
-            weight = String.format(Locale.getDefault(), "%.1f", readMetric<WeightRecord> { it.weight.inKilograms }),
+            weight = readMetric<WeightRecord> { if (it.weight.inKilograms == 0.0) null else it.weight.inKilograms }?.let { String.format(Locale.getDefault(), "%.1f", it) } ?: "",
             height = String.format(Locale.getDefault(), "%.0f", readMetric<HeightRecord> { it.height.inMeters }),
-            temperature = String.format(Locale.getDefault(), "%.1f", readMetric<BodyTemperatureRecord> { it.temperature.inCelsius }),
+            temperature = readMetric<BodyTemperatureRecord> { it.temperature.inCelsius }?.let { String.format(Locale.getDefault(), "%.1f", it) } ?: "",
             bloodPressure = getAverageBloodPressure(),
-            respiratoryRate = String.format(Locale.getDefault(), "%.1f", readMetric<RespiratoryRateRecord> { it.rate })
+            respiratoryRate = readMetric<RespiratoryRateRecord> { it.rate }?.let { String.format(Locale.getDefault(), "%.1f", it) } ?: ""
         )
     }
-
     private suspend fun getAverageBloodPressure(): String {
         val response = healthConnectClient?.readRecords(
             ReadRecordsRequest(
                 BloodPressureRecord::class,
-                timeRangeFilter = TimeRangeFilter.between(startTime.toLocalDate().atStartOfDay(), endTime.toLocalDateTime()
+                timeRangeFilter = TimeRangeFilter.between(
+                    startTime.toLocalDate().atStartOfDay(),
+                    endTime.toLocalDateTime()
                 )
             )
         )
-        val averageSystolic = response?.records?.map { it.systolic.inMillimetersOfMercury }?.average() ?: 0.0
-        val averageDiastolic = response?.records?.map { it.diastolic.inMillimetersOfMercury }?.average() ?: 0.0
-        return "${averageSystolic.toInt()}/${averageDiastolic.toInt()}"
+        val averageSystolic = response?.records?.map { it.systolic.inMillimetersOfMercury }?.average()
+        val averageDiastolic = response?.records?.map { it.diastolic.inMillimetersOfMercury }?.average()
+        return if (averageSystolic == null || averageDiastolic == null || averageSystolic == 0.0 || averageDiastolic == 0.0) {
+            ""
+        } else {
+            "${averageSystolic.toInt()}/${averageDiastolic.toInt()}"
+        }
     }
+
 }
