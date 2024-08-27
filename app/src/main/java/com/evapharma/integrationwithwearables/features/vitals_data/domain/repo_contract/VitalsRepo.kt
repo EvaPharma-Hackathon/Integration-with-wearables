@@ -9,9 +9,7 @@ import com.evapharma.integrationwithwearables.features.vitals_data.data.remote.m
 
 interface VitalsRepo {
 
-    suspend fun getVitalsCases(): DataState<VitalsCaseResponse>
     suspend fun getVitalsData(): VitalsData
     suspend fun addVitals(vitals: NewVitalsRequest) : DataState<Int>
-    suspend fun getAllVitals(): DataState<List<AllVitalsResponse>>
 
 }

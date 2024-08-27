@@ -53,26 +53,7 @@ class VitalsViewModel @Inject constructor(private val getVitalsUseCase: GetVital
         flowCollector: FlowCollector<VitalsResults>,
         action: VitalsActions.GetVitals
     ) {
-        when (val response = getVitalsUseCase()) {
-            is DataState.Success -> {
-                val viewState = VitalsViewState(data = response.data)
-                _vitalsCasesStateFlow.value = viewState
-                flowCollector.emit(
-                    VitalsResults.GetVitals(viewState = viewState)
-                )
-            }
 
-            is DataState.Loading -> {
-                val viewState = VitalsViewState(isLoading = true)
-                _vitalsCasesStateFlow.value = viewState
-                flowCollector.emit(
-                    VitalsResults.GetVitals(viewState = viewState)
-                )
-            }
-
-            is DataState.ErrorV2 -> response.exception?.let { exception -> emitException(exception) }
-            else -> {}
-        }
     }
 
     fun fetchHealthData() {

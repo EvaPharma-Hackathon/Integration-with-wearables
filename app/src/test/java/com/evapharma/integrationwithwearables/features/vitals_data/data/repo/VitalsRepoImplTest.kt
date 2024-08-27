@@ -37,22 +37,6 @@ class VitalsRepoImplTest {
         MockitoAnnotations.openMocks(this)
         vitalsRepoImpl = VitalsRepoImpl(vitalsRemoteDataSource, vitalsLocalDataSource)
     }
-
-    @Test
-    fun `getVitals should return vitalsCasesResponse`() = runTest {
-        val mockResponse = mock(VitalsCaseResponse::class.java)
-        `when`(vitalsRemoteDataSource.getVitalsCases()).thenReturn(
-            DataState.Success(mockResponse)
-        )
-        val result = vitalsRepoImpl.getVitalsCases()
-
-        assert(result is DataState.Success)
-        val data = (result as DataState.Success).data
-
-        assertEquals(mockResponse, data)
-        verify(vitalsRemoteDataSource).getVitalsCases()
-    }
-
     @Test
     fun `addVitals should return success when remote data source returns success`() = runTest {
         val vitalsRequest = mock(NewVitalsRequest::class.java)

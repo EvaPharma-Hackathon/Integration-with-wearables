@@ -15,43 +15,14 @@ import javax.inject.Inject
 
 class VitalsRemoteDataSourceImpl @Inject constructor() : VitalsRemoteDataSource {
 
-    override suspend fun getVitalsCases(): DataState<VitalsCaseResponse> {
-        return withContext(Dispatchers.IO){
-            try {
-
-                BaseURLFactory.retrofit.create(
-                    VitalsApiService::class.java
-                ).getCovidCases().handleResponse()
-            }catch (t: Throwable){
-                t.handleException()
-            }
-        }
-    }
-
     override suspend fun addVitals(vitals: NewVitalsRequest): DataState<Int> {
         return withContext(Dispatchers.IO) {
             try {
                 val retrofit = BaseURLFactory.retrofit.newBuilder()
                     .addAuthInterceptor(USER_ID)
                     .build()
-
                 val apiService = retrofit.create(VitalsApiService::class.java)
                 val response = apiService.addVitals(vitals)
-                response.handleResponse()
-            } catch (t: Throwable) {
-                t.handleException()
-            }
-        }
-    }
-
-    override suspend fun getAllVitals(): DataState<List<AllVitalsResponse>> {
-        return withContext(Dispatchers.IO) {
-            try {
-                val retrofit = BaseURLFactory.retrofit.newBuilder()
-                    .addAuthInterceptor(USER_ID)
-                    .build()
-                val apiService = retrofit.create(VitalsApiService::class.java)
-                val response = apiService.getAllVitals()
                 response.handleResponse()
             } catch (t: Throwable) {
                 t.handleException()

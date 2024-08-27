@@ -13,7 +13,6 @@ import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.PermissionController
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.Navigation
 import com.evapharma.integrationwithwearables.R
 import com.evapharma.integrationwithwearables.core.BaseFragment
 import com.evapharma.integrationwithwearables.core.dialogs.ErrorDialog
@@ -195,8 +194,6 @@ class VitalsFragment : BaseFragment<FragmentVitalsBinding, VitalsViewModel>() {
         observeAddVitalsState()
 
     }
-
-
     private fun observeAddVitalsState() {
         lifecycleScope.launch {
             viewModel.addNewVitalsState.collect { viewState ->
@@ -213,6 +210,4 @@ class VitalsFragment : BaseFragment<FragmentVitalsBinding, VitalsViewModel>() {
             }
         }
     }
-
-
 }

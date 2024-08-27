@@ -42,30 +42,6 @@ class MainViewModel @Inject constructor(private val getCovidCasesUseCase: GetVit
         flowCollector: FlowCollector<VitalsResults>,
         action: VitalsActions.GetVitals
     ) {
-//        val oldCovidCases = _covidCasesStateFlow.value.data
-        when(val response = getCovidCasesUseCase()){
-
-            is DataState.Success -> {
-                val viewState = VitalsViewState(data = response.data)
-                _covidCasesStateFlow.value = viewState
-                flowCollector.emit(
-                    VitalsResults.GetVitals(viewState = viewState)
-                )
-            }
-
-            is DataState.Loading -> {
-                val viewState = VitalsViewState(isLoading = true)
-                _covidCasesStateFlow.value = viewState
-                flowCollector.emit(
-                    VitalsResults.GetVitals(viewState = viewState)
-                )
-            }
-
-            is DataState.ErrorV2 -> response.exception?.let { exception -> emitException(exception) }
-
-            else -> {}
-        }
-
 
     }
 

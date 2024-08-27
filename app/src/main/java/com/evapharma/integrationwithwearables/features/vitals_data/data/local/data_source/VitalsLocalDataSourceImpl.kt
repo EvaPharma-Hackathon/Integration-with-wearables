@@ -66,12 +66,12 @@ class VitalsLocalDataSourceImpl @Inject constructor(
                 )
             )
         )
-        val averageSystolic = response?.records?.map { it.systolic.inMillimetersOfMercury }?.average()
-        val averageDiastolic = response?.records?.map { it.diastolic.inMillimetersOfMercury }?.average()
-        return if (averageSystolic == null || averageDiastolic == null || averageSystolic == 0.0 || averageDiastolic == 0.0) {
+        val averageSystolic = response?.records?.map { it.systolic.inMillimetersOfMercury }?.average()?.toInt()
+        val averageDiastolic = response?.records?.map { it.diastolic.inMillimetersOfMercury }?.average()?.toInt()
+        return if (averageSystolic == null || averageDiastolic == null || averageSystolic == 0 || averageDiastolic == 0) {
             ""
         } else {
-            "${averageSystolic.toInt()}/${averageDiastolic.toInt()}"
+            "${averageSystolic}/${averageDiastolic}"
         }
     }
 
