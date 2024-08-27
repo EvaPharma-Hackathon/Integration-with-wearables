@@ -2,6 +2,7 @@ package com.evapharma.integrationwithwearables.features.vitals_data.di
 
 import android.content.Context
 import androidx.health.connect.client.HealthConnectClient
+import com.evapharma.integrationwithwearables.DataStoreManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,5 +23,11 @@ object AppModule {
         } else {
             null
         }
+    }
+
+    @Provides
+    @Singleton
+    fun provideDataStoreManager(@ApplicationContext context: Context): DataStoreManager {
+        return DataStoreManager(context)
     }
 }

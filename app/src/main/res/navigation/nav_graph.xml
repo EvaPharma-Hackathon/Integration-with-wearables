@@ -3,13 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/vitalsFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/vitalsFragment"
         android:name="com.evapharma.integrationwithwearables.features.vitals_data.presentation.view.new_vitals.VitalsFragment"
         android:label="My Vitals"
         tools:layout="@layout/fragment_vitals" >
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.evapharma.integrationwithwearables.features.vitals_data.presentation.view.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_vitalsFragment"
+            app:destination="@id/vitalsFragment" />
     </fragment>
 
 </navigation>

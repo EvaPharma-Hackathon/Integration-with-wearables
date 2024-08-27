@@ -145,4 +145,6 @@ dependencies {
     implementation ("androidx.multidex:multidex:2.0.1")
    implementation("androidx.core:core-ktx:1.13.1")
 
+    implementation ("androidx.datastore:datastore-preferences:1.0.0")
+
 }
