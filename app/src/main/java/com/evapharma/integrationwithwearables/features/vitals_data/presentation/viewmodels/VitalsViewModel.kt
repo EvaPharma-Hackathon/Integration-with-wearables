@@ -9,6 +9,7 @@ import com.evapharma.integrationwithwearables.features.vitals_data.domain.use_ca
 import com.evapharma.integrationwithwearables.features.vitals_data.presentation.VitalsActions
 import com.evapharma.integrationwithwearables.features.vitals_data.presentation.VitalsResults
 import com.evapharma.integrationwithwearables.features.vitals_data.presentation.VitalsViewState
+import com.evapharma.integrationwithwearables.features.vitals_data.presentation.view.login.ViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
@@ -95,4 +96,5 @@ class VitalsViewModel @Inject constructor(private val getVitalsUseCase: GetVital
             }
         }
     }
+
 }

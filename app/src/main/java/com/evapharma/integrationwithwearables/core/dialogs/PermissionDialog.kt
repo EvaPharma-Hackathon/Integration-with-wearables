@@ -6,7 +6,7 @@ import android.net.Uri
 import com.evapharma.integrationwithwearables.core.BaseDialog
 import com.evapharma.integrationwithwearables.databinding.DialogPermissionRationaleBinding
 
-class PermissionDialog (context: Context) : BaseDialog<DialogPermissionRationaleBinding>(context) {
+class PermissionDialog (context: Context , private val onSettingsClicked: () -> Unit ) : BaseDialog<DialogPermissionRationaleBinding>(context) {
 
     override fun initBinding(): DialogPermissionRationaleBinding {
         return DialogPermissionRationaleBinding.inflate(layoutInflater)
@@ -15,7 +15,8 @@ class PermissionDialog (context: Context) : BaseDialog<DialogPermissionRationale
     override fun onDialogCreated() {
 
         binding.btnSettings.setOnClickListener {
-            redirectToHealthConnectDownload()
+            onSettingsClicked.invoke()
+          //  redirectToHealthConnectDownload()
             dismiss()
         }
         binding.btnCancel.setOnClickListener {
