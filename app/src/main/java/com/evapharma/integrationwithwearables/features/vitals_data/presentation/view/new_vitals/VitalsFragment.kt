@@ -53,25 +53,44 @@ class VitalsFragment : BaseFragment<FragmentVitalsBinding, VitalsViewModel>() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        setupHealthPermissionLauncher()
 
         return super.onCreateView(inflater, container, savedInstanceState)
     }
+
+
+
     override fun onFragmentCreated() {
-        checkHealthConnectStatus()
+
+      //  checkHealthConnectStatus()
         observeVitalsData()
         setupRadioGroupListeners()
         addVitals()
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        setupHealthPermissionLauncher()
+
+    }
     private fun setupHealthPermissionLauncher() {
         healthPermissionLauncher = registerForActivityResult(
             PermissionController.createRequestPermissionResultContract()
         ) { granted ->
             if (granted.containsAll(requiredHealthPermission)) {
                 viewModel.fetchHealthData()
+            } else {
+                healthPermissionLauncher.launch(requiredHealthPermission)
+
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkHealthConnectStatus()
+        Log.i("TAG", "onResume: ")
+      //  healthPermissionLauncher.launch(requiredHealthPermission)
+
     }
 
     private fun checkHealthConnectStatus() {
