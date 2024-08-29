@@ -34,7 +34,7 @@ class VitalsLocalDataSourceImpl @Inject constructor(
         )
         return response?.records?.takeIf { it.isNotEmpty() }
             ?.map { metricExtractor(it as T) }
-            ?.firstOrNull()
+            ?.lastOrNull()
     }
 
     override suspend fun getVitalsData(): VitalsData {
@@ -45,7 +45,7 @@ class VitalsLocalDataSourceImpl @Inject constructor(
                 val start = it.startTime
                 val end = it.endTime
                 Duration.between(start, end).toHours().toDouble() }),
-            distance = String.format(Locale.getDefault(), "%.0f", readMetric<DistanceRecord> { it.distance.inMeters * 1000 }),
+            distance = String.format(Locale.getDefault(), "%.0f", readMetric<DistanceRecord> { it.distance.inMeters }),
             bloodSugar = String.format(Locale.getDefault(), "%.0f", readMetric<BloodGlucoseRecord> { it.level.inMillimolesPerLiter }),
             oxygenSaturation = String.format(Locale.getDefault(), "%.0f", readMetric<OxygenSaturationRecord> { it.percentage.value }),
             heartRate = String.format(Locale.getDefault(), "%.0f", readMetric<HeartRateRecord> { it.samples.map { sample -> sample.beatsPerMinute }.average() }),
@@ -66,8 +66,8 @@ class VitalsLocalDataSourceImpl @Inject constructor(
                 )
             )
         )
-        val averageSystolic = response?.records?.map { it.systolic.inMillimetersOfMercury }?.average()?.toInt()
-        val averageDiastolic = response?.records?.map { it.diastolic.inMillimetersOfMercury }?.average()?.toInt()
+        val averageSystolic = response?.records?.map { it.systolic.inMillimetersOfMercury }?.lastOrNull()?.toInt()
+        val averageDiastolic = response?.records?.map { it.diastolic.inMillimetersOfMercury }?.lastOrNull()?.toInt()
         return if (averageSystolic == null || averageDiastolic == null || averageSystolic == 0 || averageDiastolic == 0) {
             ""
         } else {

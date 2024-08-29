@@ -12,7 +12,9 @@ import com.evapharma.integrationwithwearables.features.vitals_data.presentation.
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
@@ -26,7 +28,7 @@ class VitalsViewModel @Inject constructor(private val getVitalsUseCase: GetVital
         MutableStateFlow(VitalsViewState(isIdle = true))
 
 
-    private val _vitalsData = MutableStateFlow(VitalsData("","","","","","","","","","","",""))
+    private val _vitalsData = MutableStateFlow(VitalsData("" ,"", "", "", "", "", "", "", "", "", "", ""))
     val vitalsData: StateFlow<VitalsData> = _vitalsData
 
 
@@ -58,7 +60,8 @@ class VitalsViewModel @Inject constructor(private val getVitalsUseCase: GetVital
 
     fun fetchHealthData() {
         viewModelScope.launch {
-            _vitalsData.value = getVitalsUseCase.readVitalsData()
+            val data = getVitalsUseCase.readVitalsData()
+            _vitalsData.value = data.copy()
         }
     }
 

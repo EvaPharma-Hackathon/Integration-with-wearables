@@ -156,7 +156,7 @@
     <string name="temperature">Temperature</string>
     <string name="respiratory_rate">Respiratory Rate</string>
     <string name="oxygen_saturation">Oxygen saturation</string>
-    <string name="random_blood_sugar">Random blood sugar </string>
+    <string name="random_blood_sugar">Blood sugar </string>
     <string name="smoker">Smoker</string>
     <string name="drink_alcohol">Drink Alcohol</string>
     <string name="add_now">Add Now</string>
@@ -170,4 +170,6 @@
    <string name="date">March 29th , 2024</string>
    <string name="login">Login</string>
     <string name="phone_number">Phone Number</string>
+    <string name="data_added_successfully">Data added successfully</string>
+    <string name="dismiss">Dismiss</string>
 </resources>

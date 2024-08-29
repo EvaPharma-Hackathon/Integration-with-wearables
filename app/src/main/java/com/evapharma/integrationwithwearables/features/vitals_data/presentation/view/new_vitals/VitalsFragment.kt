@@ -1,12 +1,15 @@
 package com.evapharma.integrationwithwearables.features.vitals_data.presentation.view.new_vitals
 
+import android.content.Context
+import android.content.Intent
+import android.provider.Settings
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.core.content.ContextCompat
 import androidx.health.connect.client.HealthConnectClient
@@ -15,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.evapharma.integrationwithwearables.R
 import com.evapharma.integrationwithwearables.core.BaseFragment
+import com.evapharma.integrationwithwearables.core.dialogs.ConfirmationDialog
 import com.evapharma.integrationwithwearables.core.dialogs.ErrorDialog
 import com.evapharma.integrationwithwearables.core.dialogs.PermissionDialog
 import com.evapharma.integrationwithwearables.core.utils.requiredHealthPermission
@@ -33,7 +37,7 @@ class VitalsFragment : BaseFragment<FragmentVitalsBinding, VitalsViewModel>() {
 
     private lateinit var healthPermissionLauncher: ActivityResultLauncher<Set<String>>
     private val healthInstalled = HealthInstalled()
-
+    private var permissionDeniedCount = 0
     private var selectedSmokerTextView: TextView? = null
     private var selectedAlcoholTextView: TextView? = null
 
@@ -50,28 +54,48 @@ class VitalsFragment : BaseFragment<FragmentVitalsBinding, VitalsViewModel>() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        setupHealthPermissionLauncher()
 
         return super.onCreateView(inflater, container, savedInstanceState)
     }
+
+
+
     override fun onFragmentCreated() {
-        checkHealthConnectStatus()
+
+      //  checkHealthConnectStatus()
         observeVitalsData()
         setupRadioGroupListeners()
         addVitals()
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        setupHealthPermissionLauncher()
+
+    }
     private fun setupHealthPermissionLauncher() {
         healthPermissionLauncher = registerForActivityResult(
             PermissionController.createRequestPermissionResultContract()
         ) { granted ->
             if (granted.containsAll(requiredHealthPermission)) {
                 viewModel.fetchHealthData()
+            } else {
+                healthPermissionLauncher.launch(requiredHealthPermission)
+
             }
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        checkHealthConnectStatus()
+        Log.i("TAG", "onResume: ")
+      //  healthPermissionLauncher.launch(requiredHealthPermission)
+
+    }
+
     private fun checkHealthConnectStatus() {
+        Log.i("TAG", "checkHealthConnectStatus: ")
         lifecycleScope.launch {
             when ( healthInstalled.checkForHealthConnectInstalled(requireContext())) {
                 HealthConnectClient.SDK_UNAVAILABLE -> {
@@ -109,6 +133,7 @@ class VitalsFragment : BaseFragment<FragmentVitalsBinding, VitalsViewModel>() {
     private fun observeVitalsData() {
         lifecycleScope.launch {
             viewModel.vitalsData.collect { data ->
+                Log.i("TAG", "observeVitalsData: $data")
                 binding.stepsInput.setText(data.steps)
                 binding.caloriesInput.setText(data.calories)
                 binding.sleepInput.setText(data.sleep)
@@ -169,6 +194,8 @@ class VitalsFragment : BaseFragment<FragmentVitalsBinding, VitalsViewModel>() {
     }
 
     private fun addNewVitals() {
+        if (!validateInputData()) return
+
         val formattedTime = LocalDateTime.now()
             .atZone(TimeZone.getDefault().toZoneId())
             .minusMinutes(1)
@@ -202,12 +229,132 @@ class VitalsFragment : BaseFragment<FragmentVitalsBinding, VitalsViewModel>() {
                 } else {
                     binding.progressBar.visibility = View.GONE
                     if (viewState.isIdle) {
-                        Toast.makeText(requireContext(), "Vitals added successfully", Toast.LENGTH_SHORT).show()
+                        showConfirmationDialog()
                     } else if (viewState.error != null) {
-                        Toast.makeText(requireContext(), "Failed to add vitals", Toast.LENGTH_SHORT).show()
+                        showErrorDialog("Failed to add vitals")
                     }
                 }
             }
         }
+    }
+
+    private fun validateInputData(): Boolean {
+        var isValid = true
+
+        if (!validateBloodPressure(binding.bloodPressureInput.text.toString())) {
+            binding.bloodPressureInput.error = "not valid"
+            isValid = false
+        }
+
+        if (!validateTemperature(binding.bodyTemperatureInput.text.toString())) {
+            binding.bodyTemperatureInput.error = "not valid"
+            isValid = false
+        }
+
+        if (!validateHeartRate(binding.heartRateInput.text.toString())) {
+            binding.heartRateInput.error = "not valid"
+            isValid = false
+        }
+
+        if (!validateSteps(binding.stepsInput.text.toString())) {
+            binding.stepsInput.error = "not valid"
+            isValid = false
+        }
+
+        if (!validateDistance(binding.distanceInput.text.toString())) {
+            binding.distanceInput.error = "not valid"
+            isValid = false
+        }
+
+        if (!validateOxygenSaturation(binding.oxygenSaturationInput.text.toString())) {
+            binding.oxygenSaturationInput.error = "not valid"
+            isValid = false
+        }
+
+        if (!validateRespiratoryRate(binding.respiratoryRateInput.text.toString())) {
+            binding.respiratoryRateInput.error = "not valid"
+            isValid = false
+        }
+
+        if (!validateWeight(binding.weightInput.text.toString())) {
+            binding.weightInput.error = "not valid"
+            isValid = false
+        }
+
+        if (!validateHeight(binding.heightInput.text.toString())) {
+            binding.heightInput.error = "not valid"
+            isValid = false
+        }
+
+        if (!validateCalories(binding.caloriesInput.text.toString())) {
+            binding.caloriesInput.error = "not valid"
+            isValid = false
+        }
+
+        if (!validateSleep(binding.sleepInput.text.toString())) {
+            binding.sleepInput.error = "not valid"
+            isValid = false
+        }
+
+        if (!validateBloodSugar(binding.bloodSugarInput.text.toString())) {
+            binding.bloodSugarInput.error = "not valid"
+            isValid = false
+        }
+
+        return isValid
+    }
+
+    private fun validateBloodPressure(input: String?): Boolean {
+        val bpPattern = Regex("^\\d{2,3}/\\d{2,3}\$")
+        if (input?.matches(bpPattern) != true) return false
+        val (systolic, diastolic) = input.split("/").map { it.toInt() }
+        if (systolic !in 60..240)  return false
+        if (diastolic !in 40..140) return false
+        return true
+    }
+    private fun validateTemperature(input: String?): Boolean {
+        val temperature = input?.toFloatOrNull()
+        return temperature != null && temperature in 35.0..42.0
+
+    }
+    private fun validateHeartRate(input: String?): Boolean {
+        return input?.toIntOrNull() in 40..200
+    }
+    private fun validateSteps(input: String?): Boolean {
+        return input?.toIntOrNull() in 0..10000
+    }
+    private fun validateOxygenSaturation(input: String?): Boolean {
+        return input?.toIntOrNull() in 0..100
+    }
+    private fun validateRespiratoryRate(input: String?): Boolean {
+        val respiratoryRate = input?.toFloatOrNull()
+        return respiratoryRate != null && respiratoryRate in 0.0..60.0
+    }
+    private fun validateDistance(input: String?): Boolean {
+        val distance = input?.toFloatOrNull()
+        return distance != null && distance in 0.0..10000.0
+    }
+    private fun validateWeight(input: String?): Boolean {
+        val weight = input?.toFloatOrNull()
+        return weight != null && weight in 0.0..500.0
+    }
+    private fun validateHeight(input: String?): Boolean {
+        val height = input?.toFloatOrNull()
+        return height != null && height in 0.0..250.0
+    }
+    private fun validateCalories(input: String?): Boolean {
+        return input?.toIntOrNull() in 0..10000
+    }
+    private fun validateSleep(input: String?): Boolean {
+        return input?.toIntOrNull() in 0..24
+    }
+    private fun validateBloodSugar(input: String?): Boolean {
+        return input?.toIntOrNull() in 0..500
+    }
+
+    private fun showConfirmationDialog() {
+        val confirmationDialog = ConfirmationDialog(requireContext())
+        confirmationDialog.show()
+
     }
 }

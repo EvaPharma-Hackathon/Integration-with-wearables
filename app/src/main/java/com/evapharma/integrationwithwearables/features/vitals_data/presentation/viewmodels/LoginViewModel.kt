@@ -42,5 +42,7 @@ class LoginViewModel @Inject constructor(private val getVitalsUseCase: GetVitals
             }
         }
     }
-
+    fun resetUiState() {
+        _uiState.value = ViewState.Loading
+    }
 }

@@ -2,23 +2,20 @@ package com.evapharma.integrationwithwearables.features.vitals_data.presentation
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
-import com.evapharma.integrationwithwearables.DataStoreManager
 import com.evapharma.integrationwithwearables.R
 import com.evapharma.integrationwithwearables.core.dialogs.ErrorDialog
 import com.evapharma.integrationwithwearables.databinding.FragmentLoginBinding
 import com.evapharma.integrationwithwearables.features.vitals_data.data.remote.model.LoginRequest
 import com.evapharma.integrationwithwearables.features.vitals_data.presentation.viewmodels.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
@@ -34,7 +31,7 @@ class LoginFragment : Fragment() {
         binding = FragmentLoginBinding.inflate(inflater , container , false)
         return binding.root
     }
-     fun initViewModel() {
+     private fun initViewModel() {
          viewModel = ViewModelProvider(requireActivity())[LoginViewModel::class.java]
      }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -50,6 +47,7 @@ class LoginFragment : Fragment() {
     }
     private fun observeLoginState(){
         val phone = LoginRequest(binding.loginInput.text.toString())
+        viewModel.resetUiState()
         viewModel.login(phone)
         lifecycleScope.launch {
              viewModel.uiState.collect{ state->
@@ -57,7 +55,12 @@ class LoginFragment : Fragment() {
                      is ViewState.Loading -> binding.progressBar2.visibility = View.VISIBLE
                      is ViewState.Success -> {
                          binding.progressBar2.visibility = View.GONE
-                         Navigation.findNavController(requireView()).navigate(R.id.action_loginFragment_to_vitalsFragment)
+                         val navController = Navigation.findNavController(requireView())
+                         if (navController.currentDestination?.id == R.id.loginFragment) {
+                             navController.navigate(R.id.action_loginFragment_to_vitalsFragment)
+                         } else {
+                             Log.e("LoginFragment", "Cannot navigate, not on LoginFragment")
+                         }
                      }
                      is ViewState.Error -> {
                          binding.progressBar2.visibility = View.GONE
@@ -72,5 +75,4 @@ class LoginFragment : Fragment() {
         errorDialog.message = "Failed to login"
         errorDialog.show()
     }
-
 }
