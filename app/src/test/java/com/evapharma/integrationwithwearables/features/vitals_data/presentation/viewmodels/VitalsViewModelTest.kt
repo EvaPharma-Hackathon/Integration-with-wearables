@@ -1,0 +1,94 @@
+package com.evapharma.integrationwithwearables.features.vitals_data.presentation.viewmodels
+
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.evapharma.integrationwithwearables.core.models.DataState
+import com.evapharma.integrationwithwearables.features.vitals_data.data.local.model.DataType
+import com.evapharma.integrationwithwearables.features.vitals_data.data.local.model.VitalsRecord
+import com.evapharma.integrationwithwearables.features.vitals_data.data.remote.model.NewVitalsRequest
+import com.evapharma.integrationwithwearables.features.vitals_data.data.remote.model.VitalsData
+import com.evapharma.integrationwithwearables.features.vitals_data.domain.repo_contract.VitalsRepo
+import com.evapharma.integrationwithwearables.features.vitals_data.domain.use_cases.GetVitalsUseCase
+import com.evapharma.integrationwithwearables.features.vitals_data.presentation.VitalsViewState
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
+import org.junit.After
+import org.junit.Assert.assertEquals
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
+import org.junit.rules.TestRule
+import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.`when`
+import org.mockito.MockitoAnnotations
+
+@RunWith(JUnit4::class)
+@ExperimentalCoroutinesApi
+class VitalsViewModelTest {
+
+    @get:Rule
+    var rule: TestRule = InstantTaskExecutorRule()
+
+    private lateinit var getVitalsUseCase: GetVitalsUseCase
+    private lateinit var viewModel: VitalsViewModel
+    private lateinit var mockRepo: VitalsRepo
+    private val testDispatcher = TestCoroutineDispatcher()
+
+    @Before
+    fun setUp() {
+        Dispatchers.setMain(testDispatcher)
+        MockitoAnnotations.openMocks(this)
+        mockRepo = mock(VitalsRepo::class.java)
+        getVitalsUseCase = GetVitalsUseCase(mockRepo)
+        viewModel = VitalsViewModel(getVitalsUseCase)
+    }
+
+    @After
+    fun tearDown() {
+        Dispatchers.resetMain()
+        testDispatcher.cleanupTestCoroutines()
+    }
+
+    @Test
+    fun `fetchHealthData updates vitalsData correctly`() = runTest(testDispatcher) {
+        val expectedVitalsData = VitalsData(
+            steps = "1000",
+            calories = "1000",
+            sleep = "1000",
+            distance = "1000",
+            bloodSugar = "1000",
+            oxygenSaturation = "1000",
+            heartRate = "1000",
+            weight = "1000",
+            height = "1000",
+            temperature = "1000",
+            bloodPressure = "1000",
+            respiratoryRate = "1000"
+        )
+
+        `when`(mockRepo.getVitalsData()).thenReturn(expectedVitalsData)
+
+        viewModel.fetchHealthData()
+        assertEquals(expectedVitalsData, viewModel.vitalsData.value)
+    }
+
+    @Test
+    fun `addNewVitalsState correctly`() = runTest(testDispatcher) {
+        val vitalsRequest = NewVitalsRequest(
+            steps = 1000, sleep = 7,
+            distance = 2, bloodSugar = 90, oxygenSaturation = 98,
+            heartRate = 70, weight = 70, height = 170,
+            temperature = 36, bloodPressure = "120/80", respiratoryRate = 16,
+            smoker = "yes", drinkAlcohol = "yes", time = "2024-08-22T00:00:00Z"
+        )
+        `when`(getVitalsUseCase.addVitals(vitalsRequest)).thenReturn(DataState.Success(1))
+        viewModel.addNewVitals(vitalsRequest)
+        val expectedState = VitalsViewState(isIdle = false)
+        assertEquals(expectedState, viewModel.addNewVitalsState.value)
+    }
+}

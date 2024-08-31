@@ -3,12 +3,14 @@ package com.evapharma.integrationwithwearables.core.utils
 import android.Manifest
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.evapharma.integrationwithwearables.BuildConfig
 
 object Constants {
 
 
     const val LOCAL_ERROR_CODE = 0
 
+    const val REQUEST_CODE_PERMISSIONS = 1
 
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
@@ -20,10 +22,11 @@ object Constants {
     const val DAY_MONTH_YEAR_FORMAT = "dd-MM-yyyy"
     const val YEAR_MONTH_DAY_FORMAT = "yyyy-MM-dd"
     const val EMPTY_STRING = ""
-    const val BASE_URL = ""
+    const val BASE_URL = "http://ec2-52-51-183-164.eu-west-1.compute.amazonaws.com/"
+
+    const val USER_ID = BuildConfig.USER_ID
     const val ONE = "1"
     const val TEST = "Test"
-
     const val PAGE_SIZE = 20
     const val ACCEPT = "Accept"
     const val APPLICATION_JSON = "application/json"

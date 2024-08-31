@@ -1,47 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-
-
-    <color name="shimmer_color">#676367</color>
     <color name="view_background_color">#FCFCFC</color>
 
-
-    <color name="apple">#020002</color>
-
-    <color name="error">#EF4444</color>
-    <color name="facebook">#475B94</color>
-    <color name="google">#5D88EB</color>
-
-
-    <color name="success">#2FBC4B</color>
-    <color name="warning">#FCD34D</color>
-    <color name="white_color">#FFFFFF</color>
-    <color name="icon_background">#F3F4F6</color>
-    <color name="icon_background_white">#ffffff</color>
-    <color name="fill_icon">#00000000</color>
-    <color name="strok_color_icon">#4E49B6</color>
-
-
-    <color name="top_bar">#2C2966</color>
-    <color name="background">#F3F4F6</color>
-    <color name="primary_color">#2C2966</color>
-    <color name="netural_400">#9CA3AF</color>
-    <color name="grey_color">#605A6B</color>
-    <color name="descriptionWallet">#4B5563</color>
-    <color name="netural_300">#D1D5D8</color>
-    <color name="card_background">#FFFFFF</color>
-    <color name="calendar_header">#FFFFFF</color>
-    <color name="title2">#000000</color>
     <color name="description_2">#7E7F7F</color>
-    <color name="description">#6B7280</color>
-    <color name="primary_shade_500">#4E49B6</color>
-    <color name="primary_shade_400">#6D5DDC</color>
-    <color name="primary_shade_100">#DCDBF0</color>
-    <color name="primary_shade_300">#9592D3</color>
-    <color name="primary_variant">#4E49B6</color>
-    <color name="description_color">#464255</color>
     <color name="selection_background">#F1F5FF</color>
     <color name="pending_request_bar_bg">#E5E5F2</color>
     <color name="pending_request_bar_content">#99000000</color>
@@ -51,14 +13,8 @@
     <color name="chart_background">#A47DE8</color>
     <color name="hint">#4B5563</color>
 
-
-    <color name="request_pending_bg">#33000000</color>
-    <color name="request_progress_bg">#33ED7D2B</color>
-    <color name="request_progress_fg">#ED7D2B</color>
-    <color name="request_finished_bg">#333AC591</color>
-    <color name="request_finished_fg">#3AC591</color>
-
     <color name="request_fg">#CAB5EE</color>
+    <color name="red">#FF0000</color>
 
 
 </resources>

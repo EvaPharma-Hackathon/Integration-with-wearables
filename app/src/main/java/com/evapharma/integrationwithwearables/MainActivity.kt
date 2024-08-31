@@ -1,11 +1,70 @@
 package com.evapharma.integrationwithwearables
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.util.Log
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
+import com.evapharma.integrationwithwearables.core.BaseActivity
+import com.evapharma.integrationwithwearables.databinding.ActivityMainBinding
+import com.evapharma.integrationwithwearables.features.vitals_data.presentation.viewmodels.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
+
+    override fun initBinding(): ActivityMainBinding {
+        return ActivityMainBinding.inflate(layoutInflater)
+    }
+
+    override fun initViewModel() {
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+
+    }
+    override fun onActivityCreated() {
+/*
+        binding.retrieveCasesBtn.setOnClickListener {
+            Log.e("TAG", "onClick: ")
+            viewModel.executeAction(
+                CovidCasesActions.GetCovidCases
+            )
+            handleCovidCasesViewState()
+        }*/
+
+    }
+
+    private fun handleCovidCasesViewState() {
+        this.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.CREATED) {
+                viewModel.viewStates.collect { viewState ->
+                    if (viewState.isLoading) {
+                        showLoading()
+                    }
+                    Log.d("TAG", "handleCovidCasesViewState: ${viewState.data} ")
+                    if (viewState.data != null) {
+                        hideLoading()
+                        viewState.data.let {
+                        //    binding.casesNo.text = it.data?.local_new_cases.toString()
+                        }
+                    } else {
+                        hideLoading()
+                        viewState.error?.let {
+                        //    binding.casesNo.text = it.message
+                        }
+                    }
+                }
+            }
+        }
     }
 }
