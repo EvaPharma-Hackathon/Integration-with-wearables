@@ -154,7 +154,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:elevation="@dimen/elevation_giant"
-                        app:placeholderText="Ex:26"
+                        app:placeholderText="Ex:37.5"
                         app:suffixText="@string/celsius">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -172,7 +172,7 @@
                         android:layout_marginStart="34dp"
                         android:layout_weight="1"
                         android:elevation="@dimen/elevation_large"
-                        app:placeholderText="Ex:83"
+                        app:placeholderText="Ex:12"
                         app:suffixText="@string/bpm">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -226,7 +226,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:elevation="@dimen/elevation_large"                        app:placeholderText="Ex:26"
+                        android:elevation="@dimen/elevation_large"
+                        app:placeholderText="Ex:8"
                         app:suffixText="@string/hour">
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/sleep_input"
@@ -242,7 +243,7 @@
                         android:layout_marginStart="34dp"
                         android:layout_weight="1"
                         android:elevation="@dimen/elevation_large"
-                        app:placeholderText="Ex:170"
+                        app:placeholderText="Ex:600"
                         app:suffixText="m">
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/distance_input"
@@ -313,7 +314,7 @@
                         android:layout_marginStart="34dp"
                         android:layout_weight="1"
                         android:elevation="@dimen/elevation_large"
-                        app:placeholderText="Ex:170"
+                        app:placeholderText="Ex:200"
                         app:suffixText="cal">
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/calories_input"
@@ -417,7 +418,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/oxygenSaturationTextView"
-                    app:placeholderText="Ex:70"
+                    app:placeholderText="Ex:98"
                     app:suffixText="%">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -450,7 +451,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/randomBloodSugarTextView"
-                    app:placeholderText="Ex:70"
+                    app:placeholderText="Ex:120"
                     app:suffixText="mmol/l">
 
                     <com.google.android.material.textfield.TextInputEditText

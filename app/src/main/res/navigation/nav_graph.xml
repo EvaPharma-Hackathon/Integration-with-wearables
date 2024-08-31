@@ -8,13 +8,13 @@
     <fragment
         android:id="@+id/vitalsFragment"
         android:name="com.evapharma.integrationwithwearables.features.vitals_data.presentation.view.new_vitals.VitalsFragment"
-        android:label="My Vitals"
+        android:label="Add New Vitals"
         tools:layout="@layout/fragment_vitals" >
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.evapharma.integrationwithwearables.features.vitals_data.presentation.view.login.LoginFragment"
-        android:label="fragment_login"
+        android:label="Login"
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_vitalsFragment"
